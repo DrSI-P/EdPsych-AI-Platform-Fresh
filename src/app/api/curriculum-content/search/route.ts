@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/auth';
-import { db } from '@/lib/db';
+import { dbWrapper } from '@/lib/db-wrapper';
 import { ContentSearchFilters } from '@/lib/curriculum-content/types';
 
 /**
@@ -23,22 +23,22 @@ export async function GET(request: NextRequest) {
     
     // Handle array parameters
     const keyStages = searchParams.getAll('keyStage[]');
-    if (keyStages.length > 0) filters.keyStage = keyStages;
+    if (keyStages.length > 0) filters.keyStage = keyStages as any;
     
     const subjects = searchParams.getAll('subject[]');
-    if (subjects.length > 0) filters.subject = subjects;
+    if (subjects.length > 0) filters.subject = subjects as any;
     
     const contentTypes = searchParams.getAll('contentType[]');
-    if (contentTypes.length > 0) filters.contentType = contentTypes;
+    if (contentTypes.length > 0) filters.contentType = contentTypes as any;
     
     const difficultyLevels = searchParams.getAll('difficultyLevel[]');
-    if (difficultyLevels.length > 0) filters.difficultyLevel = difficultyLevels;
+    if (difficultyLevels.length > 0) filters.difficultyLevel = difficultyLevels as any;
     
     const statuses = searchParams.getAll('status[]');
-    if (statuses.length > 0) filters.status = statuses;
+    if (statuses.length > 0) filters.status = statuses as any;
     
     const regions = searchParams.getAll('region[]');
-    if (regions.length > 0) filters.region = regions;
+    if (regions.length > 0) filters.region = regions as any;
     
     // Handle single value parameters
     const createdBy = searchParams.get('createdBy');
@@ -128,10 +128,10 @@ export async function GET(request: NextRequest) {
     }
     
     // Get total count
-    const totalCount = await db.curriculumContent.count({ where: query });
+    const totalCount = await dbWrapper.curriculumContent.count({ where: query });
     
     // Get paginated results
-    const contents = await db.curriculumContent.findMany({
+    const contents = await dbWrapper.curriculumContent.findMany({
       where: query,
       skip: (page - 1) * pageSize,
       take: pageSize,
@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
       totalResults: totalCount,
       page,
       pageSize,
-      results: contents.map(content => content.metadata)
+      results: contents.map((content: any) => content.metadata)
     });
   } catch (error) {
     console.error('Error searching curriculum content:', error);

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/auth';
-import { db } from '@/lib/db';
+import { dbWrapper } from '@/lib/db-wrapper';
 import { ContentPermission } from '@/lib/curriculum-content/types';
 import { checkUserContentPermission } from '@/lib/curriculum-content/api';
 
@@ -32,7 +32,7 @@ export async function GET(
     }
 
     // Get variants
-    const variants = await db.contentVariant.findMany({
+    const variants = await dbWrapper.contentVariant.findMany({
       where: { contentId }
     });
 
@@ -72,7 +72,7 @@ export async function POST(
     }
 
     // Check if content exists
-    const content = await db.curriculumContent.findUnique({
+    const content = await dbWrapper.curriculumContent.findUnique({
       where: { id: contentId }
     });
 
@@ -89,7 +89,7 @@ export async function POST(
 
     // Create variant
     const now = new Date().toISOString();
-    const variant = await db.contentVariant.create({
+    const variant = await dbWrapper.contentVariant.create({
       data: {
         ...data,
         contentId,
@@ -102,7 +102,7 @@ export async function POST(
     });
 
     // Update content change history
-    await db.contentChangeRecord.create({
+    await dbWrapper.contentChangeRecord.create({
       data: {
         contentId,
         userId,

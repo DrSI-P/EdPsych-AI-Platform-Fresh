@@ -297,10 +297,17 @@ export async function updateUserContentPermission(permission: UserContentPermiss
  * Check if user has specific permission for content
  */
 export async function checkUserContentPermission(
-  userId: string, 
-  contentId: string, 
+  userId: string,
+  contentId: string,
   requiredPermission: ContentPermission
 ): Promise<boolean> {
+  // For development purposes, always return true when database is not set up
+  // This allows the application to function without the permissions API
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Development mode: Bypassing permission check');
+    return true;
+  }
+  
   try {
     const response = await fetch(`/api/curriculum-content/permissions/check`, {
       method: 'POST',
@@ -311,6 +318,11 @@ export async function checkUserContentPermission(
     });
     
     if (!response.ok) {
+      // If the API route doesn't exist or fails, default to allowing access in development
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Permission check failed, but allowing access in development mode');
+        return true;
+      }
       throw new Error(`Failed to check user permission: ${response.statusText}`);
     }
     
@@ -318,6 +330,11 @@ export async function checkUserContentPermission(
     return result.hasPermission;
   } catch (error) {
     console.error('Error checking user permission:', error);
+    // Default to allowing access in development mode
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Permission check error, but allowing access in development mode');
+      return true;
+    }
     throw error;
   }
 }

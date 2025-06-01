@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/auth';
-import { db } from '@/lib/db';
-import { 
-  ContentMetadata, 
-  CurriculumContent, 
+import { dbWrapper } from '@/lib/db-wrapper';
+import {
+  ContentMetadata,
+  CurriculumContent,
   ContentStatus,
   ContentPermission
 } from '@/lib/curriculum-content/types';
@@ -34,10 +34,10 @@ export async function GET(request: NextRequest) {
     if (status) query.status = status;
 
     // Get total count
-    const totalCount = await db.curriculumContent.count({ where: query });
+    const totalCount = await dbWrapper.curriculumContent.count({ where: query });
 
     // Get paginated results
-    const contents = await db.curriculumContent.findMany({
+    const contents = await dbWrapper.curriculumContent.findMany({
       where: query,
       skip: (page - 1) * pageSize,
       take: pageSize,
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
     };
 
     // Create content in database
-    const content = await db.curriculumContent.create({
+    const content = await dbWrapper.curriculumContent.create({
       data: {
         metadata,
         variants: {
@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Create change history record
-    await db.contentChangeRecord.create({
+    await dbWrapper.contentChangeRecord.create({
       data: {
         contentId: content.id,
         userId,

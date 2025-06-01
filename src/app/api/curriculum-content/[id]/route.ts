@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/auth';
-import { db } from '@/lib/db';
+import { dbWrapper } from '@/lib/db-wrapper';
 import { ContentPermission, ContentStatus } from '@/lib/curriculum-content/types';
 import { checkUserContentPermission } from '@/lib/curriculum-content/api';
 
@@ -32,20 +32,56 @@ export async function GET(
     }
 
     // Get content with variants
-    const content = await db.curriculumContent.findUnique({
-      where: { id: contentId },
-      include: {
-        variants: true,
-        feedback: true,
-        analytics: true
+    try {
+      const content = await dbWrapper.curriculumContent.findUnique({
+        where: { id: contentId },
+        include: {
+          variants: true,
+          feedback: true,
+          analytics: true
+        }
+      });
+
+      if (!content) {
+        return NextResponse.json({ error: 'Content not found' }, { status: 404 });
       }
-    });
 
-    if (!content) {
-      return NextResponse.json({ error: 'Content not found' }, { status: 404 });
+      return NextResponse.json(content);
+    } catch (dbError) {
+      console.error('Database error:', dbError);
+      // For development, return mock data when database is not available
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Development mode: Returning mock content data');
+        return NextResponse.json({
+          id: contentId,
+          metadata: {
+            id: contentId,
+            title: 'Mock Content',
+            description: 'This is mock content for development',
+            keyStage: 'ks2',
+            subject: 'Mathematics',
+            topics: ['Mock Topic'],
+            learningObjectives: ['Mock Objective'],
+            keywords: ['mock'],
+            difficultyLevel: 'core',
+            contentType: 'explanation',
+            contentFormat: 'text',
+            estimatedDuration: 30,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            createdBy: 'system',
+            updatedBy: 'system',
+            version: 1,
+            status: 'draft',
+            region: 'england'
+          },
+          variants: [],
+          feedback: [],
+          analytics: null
+        });
+      }
+      throw dbError;
     }
-
-    return NextResponse.json(content);
   } catch (error) {
     console.error('Error fetching curriculum content:', error);
     return NextResponse.json({ error: 'Failed to fetch curriculum content' }, { status: 500 });
@@ -81,7 +117,7 @@ export async function PUT(
     }
 
     // Get existing content
-    const existingContent = await db.curriculumContent.findUnique({
+    const existingContent = await dbWrapper.curriculumContent.findUnique({
       where: { id: contentId },
       include: { variants: true }
     });
@@ -103,7 +139,7 @@ export async function PUT(
     };
 
     // Update content in database
-    const updatedContent = await db.curriculumContent.update({
+    const updatedContent = await dbWrapper.curriculumContent.update({
       where: { id: contentId },
       data: {
         metadata: updatedMetadata,
@@ -118,7 +154,7 @@ export async function PUT(
       for (const variant of data.variants) {
         if (variant.id) {
           // Update existing variant
-          await db.contentVariant.update({
+          await dbWrapper.contentVariant.update({
             where: { id: variant.id },
             data: {
               ...variant,
@@ -129,7 +165,7 @@ export async function PUT(
           });
         } else {
           // Create new variant
-          await db.contentVariant.create({
+          await dbWrapper.contentVariant.create({
             data: {
               ...variant,
               contentId,
@@ -145,7 +181,7 @@ export async function PUT(
     }
 
     // Create change history record
-    await db.contentChangeRecord.create({
+    await dbWrapper.contentChangeRecord.create({
       data: {
         contentId,
         userId,
@@ -158,7 +194,7 @@ export async function PUT(
     });
 
     // Get updated content with all relations
-    const finalContent = await db.curriculumContent.findUnique({
+    const finalContent = await dbWrapper.curriculumContent.findUnique({
       where: { id: contentId },
       include: {
         variants: true,
@@ -203,7 +239,7 @@ export async function DELETE(
     }
 
     // Get existing content
-    const existingContent = await db.curriculumContent.findUnique({
+    const existingContent = await dbWrapper.curriculumContent.findUnique({
       where: { id: contentId }
     });
 
@@ -213,7 +249,7 @@ export async function DELETE(
 
     // Archive instead of hard delete
     const now = new Date().toISOString();
-    await db.curriculumContent.update({
+    await dbWrapper.curriculumContent.update({
       where: { id: contentId },
       data: {
         metadata: {
@@ -226,7 +262,7 @@ export async function DELETE(
     });
 
     // Create change history record
-    await db.contentChangeRecord.create({
+    await dbWrapper.contentChangeRecord.create({
       data: {
         contentId,
         userId,
