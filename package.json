@@ -9,8 +9,8 @@
     "lint": "next lint",
     "check-env": "node scripts/check-env.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "postinstall": "echo 'Skipping prisma generate'",
-    "prevercel-build": "echo 'Skipping prisma generate'",
+    "postinstall": "prisma generate",
+    "prevercel-build": "prisma generate",
     "vercel-build": "node vercel-build.js"
   },
   "dependencies": {

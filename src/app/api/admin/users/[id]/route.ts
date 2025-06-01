@@ -44,7 +44,9 @@ export async function GET(
     }
     
     // Fetch user
-    const user = await db.user.findById(params.id);
+    const user = await db.user.findUnique({
+      where: { id: params.id }
+    });
     
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -102,7 +104,9 @@ export async function PUT(
     const { name, email, role } = parsed.data;
     
     // Check if user exists
-    const existingUser = await db.user.findById(params.id);
+    const existingUser = await db.user.findUnique({
+      where: { id: params.id }
+    });
     
     if (!existingUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -110,7 +114,9 @@ export async function PUT(
     
     // Check if email is already used by another user
     if (email !== existingUser.email) {
-      const emailExists = await db.user.findByEmail(email);
+      const emailExists = await db.user.findUnique({
+        where: { email }
+      });
       
       if (emailExists) {
         return NextResponse.json(
@@ -121,10 +127,13 @@ export async function PUT(
     }
     
     // Update user
-    const updatedUser = await db.user.update(params.id, {
-      name,
-      email,
-      role,
+    const updatedUser = await db.user.update({
+      where: { id: params.id },
+      data: {
+        name,
+        email,
+        role,
+      }
     });
     
     return NextResponse.json(updatedUser);
@@ -166,7 +175,9 @@ export async function DELETE(
     }
     
     // Check if user exists
-    const existingUser = await db.user.findById(params.id);
+    const existingUser = await db.user.findUnique({
+      where: { id: params.id }
+    });
     
     if (!existingUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -174,7 +185,7 @@ export async function DELETE(
     
     // Prevent deleting the last admin user
     if (existingUser.role === 'admin') {
-      const adminCount = await db.prisma.user.count({
+      const adminCount = await db.user.count({
         where: { role: 'admin' },
       });
       
@@ -187,7 +198,9 @@ export async function DELETE(
     }
     
     // Delete user
-    await db.user.delete(params.id);
+    await db.user.delete({
+      where: { id: params.id }
+    });
     
     return NextResponse.json({ success: true });
     

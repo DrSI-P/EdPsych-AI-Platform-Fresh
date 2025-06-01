@@ -5,6 +5,9 @@
 
 import { UKKeyStage, UKSubject, LearningStyle } from '@/lib/learning-path/types';
 
+// Re-export types from learning-path/types for convenience
+export type { UKSubject, UKKeyStage, LearningStyle };
+
 /**
  * Content difficulty levels
  */

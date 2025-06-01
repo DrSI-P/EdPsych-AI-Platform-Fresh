@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Count total users matching the filter
-    const total = await db.prisma.user.count({ where });
+    const total = await db.user.count({ where });
     
     // Fetch users with pagination
     const users = await db.user.findMany({
@@ -114,7 +114,9 @@ export async function POST(request: NextRequest) {
     const { name, email, role, password } = parsed.data;
     
     // Check if email already exists
-    const existingUser = await db.user.findByEmail(email);
+    const existingUser = await db.user.findUnique({
+      where: { email }
+    });
     
     if (existingUser) {
       return NextResponse.json(
@@ -125,10 +127,12 @@ export async function POST(request: NextRequest) {
     
     // Create new user
     const newUser = await db.user.create({
-      name,
-      email,
-      role,
-      ...(password && { password }),
+      data: {
+        name,
+        email,
+        role,
+        ...(password && { password }),
+      }
     });
     
     return NextResponse.json(newUser, { status: 201 });

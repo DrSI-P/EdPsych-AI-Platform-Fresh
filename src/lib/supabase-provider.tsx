@@ -35,8 +35,8 @@ export function SupabaseProvider({ children }: { children: ReactNode }) {
     const initializeSupabase = async () => {
       try {
         // Use environment variables for Supabase URL and anon key
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://db.edpsychconnect.supabase.co';
-        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiLmVkcHN5Y2hjb25uZWN0LnN1cGFiYXNlLmNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2MTY1MjAwMDAsImV4cCI6MTkzMjA4MDAwMH0.placeholder_key';
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://vrailhsvlqdavpbrkxy.supabase.co';
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyYWlsaHN2bHFkYXZwYnJreHkiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcxNzQ0MjA5MywiZXhwIjoyMDMzMDE4MDkzfQ.eyJhbGciOiJIUzI1NiJ9';
         
         // Create the Supabase client
         const client = createClient(supabaseUrl, supabaseAnonKey);

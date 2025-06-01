@@ -4,7 +4,7 @@
  */
 
 // Direct re-export of the theme provider from the parent directory
-import { EnhancedThemeProvider, useEnhancedTheme, Theme, AgeGroup, cn } from '../enhanced-theme-provider';
+import { EnhancedThemeProvider, useEnhancedTheme, Theme, AgeGroup, cn } from '../enhanced-theme-provider.tsx';
 
 // Export with the expected names
 export const ThemeProvider = EnhancedThemeProvider;
