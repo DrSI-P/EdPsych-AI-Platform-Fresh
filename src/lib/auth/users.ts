@@ -1,7 +1,7 @@
 'use client';
 
 import { hash, compare } from 'bcryptjs';
-import { db } from '../db-wrapper';
+import { db } from '../db';
 
 // Export individual functions needed by API routes
 export async function registerUser(userData: {
