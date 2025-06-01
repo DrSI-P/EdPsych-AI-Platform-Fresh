@@ -3,9 +3,31 @@
  * Includes types for peer-to-peer learning, group projects, and discussion forums
  */
 
-import { User, UserRole } from '@/types/user';
-import { UKKeyStage, UKSubject, UKCurriculumObjective } from '@/types/curriculum';
-import { LearningStyle } from '@/types/learning';
+import { UKKeyStage, UKSubject, LearningStyle } from '@/lib/learning-path/types';
+
+// Define UKCurriculumObjective type since it's not available in learning-path/types
+export interface UKCurriculumObjective {
+  id: string;
+  keyStage: UKKeyStage;
+  subject: UKSubject;
+  code: string;
+  description: string;
+}
+
+// Define User and UserRole types since they're not available
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+}
+
+export enum UserRole {
+  STUDENT = 'student',
+  TEACHER = 'teacher',
+  ADMIN = 'admin',
+  PARENT = 'parent'
+}
 
 /**
  * Peer Learning Types
@@ -119,6 +141,24 @@ export enum TaskStatus {
   REVIEW = 'review',
   COMPLETED = 'completed',
   BLOCKED = 'blocked'
+}
+
+export enum MilestoneStatus {
+  NOT_STARTED = 'not_started',
+  IN_PROGRESS = 'in_progress',
+  COMPLETED = 'completed',
+  DELAYED = 'delayed',
+  AT_RISK = 'at_risk',
+  OVERDUE = 'overdue',
+  UPCOMING = 'upcoming'
+}
+
+export enum SessionType {
+  ONE_ON_ONE = 'one_on_one',
+  GROUP = 'group',
+  WORKSHOP = 'workshop',
+  REVIEW = 'review',
+  ASSESSMENT = 'assessment'
 }
 
 export interface GroupProject {

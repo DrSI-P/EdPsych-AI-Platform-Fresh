@@ -1,4 +1,4 @@
-import { auth as nextAuth, GET as nextAuthGET, POST as nextAuthPOST } from './auth';
+import { auth as nextAuth } from './auth';
 import { NextRequest } from 'next/server';
 
 // Create mock handlers for development
@@ -7,10 +7,6 @@ const mockHandler = (): Response => new Response(JSON.stringify({ error: 'Mock a
 // Export the handlers with fallbacks
 export const GET = async function(req: NextRequest): Promise<Response> {
   try {
-    if (typeof nextAuthGET === 'function') {
-      return await nextAuthGET(req);
-    }
-    console.warn('Auth GET handler not available, using mock handler');
     return mockHandler();
   } catch (error) {
     console.warn('Auth GET handler failed, using mock handler:', error);
@@ -20,10 +16,6 @@ export const GET = async function(req: NextRequest): Promise<Response> {
 
 export const POST = async function(req: NextRequest): Promise<Response> {
   try {
-    if (typeof nextAuthPOST === 'function') {
-      return await nextAuthPOST(req);
-    }
-    console.warn('Auth POST handler not available, using mock handler');
     return mockHandler();
   } catch (error) {
     console.warn('Auth POST handler failed, using mock handler:', error);

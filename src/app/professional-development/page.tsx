@@ -3,7 +3,8 @@
 import React from 'react';
 import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
 import { Container, Typography, Card, Grid } from '@/components/ui/enhanced-layout-components';
-import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
+import { Button } from '@/components/ui/enhanced-form-components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
 import { HeroSection, FeatureCard } from '@/components/ui/enhanced-marketing-components';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,25 +18,28 @@ export default function ProfessionalDevelopmentPage() {
         <HeroSection
           title="Professional Development"
           subtitle="Evidence-based training for educational professionals"
-          description="Enhance your practice with our comprehensive professional development programs designed by educational psychology experts. Earn recognized certifications and transform your approach to supporting all learners."
-          imageSrc="/images/professional-development/hero-image.jpg"
+          image="/images/professional-development/hero-image.jpg"
           imageAlt="Educational professionals collaborating"
-          primaryAction={{
-            text: "Explore Courses",
-            href: "#courses"
-          }}
-          secondaryAction={{
-            text: "View Certifications",
-            href: "#certifications"
-          }}
-        />
+        >
+          <p className="mb-6">
+            Enhance your practice with our comprehensive professional development programs designed by educational psychology experts. Earn recognized certifications and transform your approach to supporting all learners.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button variant="primary" size="lg" asChild>
+              <a href="#courses">Explore Courses</a>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <a href="#certifications">View Certifications</a>
+            </Button>
+          </div>
+        </HeroSection>
         
         <Container className="py-16">
           <Typography variant="h2" className="text-center mb-12">
             Our Professional Development Approach
           </Typography>
           
-          <Grid columns={3} className="gap-8 mb-16">
+          <Grid cols={3} gap="lg" className="mb-16">
             <FeatureCard
               icon="🧠"
               title="Evidence-Based Practice"
@@ -371,7 +375,7 @@ export default function ProfessionalDevelopmentPage() {
               Specialized Certification Pathways
             </Typography>
             
-            <Grid columns={2} className="gap-8">
+            <Grid cols={2} gap="lg">
               <Card className="p-8">
                 <Typography variant="h3" className="mb-4">
                   SENCO Certification
@@ -539,7 +543,7 @@ export default function ProfessionalDevelopmentPage() {
               Micro-Learning Resources
             </Typography>
             
-            <Grid columns={3} className="gap-8">
+            <Grid cols={3} gap="lg">
               <Card className="p-6">
                 <Typography variant="h4" className="mb-4">
                   Quick Guides

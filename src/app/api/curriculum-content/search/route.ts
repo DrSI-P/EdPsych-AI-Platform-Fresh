@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth/auth-wrapper';
+import { auth } from '@/lib/auth/api-auth-mock';
 import { dbWrapper } from '@/lib/db-wrapper';
 import { ContentSearchFilters } from '@/lib/curriculum-content/types';
 

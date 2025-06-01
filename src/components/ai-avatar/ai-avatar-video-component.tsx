@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/enhanced-form-components';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function AIAvatarVideoComponent() {
+export function AIAvatarVideoComponent() {
   const { ageGroup } = useEnhancedTheme();
-  const [currentVideo, setCurrentVideo] = useState(null);
+  const [currentVideo, setCurrentVideo] = useState<string | null>(null);
   
   // Function to handle video selection
-  const handleVideoSelect = (videoId) => {
+  const handleVideoSelect = (videoId: string) => {
     // In a real implementation, this would load the actual video
     // For now, we're just showing the placeholder
     setCurrentVideo(videoId);

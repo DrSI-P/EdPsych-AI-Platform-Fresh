@@ -6,11 +6,11 @@ import { useSession } from 'next-auth/react';
 import AccessDenied from '@/components/common/access-denied';
 
 export default function StaffTrainingPage() {
-  const { data: session, status } = useSession();
-  const isLoading = status === 'loading';
+  const session = useSession();
+  const isLoading = session?.status === 'loading';
   
   // Check if user is authenticated
-  if (!session && !isLoading) {
+  if (!session?.data && !isLoading) {
     return <AccessDenied />;
   }
   

@@ -8,12 +8,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import dynamic from 'next/dynamic';
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, Users, BookOpen, ClipboardList, BarChart2, Settings, Bell, Search } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+
+// Dynamically import charts to prevent SSR issues
+const StudentProgressChart = dynamic(() =>
+  import('./charts').then(mod => mod.StudentProgressChart), {
+  ssr: false,
+  loading: () => <div className="h-[350px] flex items-center justify-center">Loading chart...</div>
+});
+
+const AttendanceChart = dynamic(() =>
+  import('./charts').then(mod => mod.AttendanceChart), {
+  ssr: false,
+  loading: () => <div className="h-[350px] flex items-center justify-center">Loading chart...</div>
+});
 
 const studentData = [
   { name: 'Reading', current: 72, target: 85, previous: 65 },
@@ -143,26 +156,7 @@ export default function EducatorDashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="pl-2">
-                <ResponsiveContainer width="100%" height={350}>
-                  <BarChart
-                    data={studentData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="previous" fill="#94a3b8" name="Previous Term" />
-                    <Bar dataKey="current" fill="#3b82f6" name="Current Level" />
-                    <Bar dataKey="target" fill="#10b981" name="Target Level" />
-                  </BarChart>
-                </ResponsiveContainer>
+                <StudentProgressChart studentData={studentData} />
               </CardContent>
             </Card>
             <Card className="col-span-3">
@@ -173,29 +167,7 @@ export default function EducatorDashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="pl-2">
-                <ResponsiveContainer width="100%" height={350}>
-                  <LineChart
-                    data={attendanceData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis domain={[90, 100]} />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="attendance"
-                      stroke="#8884d8"
-                      activeDot={{ r: 8 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+                <AttendanceChart attendanceData={attendanceData} />
               </CardContent>
             </Card>
           </div>

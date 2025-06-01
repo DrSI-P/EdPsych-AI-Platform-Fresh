@@ -1,13 +1,15 @@
+"use client";
+
 import React from 'react';
-import { Metadata } from 'next';
-import PersonalizedStrategyRecommendations from '@/components/special-needs/emotional-regulation/strategy-recommendations/personalized-strategy-recommendations';
+import dynamic from 'next/dynamic';
 
-export const metadata: Metadata = {
-  title: 'Personalized Regulation Strategy Recommendations | EdPsych Connect',
-  description: 'Discover personalized emotional regulation strategies tailored to your unique patterns and preferences.',
-};
+// Import the component dynamically to prevent SSR
+const PersonalizedStrategyRecommendations = dynamic(
+  () => import('@/components/special-needs/emotional-regulation/strategy-recommendations/personalized-strategy-recommendations'),
+  { ssr: false }
+);
 
-export default function PersonalizedStrategyRecommendationsPage() {
+export default function StrategyRecommendationsPage() {
   return (
     <div className="container mx-auto py-8">
       <PersonalizedStrategyRecommendations />

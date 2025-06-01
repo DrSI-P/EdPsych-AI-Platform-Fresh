@@ -6,9 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Smartphone, 
-  Sync,
+import {
+  Smartphone,
   Cloud,
   Database,
   ArrowUpDown,
@@ -19,6 +18,7 @@ import {
   Wifi,
   WifiOff
 } from 'lucide-react';
+import { Sync } from '@/components/icons';
 import { EnhancedAccessibilityWrapper } from '@/components/accessibility/enhanced-accessibility-components';
 
 /**
