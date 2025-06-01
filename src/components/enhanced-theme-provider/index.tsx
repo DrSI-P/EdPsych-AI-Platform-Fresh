@@ -326,6 +326,9 @@ export const useTheme = () => {
 // For backward compatibility
 export const useEnhancedTheme = useTheme;
 
+// Re-export ThemeProvider for compatibility
+export { ThemeProvider };
+
 // Re-export for compatibility with components using @/components/ui/theme-provider
 export { useTheme as default };
 
