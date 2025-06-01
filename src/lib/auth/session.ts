@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { auth } from '@/lib/auth/auth';
+import { auth } from '@/lib/auth/auth-wrapper';
 
 // Types for session data
 export interface SessionUser {

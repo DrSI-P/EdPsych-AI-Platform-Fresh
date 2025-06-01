@@ -33,4 +33,5 @@ const auth = {
 
 // Export the auth object and re-export from auth.ts
 export { auth };
-export * from './auth';
+export * from './auth-wrapper';
+export * from './auth-options';
