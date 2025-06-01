@@ -18,8 +18,8 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = client;
 // Export as both 'db' and 'prisma' to support different import styles
 export { client as prisma };
 
-// Export db as an object with prisma property to support imports like db.prisma
-export const db = { prisma: client };
+// Export db directly as the PrismaClient instance to support imports like db.curriculumContent
+export const db = client;
 
 // Also export as default
 export default client;

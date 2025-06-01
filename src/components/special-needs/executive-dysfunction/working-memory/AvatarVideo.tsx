@@ -17,7 +17,7 @@ interface AvatarVideoProps {
   description: string;
 }
 
-export default function AvatarVideo({ title, description }: AvatarVideoProps) {
+export function AvatarVideo({ title, description }: AvatarVideoProps) {
   const { t } = useTranslation('working-memory');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   
@@ -51,3 +51,6 @@ export default function AvatarVideo({ title, description }: AvatarVideoProps) {
     </div>
   );
 }
+
+// Also export as default for backward compatibility
+export default AvatarVideo;

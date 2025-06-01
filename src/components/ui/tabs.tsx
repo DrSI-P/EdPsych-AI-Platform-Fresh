@@ -52,4 +52,57 @@ const TabsContent = React.forwardRef<
 ));
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+/**
+ * SimpleTabs component for easier tab implementation
+ * Provides a simplified interface for common tab use cases
+ */
+interface SimpleTabsProps {
+  tabs: {
+    id: string;
+    label: string;
+    content: React.ReactNode;
+  }[];
+  defaultTab?: string;
+  className?: string;
+  tabsListClassName?: string;
+  tabTriggerClassName?: string;
+  tabContentClassName?: string;
+}
+
+const SimpleTabs: React.FC<SimpleTabsProps> = ({
+  tabs,
+  defaultTab,
+  className,
+  tabsListClassName,
+  tabTriggerClassName,
+  tabContentClassName,
+}) => {
+  const defaultValue = defaultTab || tabs[0]?.id || "";
+
+  return (
+    <Tabs defaultValue={defaultValue} className={cn("w-full", className)}>
+      <TabsList className={cn("w-full justify-start", tabsListClassName)}>
+        {tabs.map((tab) => (
+          <TabsTrigger
+            key={`trigger-${tab.id}`}
+            value={tab.id}
+            className={tabTriggerClassName}
+          >
+            {tab.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      {tabs.map((tab) => (
+        <TabsContent
+          key={`content-${tab.id}`}
+          value={tab.id}
+          className={tabContentClassName}
+        >
+          {tab.content}
+        </TabsContent>
+      ))}
+    </Tabs>
+  );
+};
+
+export { Tabs, TabsList, TabsTrigger, TabsContent, SimpleTabs };

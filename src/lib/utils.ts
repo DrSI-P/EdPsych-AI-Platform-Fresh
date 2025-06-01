@@ -14,7 +14,7 @@ export function cn(...inputs: (string | undefined | null | false | object)[]) {
     .filter(Boolean)
     .map((input) => {
       if (typeof input === 'string') return input;
-      if (typeof input === 'object') {
+      if (typeof input === 'object' && input !== null) {
         return Object.entries(input)
           .filter(([, value]) => Boolean(value))
           .map(([key]) => key)
@@ -24,4 +24,30 @@ export function cn(...inputs: (string | undefined | null | false | object)[]) {
     })
     .join(' ')
     .trim();
+}
+
+/**
+ * Formats a date string or Date object into a human-readable format
+ * @param date - Date to format (string, Date object, or timestamp)
+ * @param options - Intl.DateTimeFormatOptions for customizing the format
+ * @returns Formatted date string
+ */
+export function formatDate(
+  date: string | Date | number,
+  options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }
+): string {
+  if (!date) return '';
+  
+  const dateObj = typeof date === 'string' || typeof date === 'number'
+    ? new Date(date)
+    : date;
+    
+  // Check if date is valid
+  if (isNaN(dateObj.getTime())) return 'Invalid date';
+  
+  return new Intl.DateTimeFormat('en-GB', options).format(dateObj);
 }

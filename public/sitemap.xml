@@ -2,74 +2,188 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://edpsychconnect.com/</loc>
-    <lastmod>2025-05-29</lastmod>
+    <lastmod>2025-06-01T13:33:41.173Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/about</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://edpsychconnect.com/analytics</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/contact</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://edpsychconnect.com/blog</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://edpsychconnect.com/blog/categories</loc>
-    <lastmod>2025-05-29</lastmod>
+    <loc>https://edpsychconnect.com/analytics-dashboard</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/resources</loc>
-    <lastmod>2025-05-29</lastmod>
+    <loc>https://edpsychconnect.com/avatar-library</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/courses</loc>
-    <lastmod>2025-05-29</lastmod>
+    <loc>https://edpsychconnect.com/css-test</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/auth/signin</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://edpsychconnect.com/educator</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/auth/signup</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://edpsychconnect.com/resources/adaptive-learning</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/privacy</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <loc>https://edpsychconnect.com/resources/learning-styles</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/terms</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <loc>https://edpsychconnect.com/resources/restorative-justice</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edpsychconnect.com/accessibility</loc>
-    <lastmod>2025-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <loc>https://edpsychconnect.com/resources/special-needs</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/settings</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/student</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/testpage</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/foundations</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/trauma-informed-practice</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/technology-in-education</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/teaching-assistant-development</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/leadership-in-educational-psychology</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/parent-family-engagement</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/certification</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/micro-learning</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/emotionally-based-school-non-attendance</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/analytics</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/certificates</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/cpd-tracking</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/learning-communities</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/mentor-matching</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/portfolio</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/research-collaboration</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://edpsychconnect.com/professional-development/webinars</loc>
+    <lastmod>2025-06-01T13:33:41.174Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

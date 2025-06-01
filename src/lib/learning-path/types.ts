@@ -7,6 +7,34 @@
 export type UKKeyStage = 'KS1' | 'KS2' | 'KS3' | 'KS4' | 'KS5';
 export type UKSubject = 'Mathematics' | 'English' | 'Science' | 'History' | 'Geography' | 'Art' | 'Music' | 'Physical Education' | 'Computing' | 'Design and Technology' | 'Languages' | 'Religious Education' | 'Citizenship' | 'PSHE';
 
+// Aliases for compatibility with other components
+export type KeyStage = UKKeyStage;
+export type Subject = UKSubject;
+
+/**
+ * Topic status for tracking progress
+ */
+export enum TopicStatus {
+  NOT_STARTED = 'not_started',
+  IN_PROGRESS = 'in_progress',
+  COMPLETED = 'completed',
+  MASTERED = 'mastered',
+  NEEDS_REVIEW = 'needs_review'
+}
+
+/**
+ * Proficiency levels for assessments
+ */
+export enum ProficiencyLevel {
+  NOVICE = 'novice',
+  BEGINNER = 'beginner',
+  DEVELOPING = 'developing',
+  COMPETENT = 'competent',
+  PROFICIENT = 'proficient',
+  ADVANCED = 'advanced',
+  EXPERT = 'expert'
+}
+
 /**
  * Learning styles based on VARK model
  */

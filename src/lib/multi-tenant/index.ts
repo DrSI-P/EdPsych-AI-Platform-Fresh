@@ -1,8 +1,55 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useTenantRegistration } from './tenant-management';
+
+// Re-export functions from other files
+export { useTenantRegistration };
+
+// Define tenant types and enums
+export enum TenantType {
+  SCHOOL = 'school',
+  DISTRICT = 'district',
+  INDIVIDUAL = 'individual',
+  ORGANIZATION = 'organization',
+  UNIVERSITY = 'university'
+}
+
+export enum SubscriptionTier {
+  FREE = 'free',
+  BASIC = 'basic',
+  STANDARD = 'standard',
+  PROFESSIONAL = 'professional',
+  ENTERPRISE = 'enterprise'
+}
 
 // Define the tenant context type
+export interface TenantConfig {
+  id: string;
+  name: string;
+  type: TenantType;
+  domains: string[];
+  subscription: {
+    status: string;
+    tier: SubscriptionTier;
+    features: string[];
+  };
+  settings: {
+    theme: string;
+    locale: string;
+    timezone: string;
+    branding?: {
+      primaryColor?: string;
+      secondaryColor?: string;
+      accentColor?: string;
+      logoUrl?: string;
+      faviconUrl?: string;
+    };
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface Tenant {
   id: string;
   name: string;
@@ -61,9 +108,9 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     error: null
   };
   
-  return (
-    <TenantContext.Provider value={contextValue}>
-      {children}
-    </TenantContext.Provider>
+  return React.createElement(
+    TenantContext.Provider,
+    { value: contextValue },
+    children
   );
 }
