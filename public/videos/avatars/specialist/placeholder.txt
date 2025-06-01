@@ -1,0 +1,13 @@
+This is a placeholder for subject specialist avatar videos.
+
+In production, this directory would contain MP4 video files with the following naming convention:
+specialist_[name]_[category]_[clip_id].mp4
+
+Examples:
+- specialist_dr_maya_introduction_mathematics.mp4
+- specialist_dr_james_instructional_scientific_method.mp4
+- specialist_dr_maya_subject_specific_understanding_fractions.mp4
+- specialist_dr_james_advanced_topic_genetics_inheritance.mp4
+- specialist_dr_maya_interdisciplinary_mathematics_in_music.mp4
+
+These videos would be generated using HeyGen with appropriate subject specialist avatar models.

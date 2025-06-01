@@ -1,0 +1,1091 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model AccessibilityLog {
+  id          String   @id
+  userId      String
+  createdAt   DateTime @default(now())
+  context     String?
+  duration    Int?
+  featureUsed String
+  User        User     @relation(fields: [userId], references: [id])
+}
+
+model AccessibilitySettings {
+  id             String   @id
+  userId         String   @unique
+  highContrast   Boolean  @default(false)
+  largeText      Boolean  @default(false)
+  screenReader   Boolean  @default(false)
+  reducedMotion  Boolean  @default(false)
+  textToSpeech   Boolean  @default(false)
+  speechToText   Boolean  @default(false)
+  customSettings Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
+  User           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Account {
+  id                String  @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Activity {
+  id          String   @id
+  lessonId    String
+  title       String
+  description String
+  type        String
+  content     String
+  duration    Int?
+  points      Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  Lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model ActivityFavorite {
+  id           String   @id
+  userId       String
+  activityType String
+  title        String
+  description  String
+  instructions String
+  materials    String?
+  duration     Int?
+  ageRange     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  User         User     @relation(fields: [userId], references: [id])
+}
+
+model AdaptiveContent {
+  id               String   @id
+  userId           String
+  originalContent  String
+  adaptedContent   String
+  adaptationType   String
+  adaptationReason String
+  metadata         Json?
+  createdAt        DateTime @default(now())
+  User             User     @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Assessment {
+  id                 String               @id
+  title              String
+  description        String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime
+  passingScore       Int?
+  timeLimit          Int?
+  courseId           String?
+  creatorId          String
+  instructions       String
+  isPublished        Boolean              @default(false)
+  questions          Json
+  Course             Course?              @relation(fields: [courseId], references: [id])
+  User               User                 @relation(fields: [creatorId], references: [id])
+  AssessmentResponse AssessmentResponse[]
+}
+
+model AssessmentResponse {
+  id           String     @id
+  assessmentId String
+  userId       String
+  answers      Json
+  score        Int?
+  feedback     String?
+  timeSpent    Int?
+  startedAt    DateTime   @default(now())
+  completedAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime
+  Assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  User         User       @relation(fields: [userId], references: [id])
+}
+
+model CPDActivity {
+  id           String    @id
+  userId       String
+  title        String
+  description  String
+  activityType String
+  provider     String?
+  startDate    DateTime
+  endDate      DateTime?
+  duration     Int?
+  status       String    @default("planned")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  User         User      @relation(fields: [userId], references: [id])
+}
+
+model CPDEvidence {
+  id          String   @id
+  userId      String
+  title       String
+  description String
+  fileUrl     String?
+  linkUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  User        User     @relation(fields: [userId], references: [id])
+}
+
+model CPDGoal {
+  id          String    @id
+  userId      String
+  title       String
+  description String
+  targetDate  DateTime?
+  status      String    @default("active")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  User        User      @relation(fields: [userId], references: [id])
+}
+
+model CPDReflection {
+  id         String   @id
+  userId     String
+  title      String
+  content    String
+  activityId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  User       User     @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Certificate {
+  id             String   @id
+  userId         String
+  title          String
+  certificateUrl String?
+  createdAt      DateTime @default(now())
+  courseId       String
+  description    String?
+  issueDate      DateTime @default(now())
+  Course         Course   @relation(fields: [courseId], references: [id])
+  User           User     @relation(fields: [userId], references: [id])
+}
+
+model CircleTemplate {
+  id                String   @id
+  userId            String
+  title             String
+  description       String
+  openingPrompt     String
+  discussionPrompts Json
+  closingPrompt     String
+  suggestedDuration Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime
+  User              User     @relation(fields: [userId], references: [id])
+}
+
+model CommunicationLog {
+  id        String   @id
+  userId    String
+  action    String
+  details   String?
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model CommunicationMeeting {
+  id             String         @id
+  organizerId    String
+  studentId      String
+  title          String
+  description    String?
+  meetingDate    DateTime
+  duration       Int            @default(60)
+  location       String?
+  meetingType    String
+  meetingLink    String?
+  status         String         @default("scheduled")
+  notes          String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime
+  User           User           @relation(fields: [organizerId], references: [id])
+  StudentProfile StudentProfile @relation(fields: [studentId], references: [id])
+}
+
+model CommunicationSettings {
+  id                 String   @id
+  userId             String   @unique
+  emailNotifications Boolean  @default(true)
+  smsNotifications   Boolean  @default(false)
+  reminderTime       Int      @default(24)
+  language           String   @default("en-GB")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime
+  User               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ContentTransformation {
+  id                 String   @id
+  userId             String
+  originalContent    String
+  transformedContent String
+  transformationType String
+  metadata           Json?
+  createdAt          DateTime @default(now())
+  User               User     @relation(fields: [userId], references: [id])
+}
+
+model Course {
+  id                 String           @id
+  creatorId          String
+  title              String
+  description        String
+  subject            String
+  gradeLevel         String
+  difficulty         String           @default("intermediate")
+  learningObjectives String[]
+  prerequisites      String[]
+  duration           Int?
+  imageUrl           String?
+  isPublished        Boolean          @default(false)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime
+  Assessment         Assessment[]
+  Certificate        Certificate[]
+  User               User             @relation(fields: [creatorId], references: [id])
+  CourseProgress     CourseProgress[]
+  Enrollment         Enrollment[]
+  Lesson             Lesson[]
+  ProgressReport     ProgressReport[]
+}
+
+model CourseDiscussion {
+  id              String            @id
+  courseId        String?
+  userId          String
+  title           String
+  content         String
+  isAnnouncement  Boolean           @default(false)
+  isPinned        Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime
+  User            User              @relation(fields: [userId], references: [id])
+  DiscussionReply DiscussionReply[]
+}
+
+model CourseProgress {
+  id           String   @id
+  userId       String
+  courseId     String
+  moduleId     String   @default("")
+  contentId    String   @default("")
+  progress     Int      @default(0)
+  completed    Boolean  @default(false)
+  timeSpent    Int      @default(0)
+  lastAccessed DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  Course       Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId, moduleId, contentId])
+}
+
+model CurriculumDifferentiation {
+  id                    String   @id
+  userId                String
+  originalContent       String
+  differentiatedContent String
+  differentiationType   String
+  targetGroup           String
+  metadata              Json?
+  createdAt             DateTime @default(now())
+  User                  User     @relation(fields: [userId], references: [id])
+}
+
+model CurriculumLesson {
+  id             String         @id
+  unitId         String
+  title          String
+  description    String
+  objectives     String[]
+  content        String
+  resources      Json?
+  activities     Json?
+  order          Int            @default(0)
+  duration       Int?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime
+  CurriculumUnit CurriculumUnit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumPlan {
+  id                                  String                       @id
+  userId                              String
+  creatorId                           String?
+  title                               String
+  description                         String
+  subject                             String
+  gradeLevel                          String
+  objectives                          String[]
+  duration                            Int?
+  status                              String                       @default("draft")
+  isPublic                            Boolean                      @default(false)
+  createdAt                           DateTime                     @default(now())
+  updatedAt                           DateTime
+  User_CurriculumPlan_creatorIdToUser User?                        @relation("CurriculumPlan_creatorIdToUser", fields: [creatorId], references: [id])
+  User_CurriculumPlan_userIdToUser    User                         @relation("CurriculumPlan_userIdToUser", fields: [userId], references: [id])
+  CurriculumPlanCollaborator          CurriculumPlanCollaborator[]
+  CurriculumPlanComment               CurriculumPlanComment[]
+  CurriculumPlanTask                  CurriculumPlanTask[]
+  CurriculumUnit                      CurriculumUnit[]
+}
+
+model CurriculumPlanCollaborator {
+  id             String         @id
+  planId         String
+  userId         String
+  role           String         @default("viewer")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime
+  CurriculumPlan CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  User           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, userId])
+}
+
+model CurriculumPlanComment {
+  id             String         @id
+  planId         String
+  userId         String
+  content        String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime
+  CurriculumPlan CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  User           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumPlanTask {
+  id                                       String         @id
+  planId                                   String
+  creatorId                                String
+  assigneeId                               String?
+  title                                    String
+  description                              String
+  status                                   String         @default("todo")
+  dueDate                                  DateTime?
+  createdAt                                DateTime       @default(now())
+  updatedAt                                DateTime
+  User_CurriculumPlanTask_assigneeIdToUser User?          @relation("CurriculumPlanTask_assigneeIdToUser", fields: [assigneeId], references: [id])
+  User_CurriculumPlanTask_creatorIdToUser  User           @relation("CurriculumPlanTask_creatorIdToUser", fields: [creatorId], references: [id])
+  CurriculumPlan                           CurriculumPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumUnit {
+  id               String             @id
+  planId           String
+  title            String
+  description      String
+  objectives       String[]
+  order            Int                @default(0)
+  duration         Int?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  CurriculumLesson CurriculumLesson[]
+  CurriculumPlan   CurriculumPlan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+}
+
+model DiscussionReply {
+  id               String           @id
+  discussionId     String
+  userId           String
+  content          String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime
+  CourseDiscussion CourseDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  User             User             @relation(fields: [userId], references: [id])
+}
+
+model EmotionalCheckin {
+  id        String   @id
+  userId    String
+  emotion   String
+  intensity Int
+  notes     String?
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model Enrollment {
+  id             String    @id
+  userId         String
+  courseId       String
+  status         String    @default("active")
+  progress       Int       @default(0)
+  startDate      DateTime  @default(now())
+  completionDate DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime
+  Course         Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  User           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+}
+
+model ExecutiveFunctionProfile {
+  id                           String   @id
+  userId                       String   @unique
+  planningScore                Int      @default(0)
+  organizationScore            Int      @default(0)
+  timeManagementScore          Int      @default(0)
+  workingMemoryScore           Int      @default(0)
+  metacognitionScore           Int      @default(0)
+  responseInhibitionScore      Int      @default(0)
+  emotionalControlScore        Int      @default(0)
+  taskInitiationScore          Int      @default(0)
+  flexibilityScore             Int      @default(0)
+  goalDirectedPersistenceScore Int      @default(0)
+  assessmentResults            Json?
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime
+  User                         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ExecutiveFunctionTask {
+  id           String    @id
+  userId       String
+  title        String
+  description  String
+  category     String
+  status       String    @default("todo")
+  dueDate      DateTime?
+  reminderDate DateTime?
+  priority     String    @default("medium")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  User         User      @relation(fields: [userId], references: [id])
+}
+
+model ImmersiveExperience {
+  id                        String                      @id
+  creatorId                 String
+  title                     String
+  description               String
+  subject                   String
+  gradeLevel                String
+  objectives                String[]
+  content                   String
+  environmentType           String
+  interactionMode           String
+  duration                  Int?
+  accessUrl                 String?
+  previewImageUrl           String?
+  isPublished               Boolean                     @default(false)
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime
+  User                      User                        @relation(fields: [creatorId], references: [id])
+  ImmersiveExperienceReview ImmersiveExperienceReview[]
+}
+
+model ImmersiveExperienceReview {
+  id                  String              @id
+  experienceId        String
+  userId              String
+  rating              Int
+  review              String
+  createdAt           DateTime            @default(now())
+  ImmersiveExperience ImmersiveExperience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  User                User                @relation(fields: [userId], references: [id])
+
+  @@unique([experienceId, userId])
+}
+
+model ImmersiveTool {
+  id                  String                @id
+  creatorId           String
+  title               String
+  description         String
+  toolType            String
+  accessUrl           String?
+  documentationUrl    String?
+  previewImageUrl     String?
+  isPublished         Boolean               @default(false)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime
+  User                User                  @relation(fields: [creatorId], references: [id])
+  ImmersiveToolReview ImmersiveToolReview[]
+}
+
+model ImmersiveToolReview {
+  id            String        @id
+  toolId        String
+  userId        String
+  rating        Int
+  review        String
+  createdAt     DateTime      @default(now())
+  ImmersiveTool ImmersiveTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  User          User          @relation(fields: [userId], references: [id])
+
+  @@unique([toolId, userId])
+}
+
+model LearningDifferenceProfile {
+  id             String   @id
+  userId         String   @unique
+  differences    String[]
+  strengths      String[]
+  challenges     String[]
+  strategies     String[]
+  accommodations String[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
+  User           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model LearningStyle {
+  id                String   @id
+  userId            String   @unique
+  visual            Int      @default(0)
+  auditory          Int      @default(0)
+  readWrite         Int      @default(0)
+  kinesthetic       Int      @default(0)
+  sequential        Int      @default(0)
+  global            Int      @default(0)
+  active            Int      @default(0)
+  reflective        Int      @default(0)
+  verbal            Int      @default(0)
+  intuitive         Int      @default(0)
+  sensing           Int      @default(0)
+  additionalStyles  Json?
+  assessmentResults Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime
+  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Lesson {
+  id             String           @id
+  courseId       String
+  creatorId      String
+  title          String
+  description    String
+  content        String
+  videoUrl       String?
+  audioUrl       String?
+  imageUrl       String?
+  order          Int              @default(0)
+  duration       Int?
+  isPublished    Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  Activity       Activity[]
+  Course         Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  User           User             @relation(fields: [creatorId], references: [id])
+  ProgressReport ProgressReport[]
+  Resource       Resource[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Mentorship {
+  id              String   @id
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+  availability    String?
+  isMentor        Boolean  @default(false)
+  isSeekingMentor Boolean  @default(false)
+  mentorshipAreas String[]
+  mentorshipBio   String?
+  userId          String   @unique
+  User            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id                            String   @id
+  senderId                      String
+  receiverId                    String
+  subject                       String
+  content                       String
+  isRead                        Boolean  @default(false)
+  createdAt                     DateTime @default(now())
+  User_Message_receiverIdToUser User     @relation("Message_receiverIdToUser", fields: [receiverId], references: [id], onDelete: Cascade)
+  User_Message_senderIdToUser   User     @relation("Message_senderIdToUser", fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+model MindfulnessLog {
+  id           String   @id
+  userId       String
+  activityType String
+  duration     Int
+  notes        String?
+  mood         String?
+  moodAfter    String?
+  createdAt    DateTime @default(now())
+  User         User     @relation(fields: [userId], references: [id])
+}
+
+model MindfulnessSettings {
+  id                 String   @id
+  userId             String   @unique
+  reminderFrequency  String   @default("daily")
+  reminderTimes      Json?
+  favoriteActivities String[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime
+  User               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MultiModalContent {
+  id                 String   @id
+  userId             String
+  title              String
+  textContent        String
+  visualContent      String?
+  audioContent       String?
+  videoContent       String?
+  interactiveContent String?
+  metadata           Json?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime
+  User               User     @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        String   @id
+  userId    String
+  title     String
+  message   String
+  type      String
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ParentEducationFavorite {
+  id          String   @id
+  userId      String
+  title       String
+  description String
+  content     String
+  category    String
+  ageRange    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  User        User     @relation(fields: [userId], references: [id])
+}
+
+model ParentProfile {
+  id                     String   @id
+  userId                 String   @unique
+  childrenIds            String[]
+  relationship           String?
+  preferredContactMethod String?
+  availabilityTimes      String?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime
+  User                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PasswordReset {
+  id        String   @id
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PluginCredential {
+  id          String   @id
+  userId      String
+  credentials String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  pluginName  String
+  User        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, pluginName])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PortfolioAchievement {
+  id           String    @id
+  userId       String
+  title        String
+  description  String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  dateAchieved DateTime?
+  evidenceUrl  String?
+  User         User      @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PortfolioEvidence {
+  id           String   @id
+  userId       String
+  title        String
+  description  String
+  fileUrl      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  evidenceType String
+  linkUrl      String?
+  User         User     @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PortfolioProfile {
+  id                String   @id
+  userId            String   @unique
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime
+  headline          String?
+  specialisms       String[]
+  summary           String?
+  yearsOfExperience Int?
+  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PortfolioQualification {
+  id             String    @id
+  userId         String
+  title          String
+  institution    String
+  certificateUrl String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime
+  dateObtained   DateTime?
+  description    String?
+  User           User      @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PortfolioReflection {
+  id        String   @id
+  userId    String
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Profile {
+  id          String    @id
+  bio         String?
+  userId      String    @unique
+  address     String?
+  birthDate   DateTime?
+  createdAt   DateTime  @default(now())
+  gender      String?
+  interests   String[]
+  location    String?
+  phoneNumber String?
+  skills      String[]
+  updatedAt   DateTime
+  website     String?
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ProgressPacing {
+  id               String   @id
+  userId           String
+  contentId        String
+  contentType      String
+  recommendedPace  Int
+  actualPace       Int
+  adjustmentReason String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime
+  User             User     @relation(fields: [userId], references: [id])
+}
+
+model ProgressReport {
+  id                  String   @id
+  userId              String
+  courseId            String?
+  lessonId            String?
+  title               String
+  content             String
+  strengths           String[]
+  areasForImprovement String[]
+  recommendations     String
+  nextSteps           String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime
+  Course              Course?  @relation(fields: [courseId], references: [id])
+  Lesson              Lesson?  @relation(fields: [lessonId], references: [id])
+  User                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PupilVoiceResponse {
+  id               String           @id
+  surveyId         String
+  userId           String
+  answers          Json
+  createdAt        DateTime         @default(now())
+  PupilVoiceSurvey PupilVoiceSurvey @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  User             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([surveyId, userId])
+}
+
+model PupilVoiceSurvey {
+  id                 String               @id
+  creatorId          String
+  title              String
+  description        String
+  questions          Json
+  isActive           Boolean              @default(true)
+  startDate          DateTime             @default(now())
+  endDate            DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime
+  PupilVoiceResponse PupilVoiceResponse[]
+  User               User                 @relation(fields: [creatorId], references: [id])
+}
+
+model ReflectionPrompt {
+  id             String   @id
+  userId         String
+  prompt         String
+  category       String
+  targetAudience String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
+  User           User     @relation(fields: [userId], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Resource {
+  id          String   @id
+  title       String
+  description String?
+  type        String
+  url         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  lessonId    String
+  Lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model RestorativeAgreement {
+  id           String    @id
+  userId       String
+  title        String
+  participants String[]
+  description  String
+  agreements   Json
+  followUpDate DateTime?
+  status       String    @default("active")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  User         User      @relation(fields: [userId], references: [id])
+}
+
+model RestorativeTrainingProgress {
+  id                String   @id
+  userId            String   @unique
+  modulesCompleted  Int      @default(0)
+  totalModules      Int      @default(5)
+  certificateIssued Boolean  @default(false)
+  lastActivity      DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime
+  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model School {
+  id             String           @id
+  name           String
+  address        String?
+  city           String?
+  country        String?
+  postalCode     String?
+  phoneNumber    String?
+  email          String?
+  website        String?
+  type           String?
+  gradeRange     String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  StudentProfile StudentProfile[]
+  TeacherProfile TeacherProfile[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SpeechCalibration {
+  id              String   @id
+  userId          String
+  calibrationData Json
+  accuracy        Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+  User            User     @relation(fields: [userId], references: [id])
+}
+
+model SpeechRecognitionLog {
+  id             String   @id
+  userId         String
+  inputAudio     String?
+  recognizedText String
+  confidence     Float
+  context        String?
+  createdAt      DateTime @default(now())
+  User           User     @relation(fields: [userId], references: [id])
+}
+
+model StudentProfile {
+  id                   String                 @id
+  userId               String                 @unique
+  schoolId             String?
+  yearGroup            String?
+  keyStage             String?
+  senStatus            String?
+  senNeeds             String[]
+  eal                  Boolean                @default(false)
+  fsm                  Boolean                @default(false)
+  pp                   Boolean                @default(false)
+  lac                  Boolean                @default(false)
+  gifted               Boolean                @default(false)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime
+  CommunicationMeeting CommunicationMeeting[]
+  School               School?                @relation(fields: [schoolId], references: [id])
+  User                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TeacherProfile {
+  id                 String   @id
+  userId             String   @unique
+  schoolId           String?
+  subjects           String[]
+  gradeLevel         String?
+  certifications     String[]
+  educationHistory   String?
+  teachingPhilosophy String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime
+  School             School?  @relation(fields: [schoolId], references: [id])
+  User               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model User {
+  id                                                     String                       @id
+  name                                                   String?
+  email                                                  String?                      @unique
+  emailVerified                                          DateTime?
+  image                                                  String?
+  password                                               String?
+  role                                                   String                       @default("user")
+  AccessibilityLog                                       AccessibilityLog[]
+  AccessibilitySettings                                  AccessibilitySettings?
+  Account                                                Account[]
+  ActivityFavorite                                       ActivityFavorite[]
+  AdaptiveContent                                        AdaptiveContent[]
+  Assessment                                             Assessment[]
+  AssessmentResponse                                     AssessmentResponse[]
+  CPDActivity                                            CPDActivity[]
+  CPDEvidence                                            CPDEvidence[]
+  CPDGoal                                                CPDGoal[]
+  CPDReflection                                          CPDReflection[]
+  Certificate                                            Certificate[]
+  CircleTemplate                                         CircleTemplate[]
+  CommunicationLog                                       CommunicationLog[]
+  CommunicationMeeting                                   CommunicationMeeting[]
+  CommunicationSettings                                  CommunicationSettings?
+  ContentTransformation                                  ContentTransformation[]
+  Course                                                 Course[]
+  CourseDiscussion                                       CourseDiscussion[]
+  CourseProgress                                         CourseProgress[]
+  CurriculumDifferentiation                              CurriculumDifferentiation[]
+  CurriculumPlan_CurriculumPlan_creatorIdToUser          CurriculumPlan[]             @relation("CurriculumPlan_creatorIdToUser")
+  CurriculumPlan_CurriculumPlan_userIdToUser             CurriculumPlan[]             @relation("CurriculumPlan_userIdToUser")
+  CurriculumPlanCollaborator                             CurriculumPlanCollaborator[]
+  CurriculumPlanComment                                  CurriculumPlanComment[]
+  CurriculumPlanTask_CurriculumPlanTask_assigneeIdToUser CurriculumPlanTask[]         @relation("CurriculumPlanTask_assigneeIdToUser")
+  CurriculumPlanTask_CurriculumPlanTask_creatorIdToUser  CurriculumPlanTask[]         @relation("CurriculumPlanTask_creatorIdToUser")
+  DiscussionReply                                        DiscussionReply[]
+  EmotionalCheckin                                       EmotionalCheckin[]
+  Enrollment                                             Enrollment[]
+  ExecutiveFunctionProfile                               ExecutiveFunctionProfile?
+  ExecutiveFunctionTask                                  ExecutiveFunctionTask[]
+  ImmersiveExperience                                    ImmersiveExperience[]
+  ImmersiveExperienceReview                              ImmersiveExperienceReview[]
+  ImmersiveTool                                          ImmersiveTool[]
+  ImmersiveToolReview                                    ImmersiveToolReview[]
+  LearningDifferenceProfile                              LearningDifferenceProfile?
+  LearningStyle                                          LearningStyle?
+  Lesson                                                 Lesson[]
+  Mentorship                                             Mentorship?
+  Message_Message_receiverIdToUser                       Message[]                    @relation("Message_receiverIdToUser")
+  Message_Message_senderIdToUser                         Message[]                    @relation("Message_senderIdToUser")
+  MindfulnessLog                                         MindfulnessLog[]
+  MindfulnessSettings                                    MindfulnessSettings?
+  MultiModalContent                                      MultiModalContent[]
+  Notification                                           Notification[]
+  ParentEducationFavorite                                ParentEducationFavorite[]
+  ParentProfile                                          ParentProfile?
+  PasswordReset                                          PasswordReset?
+  PluginCredential                                       PluginCredential[]
+  PortfolioAchievement                                   PortfolioAchievement[]
+  PortfolioEvidence                                      PortfolioEvidence[]
+  PortfolioProfile                                       PortfolioProfile?
+  PortfolioQualification                                 PortfolioQualification[]
+  PortfolioReflection                                    PortfolioReflection[]
+  Profile                                                Profile?
+  ProgressPacing                                         ProgressPacing[]
+  ProgressReport                                         ProgressReport[]
+  PupilVoiceResponse                                     PupilVoiceResponse[]
+  PupilVoiceSurvey                                       PupilVoiceSurvey[]
+  ReflectionPrompt                                       ReflectionPrompt[]
+  RestorativeAgreement                                   RestorativeAgreement[]
+  RestorativeTrainingProgress                            RestorativeTrainingProgress?
+  Session                                                Session[]
+  SpeechCalibration                                      SpeechCalibration[]
+  SpeechRecognitionLog                                   SpeechRecognitionLog[]
+  StudentProfile                                         StudentProfile?
+  TeacherProfile                                         TeacherProfile?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

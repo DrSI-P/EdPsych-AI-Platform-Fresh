@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "EdPsych Connect",
+    "tagline": "Revolutionierung des Lernens durch personalisierte, evidenzbasierte Ressourcen der Bildungspsychologie"
+  },
+  "nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "resources": "Ressourcen",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "signup": "Registrieren",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  },
+  "footer": {
+    "quickLinks": "Schnelllinks",
+    "resources": "Ressourcen",
+    "legal": "Rechtliches",
+    "copyright": "© {{year}} EdPsych Connect Limited. Alle Rechte vorbehalten.",
+    "tagline": "Konzipiert und entwickelt mit evidenzbasierten bildungspsychologischen Prinzipien",
+    "cookieSettings": "Cookie-Einstellungen"
+  },
+  "buttons": {
+    "learnMore": "Mehr erfahren",
+    "getStarted": "Loslegen",
+    "readMore": "Weiterlesen",
+    "viewAll": "Alle anzeigen",
+    "submit": "Absenden",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "back": "Zurück",
+    "next": "Weiter"
+  },
+  "accessibility": {
+    "skipToContent": "Zum Inhalt springen",
+    "darkMode": "Dunkelmodus",
+    "lightMode": "Hellmodus",
+    "increaseText": "Textgröße erhöhen",
+    "decreaseText": "Textgröße verringern",
+    "highContrast": "Hochkontrastmodus"
+  },
+  "errors": {
+    "pageNotFound": "Seite nicht gefunden",
+    "serverError": "Serverfehler",
+    "goHome": "Zurück zur Startseite",
+    "tryAgain": "Erneut versuchen",
+    "formError": "Bei Ihrer Eingabe ist ein Fehler aufgetreten. Bitte überprüfen Sie das Formular und versuchen Sie es erneut."
+  },
+  "loading": {
+    "default": "Wird geladen...",
+    "content": "Inhalte werden geladen...",
+    "resources": "Ressourcen werden geladen...",
+    "processing": "Wird verarbeitet..."
+  },
+  "uk": {
+    "education": {
+      "keyStages": {
+        "eyfs": "Frühkindliche Grundstufe",
+        "ks1": "Schlüsselstufe 1",
+        "ks2": "Schlüsselstufe 2",
+        "ks3": "Schlüsselstufe 3",
+        "ks4": "Schlüsselstufe 4",
+        "ks5": "Schlüsselstufe 5"
+      },
+      "schoolTypes": {
+        "primary": "Grundschule",
+        "secondary": "Weiterführende Schule",
+        "college": "College",
+        "specialSchool": "Förderschule",
+        "pupilReferralUnit": "Schülerüberweisungseinheit"
+      }
+    }
+  }
+}

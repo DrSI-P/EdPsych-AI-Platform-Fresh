@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "EdPsych Connect",
+    "tagline": "Rewolucjonizowanie nauki poprzez spersonalizowane, oparte na dowodach zasoby psychologii edukacyjnej"
+  },
+  "nav": {
+    "home": "Strona główna",
+    "about": "O nas",
+    "resources": "Zasoby",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "login": "Logowanie",
+    "signup": "Rejestracja",
+    "dashboard": "Panel",
+    "profile": "Profil",
+    "settings": "Ustawienia",
+    "logout": "Wyloguj"
+  },
+  "footer": {
+    "quickLinks": "Szybkie linki",
+    "resources": "Zasoby",
+    "legal": "Informacje prawne",
+    "copyright": "© {{year}} EdPsych Connect Limited. Wszelkie prawa zastrzeżone.",
+    "tagline": "Zaprojektowane i opracowane zgodnie z zasadami psychologii edukacyjnej opartymi na dowodach",
+    "cookieSettings": "Ustawienia plików cookie"
+  },
+  "buttons": {
+    "learnMore": "Dowiedz się więcej",
+    "getStarted": "Rozpocznij",
+    "readMore": "Czytaj więcej",
+    "viewAll": "Zobacz wszystko",
+    "submit": "Wyślij",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "back": "Wstecz",
+    "next": "Dalej"
+  },
+  "accessibility": {
+    "skipToContent": "Przejdź do treści",
+    "darkMode": "Tryb ciemny",
+    "lightMode": "Tryb jasny",
+    "increaseText": "Zwiększ rozmiar tekstu",
+    "decreaseText": "Zmniejsz rozmiar tekstu",
+    "highContrast": "Tryb wysokiego kontrastu"
+  },
+  "errors": {
+    "pageNotFound": "Nie znaleziono strony",
+    "serverError": "Błąd serwera",
+    "goHome": "Powrót do strony głównej",
+    "tryAgain": "Spróbuj ponownie",
+    "formError": "Wystąpił błąd podczas przesyłania formularza. Sprawdź formularz i spróbuj ponownie."
+  },
+  "loading": {
+    "default": "Ładowanie...",
+    "content": "Ładowanie treści...",
+    "resources": "Ładowanie zasobów...",
+    "processing": "Przetwarzanie..."
+  },
+  "uk": {
+    "education": {
+      "keyStages": {
+        "eyfs": "Wczesna edukacja",
+        "ks1": "Etap kluczowy 1",
+        "ks2": "Etap kluczowy 2",
+        "ks3": "Etap kluczowy 3",
+        "ks4": "Etap kluczowy 4",
+        "ks5": "Etap kluczowy 5"
+      },
+      "schoolTypes": {
+        "primary": "Szkoła podstawowa",
+        "secondary": "Szkoła średnia",
+        "college": "Kolegium",
+        "specialSchool": "Szkoła specjalna",
+        "pupilReferralUnit": "Jednostka skierowań uczniów"
+      }
+    }
+  }
+}

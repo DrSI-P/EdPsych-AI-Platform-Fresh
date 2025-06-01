@@ -1,0 +1,168 @@
+/* Keyboard Navigation Styles */
+
+/* Base keyboard navigation styles */
+.keyboard-navigation {
+  --focus-outline-style: solid;
+  --focus-outline-width: var(--focus-indicator-size, 3px);
+  --focus-outline-offset: 2px;
+  --focus-blue-color: #0066cc;
+  --focus-yellow-color: #ffcc00;
+  --focus-green-color: #00cc66;
+  --focus-purple-color: #9933cc;
+  --focus-custom-color: var(--custom-focus-color, #0066cc);
+}
+
+/* Focus indicator colors */
+.focus-color-blue *:focus-visible {
+  outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-blue-color) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+}
+
+.focus-color-yellow *:focus-visible {
+  outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-yellow-color) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+}
+
+.focus-color-green *:focus-visible {
+  outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-green-color) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+}
+
+.focus-color-purple *:focus-visible {
+  outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-purple-color) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+}
+
+.focus-color-custom *:focus-visible {
+  outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-custom-color) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+}
+
+/* Tab target sizes */
+.tab-size-normal a,
+.tab-size-normal button,
+.tab-size-normal input,
+.tab-size-normal select,
+.tab-size-normal textarea,
+.tab-size-normal [tabindex]:not([tabindex="-1"]) {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
+}
+
+.tab-size-large a,
+.tab-size-large button,
+.tab-size-large input,
+.tab-size-large select,
+.tab-size-large textarea,
+.tab-size-large [tabindex]:not([tabindex="-1"]) {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.75rem;
+}
+
+.tab-size-extra-large a,
+.tab-size-extra-large button,
+.tab-size-extra-large input,
+.tab-size-extra-large select,
+.tab-size-extra-large textarea,
+.tab-size-extra-large [tabindex]:not([tabindex="-1"]) {
+  min-height: 56px;
+  min-width: 56px;
+  padding: 1rem;
+}
+
+/* Skip links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.1s ease-in;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Ensure all interactive elements have visible focus */
+.keyboard-navigation a:focus,
+.keyboard-navigation button:focus,
+.keyboard-navigation input:focus,
+.keyboard-navigation select:focus,
+.keyboard-navigation textarea:focus,
+.keyboard-navigation [tabindex]:not([tabindex="-1"]):focus {
+  outline-style: var(--focus-outline-style) !important;
+  outline-width: var(--focus-outline-width) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+}
+
+/* Ensure focus is visible even when outline is overridden */
+.keyboard-navigation a:focus-visible,
+.keyboard-navigation button:focus-visible,
+.keyboard-navigation input:focus-visible,
+.keyboard-navigation select:focus-visible,
+.keyboard-navigation textarea:focus-visible,
+.keyboard-navigation [tabindex]:not([tabindex="-1"]):focus-visible {
+  outline-style: var(--focus-outline-style) !important;
+  outline-width: var(--focus-outline-width) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+  box-shadow: none !important; /* Prevent box-shadow from hiding outline */
+}
+
+/* Ensure links have underlines for better visibility */
+.keyboard-navigation a {
+  text-decoration: underline;
+}
+
+/* Ensure buttons have visible borders */
+.keyboard-navigation button {
+  border: 1px solid currentColor;
+}
+
+/* Ensure form controls have visible boundaries */
+.keyboard-navigation input,
+.keyboard-navigation select,
+.keyboard-navigation textarea {
+  border: 1px solid #666;
+}
+
+/* Ensure checkboxes and radio buttons are visible */
+.keyboard-navigation input[type="checkbox"],
+.keyboard-navigation input[type="radio"] {
+  width: 20px;
+  height: 20px;
+}
+
+/* Ensure dropdown menus are accessible */
+.keyboard-navigation select {
+  appearance: menulist;
+}
+
+/* Ensure tab order is logical */
+.keyboard-navigation [tabindex]:not([tabindex="0"]):not([tabindex="-1"]) {
+  outline: 2px dashed red !important; /* Highlight improper tabindex for developers */
+}
+
+/* Ensure disabled elements are visually distinct */
+.keyboard-navigation [disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Ensure focus is not lost in overflow containers */
+.keyboard-navigation *:focus {
+  scroll-margin-top: 50px;
+  scroll-margin-bottom: 50px;
+}
+
+/* Ensure keyboard focus is visible in high contrast mode */
+@media (forced-colors: active) {
+  .keyboard-navigation *:focus-visible {
+    outline: 3px solid CanvasText !important;
+    outline-offset: 3px !important;
+  }
+}

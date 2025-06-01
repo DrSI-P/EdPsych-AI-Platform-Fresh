@@ -1,0 +1,513 @@
+/**
+ * EdPsych Connect Design System
+ * Navigation Elements
+ * 
+ * This file defines the comprehensive navigation system for the EdPsych Connect platform,
+ * including primary navigation, secondary navigation, and age-appropriate adaptations.
+ */
+
+/* Import base design system */
+@import './colors.css';
+@import './typography.css';
+
+/* Primary Navigation */
+.nav-primary {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  background-color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: block;
+  padding: 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+  background-color: var(--purple-100);
+}
+
+.nav-link.active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  border-bottom: 3px solid var(--color-primary);
+}
+
+/* Dropdown Navigation */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.5em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0;
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--border-radius, 4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  clear: both;
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item:hover {
+  color: var(--color-primary);
+  background-color: var(--purple-100);
+}
+
+.dropdown-item.active {
+  color: var(--text-on-primary);
+  background-color: var(--color-primary);
+}
+
+/* Mobile Navigation */
+.nav-mobile-toggle {
+  display: none;
+  padding: 0.75rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-mobile-toggle-icon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-mobile-toggle-icon::before,
+.nav-mobile-toggle-icon::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-mobile-toggle-icon::before {
+  top: -6px;
+}
+
+.nav-mobile-toggle-icon::after {
+  bottom: -6px;
+}
+
+.nav-mobile-toggle.active .nav-mobile-toggle-icon {
+  background-color: transparent;
+}
+
+.nav-mobile-toggle.active .nav-mobile-toggle-icon::before {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.nav-mobile-toggle.active .nav-mobile-toggle-icon::after {
+  transform: rotate(-45deg) translate(4px, -4px);
+}
+
+/* Secondary Navigation */
+
+/* Tabs */
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: var(--border-radius, 4px);
+  border-top-right-radius: var(--border-radius, 4px);
+  padding: 0.75rem 1rem;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: var(--gray-200) var(--gray-200) var(--gray-300);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--color-primary);
+  background-color: var(--white);
+  border-color: var(--gray-300) var(--gray-300) var(--white);
+  border-bottom: none;
+}
+
+/* Sidebar Navigation */
+.nav-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-sidebar .nav-link {
+  padding: 0.75rem 1rem;
+  border-left: 3px solid transparent;
+}
+
+.nav-sidebar .nav-link:hover {
+  background-color: var(--purple-100);
+}
+
+.nav-sidebar .nav-link.active {
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  background-color: var(--purple-100);
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+  padding-left: 0.5rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: var(--text-tertiary);
+  content: "/";
+}
+
+.breadcrumb-item a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: var(--text-secondary);
+}
+
+/* User Navigation */
+.nav-user {
+  display: flex;
+  align-items: center;
+}
+
+.nav-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.nav-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-notification {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.nav-notification-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-error);
+  border-radius: 50%;
+}
+
+/* Age-Appropriate Navigation Styling */
+
+/* Nursery (Ages 3-5) */
+.age-nursery .nav-primary {
+  border-radius: 12px;
+  padding: 0.25rem;
+}
+
+.age-nursery .nav-link {
+  padding: 1rem 1.25rem;
+  font-size: var(--font-size-body-large);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.age-nursery .nav-link-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+}
+
+.age-nursery .nav-tabs .nav-link {
+  border-radius: 10px 10px 0 0;
+}
+
+/* Early Primary (Ages 5-7) */
+.age-early-primary .nav-primary {
+  border-radius: 8px;
+}
+
+.age-early-primary .nav-link {
+  padding: 0.875rem 1.125rem;
+  border-radius: 6px;
+}
+
+.age-early-primary .nav-link-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.625rem;
+}
+
+.age-early-primary .nav-tabs .nav-link {
+  border-radius: 8px 8px 0 0;
+}
+
+/* Late Primary (Ages 8-11) */
+.age-late-primary .nav-primary {
+  border-radius: 6px;
+}
+
+.age-late-primary .nav-link {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+}
+
+.age-late-primary .nav-link-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+}
+
+/* Secondary (Ages 12-18) */
+.age-secondary .nav-primary {
+  border-radius: 4px;
+}
+
+.age-secondary .nav-link {
+  padding: 0.75rem 1rem;
+}
+
+.age-secondary .nav-link-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+}
+
+/* Subject-Specific Navigation Styling */
+
+.theme-stem .nav-link:hover {
+  color: var(--teal-500);
+  background-color: var(--teal-100);
+}
+
+.theme-stem .nav-link.active {
+  color: var(--teal-500);
+  border-bottom-color: var(--teal-500);
+}
+
+.theme-stem .dropdown-item:hover {
+  color: var(--teal-500);
+  background-color: var(--teal-100);
+}
+
+.theme-stem .dropdown-item.active {
+  background-color: var(--teal-500);
+}
+
+.theme-stem .nav-sidebar .nav-link.active {
+  color: var(--teal-500);
+  border-left-color: var(--teal-500);
+  background-color: var(--teal-100);
+}
+
+.theme-humanities .nav-link:hover {
+  color: var(--amber-500);
+  background-color: var(--amber-100);
+}
+
+.theme-humanities .nav-link.active {
+  color: var(--amber-500);
+  border-bottom-color: var(--amber-500);
+}
+
+.theme-humanities .dropdown-item:hover {
+  color: var(--amber-500);
+  background-color: var(--amber-100);
+}
+
+.theme-humanities .dropdown-item.active {
+  background-color: var(--amber-500);
+}
+
+.theme-humanities .nav-sidebar .nav-link.active {
+  color: var(--amber-500);
+  border-left-color: var(--amber-500);
+  background-color: var(--amber-100);
+}
+
+.theme-arts .nav-link:hover {
+  color: var(--rose-500);
+  background-color: var(--rose-100);
+}
+
+.theme-arts .nav-link.active {
+  color: var(--rose-500);
+  border-bottom-color: var(--rose-500);
+}
+
+.theme-arts .dropdown-item:hover {
+  color: var(--rose-500);
+  background-color: var(--rose-100);
+}
+
+.theme-arts .dropdown-item.active {
+  background-color: var(--rose-500);
+}
+
+.theme-arts .nav-sidebar .nav-link.active {
+  color: var(--rose-500);
+  border-left-color: var(--rose-500);
+  background-color: var(--rose-100);
+}
+
+/* Accessibility Enhancements */
+
+.high-contrast .nav-primary {
+  border: 2px solid var(--black);
+  box-shadow: none;
+}
+
+.high-contrast .nav-link {
+  color: var(--black);
+}
+
+.high-contrast .nav-link:hover {
+  background-color: var(--gray-200);
+}
+
+.high-contrast .nav-link.active {
+  color: var(--white);
+  background-color: var(--black);
+  border-bottom-color: var(--black);
+}
+
+.high-contrast .dropdown-menu {
+  border: 2px solid var(--black);
+  box-shadow: none;
+}
+
+.high-contrast .dropdown-item:hover {
+  background-color: var(--gray-200);
+}
+
+.high-contrast .dropdown-item.active {
+  color: var(--white);
+  background-color: var(--black);
+}
+
+.high-contrast .nav-tabs {
+  border-bottom-color: var(--black);
+}
+
+.high-contrast .nav-tabs .nav-link.active {
+  border-color: var(--black) var(--black) var(--white);
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  .nav-primary {
+    flex-direction: column;
+  }
+  
+  .nav-mobile-toggle {
+    display: block;
+  }
+  
+  .nav-collapse {
+    display: none;
+    width: 100%;
+  }
+  
+  .nav-collapse.show {
+    display: block;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    border: 0;
+    box-shadow: none;
+  }
+}

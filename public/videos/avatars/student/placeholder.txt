@@ -1,0 +1,13 @@
+This is a placeholder for student peer avatar videos.
+
+In production, this directory would contain MP4 video files with the following naming convention:
+student_[name]_[category]_[clip_id].mp4
+
+Examples:
+- student_alex_introduction_welcome.mp4
+- student_jamie_instructional_assessment_tools.mp4
+- student_alex_emotional_support_dealing_with_stress.mp4
+- student_jamie_transition_starting_study_session.mp4
+- student_alex_peer_explanation_learning_styles.mp4
+
+These videos would be generated using HeyGen with appropriate student avatar models.

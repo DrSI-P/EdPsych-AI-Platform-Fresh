@@ -1,0 +1,293 @@
+/* Screen Reader Optimization Styles */
+
+/* Base screen reader optimization styles */
+.screen-reader-optimized {
+  --announcement-level: moderate;
+}
+
+/* Announcement levels */
+.announcement-minimal {
+  --announcement-level: minimal;
+}
+
+.announcement-moderate {
+  --announcement-level: moderate;
+}
+
+.announcement-verbose {
+  --announcement-level: verbose;
+}
+
+/* Screen reader only class - visually hidden but available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Ensure proper focus for screen reader users */
+.screen-reader-optimized *:focus {
+  outline: 3px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* Ensure proper heading hierarchy */
+.screen-reader-optimized h1 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+.screen-reader-optimized h2 {
+  font-size: 1.5rem;
+}
+
+.screen-reader-optimized h3 {
+  font-size: 1.25rem;
+}
+
+.screen-reader-optimized h4 {
+  font-size: 1.125rem;
+}
+
+.screen-reader-optimized h5 {
+  font-size: 1rem;
+}
+
+.screen-reader-optimized h6 {
+  font-size: 0.875rem;
+}
+
+/* Ensure proper link styling */
+.screen-reader-optimized a {
+  text-decoration: underline;
+  color: #0066cc;
+}
+
+.screen-reader-optimized a:hover,
+.screen-reader-optimized a:focus {
+  text-decoration: none;
+  background-color: #0066cc;
+  color: white;
+}
+
+/* Ensure proper form control styling */
+.screen-reader-optimized label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.screen-reader-optimized input,
+.screen-reader-optimized select,
+.screen-reader-optimized textarea {
+  border: 2px solid #666;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.screen-reader-optimized input:focus,
+.screen-reader-optimized select:focus,
+.screen-reader-optimized textarea:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.25);
+}
+
+/* Ensure proper table styling */
+.screen-reader-optimized table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.screen-reader-optimized caption {
+  font-weight: bold;
+  text-align: left;
+  padding: 0.5rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+
+.screen-reader-optimized th {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+  font-weight: bold;
+}
+
+.screen-reader-optimized td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+/* Ensure proper list styling */
+.screen-reader-optimized ul,
+.screen-reader-optimized ol {
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.screen-reader-optimized li {
+  margin-bottom: 0.25rem;
+}
+
+/* Ensure proper button styling */
+.screen-reader-optimized button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.screen-reader-optimized button:hover,
+.screen-reader-optimized button:focus {
+  background-color: #0052a3;
+}
+
+.screen-reader-optimized button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Ensure proper image styling */
+.screen-reader-optimized img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure proper blockquote styling */
+.screen-reader-optimized blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  margin-left: 0;
+  font-style: italic;
+}
+
+/* Ensure proper code styling */
+.screen-reader-optimized code {
+  background-color: #f0f0f0;
+  padding: 0.25rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Ensure proper pre styling */
+.screen-reader-optimized pre {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: monospace;
+}
+
+/* Ensure proper fieldset styling */
+.screen-reader-optimized fieldset {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.screen-reader-optimized legend {
+  padding: 0 0.5rem;
+  font-weight: bold;
+}
+
+/* Ensure proper details/summary styling */
+.screen-reader-optimized details {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.screen-reader-optimized summary {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Ensure proper mark styling */
+.screen-reader-optimized mark {
+  background-color: yellow;
+  padding: 0.25rem;
+}
+
+/* Ensure proper abbr styling */
+.screen-reader-optimized abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* Ensure proper dialog styling */
+.screen-reader-optimized dialog {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure proper progress styling */
+.screen-reader-optimized progress {
+  width: 100%;
+  height: 1rem;
+  border-radius: 4px;
+}
+
+/* Ensure proper meter styling */
+.screen-reader-optimized meter {
+  width: 100%;
+  height: 1rem;
+  border-radius: 4px;
+}
+
+/* Ensure proper audio/video styling */
+.screen-reader-optimized audio,
+.screen-reader-optimized video {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Ensure proper iframe styling */
+.screen-reader-optimized iframe {
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Ensure proper canvas styling */
+.screen-reader-optimized canvas {
+  border: 1px solid #ccc;
+  max-width: 100%;
+}
+
+/* Ensure proper svg styling */
+.screen-reader-optimized svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure proper figure/figcaption styling */
+.screen-reader-optimized figure {
+  margin: 0 0 1rem 0;
+}
+
+.screen-reader-optimized figcaption {
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Ensure proper hr styling */
+.screen-reader-optimized hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1rem 0;
+}

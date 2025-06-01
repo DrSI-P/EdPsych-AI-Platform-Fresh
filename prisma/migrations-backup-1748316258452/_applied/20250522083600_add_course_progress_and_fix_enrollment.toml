@@ -1,0 +1,2 @@
+migration_name = "20250522083600_add_course_progress_and_fix_enrollment"
+applied_at = 1748010968

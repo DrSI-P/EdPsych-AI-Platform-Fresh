@@ -1,0 +1,499 @@
+/* EdPsych-AI-Education-Platform Brand Design System
+ * A comprehensive design system for the EdPsych-AI-Education-Platform
+ * that creates a globally appealing, distinctive, and engaging visual identity
+ * for all user groups including students, parents, teachers, and professionals.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brand Color Palette */
+@layer base {
+  :root {
+    /* Primary Colors */
+    --primary-purple: 260 80% 50%; /* Main brand color - Educational Psychology */
+    --primary-blue: 220 85% 45%; /* Knowledge and learning */
+    --primary-teal: 175 75% 40%; /* Growth and development */
+    
+    /* Secondary Colors */
+    --secondary-coral: 15 85% 60%; /* Engagement and creativity */
+    --secondary-amber: 40 90% 55%; /* Positivity and energy */
+    --secondary-green: 145 65% 40%; /* Progress and success */
+    
+    /* Neutral Colors */
+    --neutral-50: 220 20% 98%;
+    --neutral-100: 220 15% 95%;
+    --neutral-200: 220 15% 90%;
+    --neutral-300: 220 10% 80%;
+    --neutral-400: 220 10% 65%;
+    --neutral-500: 220 10% 50%;
+    --neutral-600: 220 10% 40%;
+    --neutral-700: 220 10% 30%;
+    --neutral-800: 220 10% 20%;
+    --neutral-900: 220 10% 10%;
+    
+    /* Age-specific accent colors */
+    --nursery-accent: 320 90% 65%; /* Bright pink for nursery */
+    --early-primary-accent: 280 85% 60%; /* Purple for early primary */
+    --late-primary-accent: 200 85% 50%; /* Blue for late primary */
+    --secondary-accent: 230 70% 45%; /* Navy for secondary */
+    
+    /* Semantic Colors */
+    --success: 145 65% 40%;
+    --warning: 40 90% 55%;
+    --error: 355 85% 55%;
+    --info: 220 85% 45%;
+    
+    /* UI Component Variables */
+    --background: var(--neutral-50);
+    --foreground: var(--neutral-900);
+    --card: var(--neutral-50);
+    --card-foreground: var(--neutral-900);
+    --popover: var(--neutral-50);
+    --popover-foreground: var(--neutral-900);
+    --primary: var(--primary-purple);
+    --primary-foreground: var(--neutral-50);
+    --secondary: var(--neutral-100);
+    --secondary-foreground: var(--neutral-900);
+    --muted: var(--neutral-100);
+    --muted-foreground: var(--neutral-500);
+    --accent: var(--neutral-100);
+    --accent-foreground: var(--primary-purple);
+    --destructive: var(--error);
+    --destructive-foreground: var(--neutral-50);
+    --border: var(--neutral-200);
+    --input: var(--neutral-200);
+    --ring: var(--primary-purple);
+    
+    /* Accessibility */
+    --focus-ring: 3px solid hsl(var(--primary-purple));
+    --radius: 0.5rem;
+  }
+
+  /* Dark Mode */
+  .dark {
+    --background: var(--neutral-900);
+    --foreground: var(--neutral-50);
+    --card: var(--neutral-800);
+    --card-foreground: var(--neutral-50);
+    --popover: var(--neutral-800);
+    --popover-foreground: var(--neutral-50);
+    --primary: 260 70% 60%; /* Adjusted for dark mode */
+    --primary-foreground: var(--neutral-50);
+    --secondary: var(--neutral-700);
+    --secondary-foreground: var(--neutral-50);
+    --muted: var(--neutral-700);
+    --muted-foreground: var(--neutral-400);
+    --accent: var(--neutral-700);
+    --accent-foreground: var(--neutral-50);
+    --destructive: 355 70% 60%; /* Adjusted for dark mode */
+    --destructive-foreground: var(--neutral-50);
+    --border: var(--neutral-700);
+    --input: var(--neutral-700);
+    --ring: 260 70% 60%;
+  }
+  
+  /* High Contrast Mode */
+  .high-contrast {
+    --background: #ffffff;
+    --foreground: #000000;
+    --primary: 260 100% 50%;
+    --primary-foreground: #ffffff;
+    --secondary: 0 0% 0%;
+    --secondary-foreground: #ffffff;
+    --border: #000000;
+    --focus-ring: 3px solid #000000;
+  }
+}
+
+/* Define custom utility classes */
+@layer utilities {
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+  
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+  
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+  
+  .text-white {
+    color: #ffffff;
+  }
+  
+  .text-card-foreground {
+    color: hsl(var(--card-foreground));
+  }
+  
+  .text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .text-secondary-foreground {
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .text-accent-foreground {
+    color: hsl(var(--accent-foreground));
+  }
+  
+  .border-border {
+    border-color: hsl(var(--border));
+  }
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-neutral-50 text-neutral-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg;
+  }
+  
+  /* Focus styles for keyboard navigation */
+  :focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Component Styles */
+@layer components {
+  /* Cards */
+  .card {
+    @apply rounded-lg border bg-white text-neutral-900 shadow-sm;
+  }
+  
+  /* Age-specific UI Components */
+  .nursery-ui {
+    @apply rounded-xl border-4 shadow-md;
+    border-color: hsl(var(--nursery-accent));
+    background-color: hsl(var(--nursery-accent) / 0.1);
+  }
+  
+  .early-primary-ui {
+    @apply rounded-lg border-2 shadow-md;
+    border-color: hsl(var(--early-primary-accent));
+    background-color: hsl(var(--early-primary-accent) / 0.1);
+  }
+  
+  .late-primary-ui {
+    @apply rounded-md border shadow-sm;
+    border-color: hsl(var(--late-primary-accent));
+    background-color: hsl(var(--late-primary-accent) / 0.05);
+  }
+  
+  .secondary-ui {
+    @apply rounded-md border shadow-sm;
+    border-color: hsl(var(--secondary-accent));
+    background-color: hsl(var(--secondary-accent) / 0.05);
+  }
+  
+  /* Learning Style Indicators */
+  .visual-indicator {
+    @apply border-l-4 pl-4;
+    border-color: hsl(var(--primary-blue));
+  }
+  
+  .auditory-indicator {
+    @apply border-l-4 pl-4;
+    border-color: hsl(var(--secondary-coral));
+  }
+  
+  .kinesthetic-indicator {
+    @apply border-l-4 pl-4;
+    border-color: hsl(var(--secondary-amber));
+  }
+  
+  .reading-writing-indicator {
+    @apply border-l-4 pl-4;
+    border-color: hsl(var(--primary-purple));
+  }
+  
+  /* Interactive Elements */
+  .interactive-element {
+    @apply transition-all duration-200;
+  }
+  
+  .interactive-element:hover {
+    @apply transform -translate-y-1;
+  }
+  
+  /* Progress Indicators */
+  .progress-bar {
+    @apply h-2 rounded-full bg-neutral-200 overflow-hidden;
+  }
+  
+  .progress-bar-fill {
+    @apply h-full rounded-full;
+    background: linear-gradient(90deg, 
+      hsl(var(--primary-purple)), 
+      hsl(var(--primary-blue))
+    );
+  }
+  
+  /* Achievement Badges */
+  .achievement-badge {
+    @apply inline-flex items-center justify-center rounded-full p-1;
+    background: linear-gradient(135deg, 
+      hsl(var(--secondary-amber)), 
+      hsl(var(--secondary-coral))
+    );
+  }
+  
+  .achievement-badge-inner {
+    @apply rounded-full bg-white p-2;
+  }
+  
+  /* Navigation */
+  .nav-item {
+    @apply px-4 py-2 rounded-md transition-colors;
+  }
+  
+  .nav-item:hover {
+    @apply bg-neutral-100 text-neutral-900;
+  }
+  
+  .nav-item.active {
+    @apply bg-primary text-white;
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    background-color: hsl(var(--primary));
+    color: white;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+  }
+  
+  .btn-secondary {
+    @apply bg-neutral-100 text-neutral-900 rounded-md px-4 py-2 font-medium;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-neutral-200;
+  }
+  
+  .btn-outline {
+    @apply border border-neutral-200 bg-white rounded-md px-4 py-2 font-medium;
+  }
+  
+  .btn-outline:hover {
+    @apply bg-neutral-100 text-neutral-900;
+  }
+  
+  .btn-ghost {
+    @apply rounded-md px-4 py-2 font-medium;
+  }
+  
+  .btn-ghost:hover {
+    @apply bg-neutral-100 text-neutral-900;
+  }
+  
+  /* Nursery-specific buttons */
+  .btn-nursery {
+    @apply rounded-full px-6 py-3 text-lg font-bold shadow-md;
+    background: linear-gradient(135deg, 
+      hsl(var(--nursery-accent)), 
+      hsl(var(--primary-purple))
+    );
+    color: white;
+  }
+  
+  /* Early Primary-specific buttons */
+  .btn-early-primary {
+    @apply rounded-xl px-5 py-2.5 text-base font-semibold shadow-md;
+    background: linear-gradient(135deg, 
+      hsl(var(--early-primary-accent)), 
+      hsl(var(--primary-purple))
+    );
+    color: white;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  /* Animation utilities */
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s infinite;
+  }
+  
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s infinite;
+  }
+  
+  @keyframes pulse-subtle {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  /* Gradient text */
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, 
+      hsl(var(--primary-purple)), 
+      hsl(var(--primary-blue))
+    );
+  }
+  
+  /* Accessibility utilities */
+  .reduced-motion {
+    @apply motion-reduce:transform-none motion-reduce:transition-none;
+  }
+  
+  /* Dyslexic-friendly text */
+  .dyslexic-font {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+  
+  a {
+    text-decoration: underline;
+    color: #000;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  img {
+    page-break-inside: avoid;
+    max-width: 100% !important;
+  }
+  
+  table, figure {
+    page-break-inside: avoid;
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  .visual-indicator,
+  .auditory-indicator,
+  .kinesthetic-indicator,
+  .reading-writing-indicator {
+    @apply border-l-0 border-r-4 pl-0 pr-4;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Animations - with reduced motion support */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes scale-in {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+}

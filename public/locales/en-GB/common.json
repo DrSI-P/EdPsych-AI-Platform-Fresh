@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "EdPsych Connect",
+    "tagline": "Revolutionizing learning through personalized, evidence-based educational psychology resources"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "resources": "Resources",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Log In",
+    "signup": "Sign Up",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "resources": "Resources",
+    "legal": "Legal",
+    "copyright": "© {{year}} EdPsych Connect Limited. All rights reserved.",
+    "tagline": "Designed and developed with evidence-based educational psychology principles",
+    "cookieSettings": "Cookie Settings"
+  },
+  "buttons": {
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next"
+  },
+  "accessibility": {
+    "skipToContent": "Skip to content",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "increaseText": "Increase Text Size",
+    "decreaseText": "Decrease Text Size",
+    "highContrast": "High Contrast Mode"
+  },
+  "errors": {
+    "pageNotFound": "Page Not Found",
+    "serverError": "Server Error",
+    "goHome": "Return to Home",
+    "tryAgain": "Try Again",
+    "formError": "There was an error with your submission. Please check the form and try again."
+  },
+  "loading": {
+    "default": "Loading...",
+    "content": "Loading content...",
+    "resources": "Loading resources...",
+    "processing": "Processing..."
+  },
+  "uk": {
+    "education": {
+      "keyStages": {
+        "eyfs": "Early Years Foundation Stage",
+        "ks1": "Key Stage 1",
+        "ks2": "Key Stage 2",
+        "ks3": "Key Stage 3",
+        "ks4": "Key Stage 4",
+        "ks5": "Key Stage 5"
+      },
+      "schoolTypes": {
+        "primary": "Primary School",
+        "secondary": "Secondary School",
+        "college": "College",
+        "specialSchool": "Special School",
+        "pupilReferralUnit": "Pupil Referral Unit"
+      }
+    }
+  }
+}

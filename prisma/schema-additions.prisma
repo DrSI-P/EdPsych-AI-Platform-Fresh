@@ -1,0 +1,89 @@
+// FAQ Chatbot Models
+model FAQCategory {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  questions   FAQQuestion[]
+}
+
+model FAQQuestion {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String   @db.Text
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  categoryId  String
+  category    FAQCategory @relation(fields: [categoryId], references: [id])
+  
+  // Metadata
+  keywords    String[]
+  viewCount   Int      @default(0)
+  helpfulVotes Int     @default(0)
+  notHelpfulVotes Int  @default(0)
+  
+  // UK Education specific fields
+  keyStage    String?
+  curriculumArea String?
+  
+  // AI training data
+  isTrainingData Boolean @default(true)
+}
+
+model ChatSession {
+  id          String   @id @default(cuid())
+  sessionToken String  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  messages    ChatMessage[]
+  
+  // Session metadata
+  title       String?
+  isArchived  Boolean  @default(false)
+  rating      Int?     // User rating of the chat session (1-5)
+  feedback    String?  // User feedback on the chat session
+}
+
+model ChatMessage {
+  id          String   @id @default(cuid())
+  content     String   @db.Text
+  role        String   // 'user', 'assistant', or 'system'
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  sessionId   String
+  session     ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  // Message metadata
+  referencedFAQs String[] // IDs of FAQs referenced in this message
+  sources     Json?    // Sources used to generate this message
+}
+
+model ChatbotConfig {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  value       Json
+  description String?
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
+
+model ChatbotTrainingLog {
+  id          String   @id @default(cuid())
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  status      String   // 'pending', 'in-progress', 'completed', 'failed'
+  details     Json?
+  updatedBy   String?
+}

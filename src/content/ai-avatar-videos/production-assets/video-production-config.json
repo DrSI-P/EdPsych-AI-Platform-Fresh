@@ -1,0 +1,227 @@
+{
+  "adminOnboarding": {
+    "title": "Administrator Onboarding: System Configuration",
+    "provider": "veed",
+    "format": {
+      "resolution": "1080p",
+      "outputFormat": "mp4",
+      "aspectRatio": "16:9"
+    },
+    "avatar": {
+      "name": "Dr. Scott",
+      "style": "professional",
+      "outfit": "business",
+      "background": "office"
+    },
+    "accessibility": {
+      "subtitles": true,
+      "subtitleLanguage": "en-GB",
+      "transcript": true,
+      "readingLevel": "professional"
+    },
+    "scenes": [
+      {
+        "type": "intro",
+        "duration": 10,
+        "background": "office_with_branding",
+        "avatarPosition": "centre",
+        "text": "Welcome to the EdPsych-AI-Education-Platform administrator training series. I'm Dr. Scott, and in this video, I'll guide you through the system configuration process to ensure your platform is optimally set up for your educational institution."
+      },
+      {
+        "type": "screencast",
+        "duration": 15,
+        "screenContent": "dashboard_view",
+        "voiceOver": "As a platform administrator, you have access to powerful configuration options that allow you to customise the system to meet your specific requirements. Let's explore these settings together."
+      },
+      {
+        "type": "screencast",
+        "duration": 12,
+        "screenContent": "admin_panel_navigation",
+        "highlightArea": "profile_icon",
+        "voiceOver": "To begin, access the Admin Panel by clicking on your profile icon in the top right corner and selecting \"Admin Settings\" from the dropdown menu. This area is restricted to users with administrator privileges."
+      }
+    ],
+    "visualAssets": [
+      "dashboard_view.png",
+      "admin_panel_navigation.png",
+      "institution_settings.png",
+      "user_management.png",
+      "content_management.png",
+      "security_settings.png",
+      "integration_settings.png",
+      "notification_settings.png",
+      "backup_recovery.png"
+    ]
+  },
+  "teacherTraining": {
+    "title": "Teacher Training: Content Creation",
+    "provider": "veed",
+    "format": {
+      "resolution": "1080p",
+      "outputFormat": "mp4",
+      "aspectRatio": "16:9"
+    },
+    "avatar": {
+      "name": "Dr. Scott",
+      "style": "professional",
+      "outfit": "casual_professional",
+      "background": "classroom"
+    },
+    "accessibility": {
+      "subtitles": true,
+      "subtitleLanguage": "en-GB",
+      "transcript": true,
+      "readingLevel": "professional"
+    },
+    "scenes": [
+      {
+        "type": "intro",
+        "duration": 10,
+        "background": "classroom_with_branding",
+        "avatarPosition": "centre",
+        "text": "Welcome to the EdPsych-AI-Education-Platform teacher training series. I'm Dr. Scott, and in this video, I'll show you how to create engaging, curriculum-aligned content for your students."
+      },
+      {
+        "type": "screencast",
+        "duration": 15,
+        "screenContent": "teacher_dashboard",
+        "voiceOver": "The platform provides powerful tools to develop educational materials that adapt to different learning styles and needs. Let's explore how to create effective content together."
+      },
+      {
+        "type": "screencast",
+        "duration": 12,
+        "screenContent": "content_creation_navigation",
+        "highlightArea": "create_button",
+        "voiceOver": "To begin, access the Content Creation area by clicking \"Create\" in the main navigation menu. This will open the content studio where you can develop various types of educational materials."
+      }
+    ],
+    "visualAssets": [
+      "teacher_dashboard.png",
+      "content_creation_navigation.png",
+      "content_types.png",
+      "lesson_creation.png",
+      "lesson_structure.png",
+      "adding_activities.png",
+      "assessment_creation.png",
+      "learning_style_adaptations.png",
+      "accessibility_options.png",
+      "preview_mode.png",
+      "publishing_options.png"
+    ]
+  },
+  "studentTutorial": {
+    "title": "Student Tutorial: Getting Started (Key Stage 2)",
+    "provider": "veed",
+    "format": {
+      "resolution": "1080p",
+      "outputFormat": "mp4",
+      "aspectRatio": "16:9"
+    },
+    "avatar": {
+      "name": "Dr. Scott",
+      "style": "friendly",
+      "outfit": "casual",
+      "background": "classroom_bright"
+    },
+    "accessibility": {
+      "subtitles": true,
+      "subtitleLanguage": "en-GB",
+      "transcript": true,
+      "readingLevel": "primary"
+    },
+    "scenes": [
+      {
+        "type": "intro",
+        "duration": 10,
+        "background": "friendly_classroom",
+        "avatarPosition": "centre",
+        "text": "Hello there! I'm Dr. Scott, and I'm going to show you how to use the EdPsych-AI-Education-Platform. This amazing learning tool is designed especially for you, and we're going to explore how it works together."
+      },
+      {
+        "type": "screencast",
+        "duration": 15,
+        "screenContent": "student_login",
+        "highlightArea": "login_fields",
+        "voiceOver": "Let's start by logging in. Your teacher will have given you a username and password. Type these into the boxes you can see on the screen. If you've forgotten your password, don't worry! Just click the \"Forgot Password\" button, and your teacher can help you reset it."
+      },
+      {
+        "type": "screencast",
+        "duration": 12,
+        "screenContent": "student_dashboard",
+        "voiceOver": "Great job! You've logged in, and this is your dashboard. Think of it as your own personal learning space. Let's look at what you can see here."
+      }
+    ],
+    "visualAssets": [
+      "student_login.png",
+      "student_dashboard.png",
+      "todays_learning.png",
+      "progress_section.png",
+      "achievements_section.png",
+      "subjects_navigation.png",
+      "lesson_library.png",
+      "open_lesson.png",
+      "help_button.png",
+      "complete_activity.png",
+      "settings_menu.png",
+      "accessibility_options_student.png"
+    ]
+  },
+  "parentGuide": {
+    "title": "Parent/Guardian Guide: Monitoring Your Child's Progress",
+    "provider": "veed",
+    "format": {
+      "resolution": "1080p",
+      "outputFormat": "mp4",
+      "aspectRatio": "16:9"
+    },
+    "avatar": {
+      "name": "Dr. Scott",
+      "style": "approachable",
+      "outfit": "smart_casual",
+      "background": "home_office"
+    },
+    "accessibility": {
+      "subtitles": true,
+      "subtitleLanguage": "en-GB",
+      "transcript": true,
+      "readingLevel": "general"
+    },
+    "scenes": [
+      {
+        "type": "intro",
+        "duration": 10,
+        "background": "home_setting",
+        "avatarPosition": "centre",
+        "text": "Welcome to the EdPsych-AI-Education-Platform parent guidance series. I'm Dr. Scott, and in this video, I'll show you how to effectively monitor your child's educational progress using the platform's parent portal."
+      },
+      {
+        "type": "screencast",
+        "duration": 15,
+        "screenContent": "parent_login",
+        "voiceOver": "To begin, log in to the parent portal using the credentials provided by your child's school. If you haven't received these, please contact the school administrator."
+      },
+      {
+        "type": "screencast",
+        "duration": 12,
+        "screenContent": "parent_dashboard",
+        "voiceOver": "Once logged in, you'll see your parent dashboard. This provides an overview of your child's educational journey. If you have multiple children using the platform, you can switch between their profiles using the selector at the top of the screen."
+      }
+    ],
+    "visualAssets": [
+      "parent_login.png",
+      "parent_dashboard.png",
+      "progress_overview.png",
+      "subject_progress.png",
+      "detailed_subject_view.png",
+      "recent_activities.png",
+      "assessment_results.png",
+      "assessment_details.png",
+      "learning_style_section.png",
+      "learning_style_details.png",
+      "communication_tools.png",
+      "messaging_interface.png",
+      "goals_interface.png",
+      "resources_library.png"
+    ]
+  }
+}

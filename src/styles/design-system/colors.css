@@ -1,0 +1,184 @@
+/**
+ * EdPsych Connect Design System
+ * Color System
+ * 
+ * This file defines the comprehensive color system for the EdPsych Connect platform,
+ * including primary brand colors, secondary subject-specific colors, accent colors,
+ * and neutral colors for text and backgrounds.
+ */
+
+:root {
+  /* Primary Colors - Purple Palette (Brand Colors) */
+  --purple-100: #F4EEFF;
+  --purple-200: #DCD6FF;
+  --purple-300: #B8A9FF;
+  --purple-400: #9377FF;
+  --purple-500: #7C4DFF; /* Primary brand purple */
+  --purple-600: #6A35F2;
+  --purple-700: #5B24E0;
+  --purple-800: #4A1FB8;
+  --purple-900: #371A80;
+  
+  /* Secondary Colors - Subject Area Palettes */
+  
+  /* Teal Palette (STEM Subjects) */
+  --teal-100: #E0F7F6;
+  --teal-200: #B2EBE6;
+  --teal-300: #80DEDB;
+  --teal-400: #4DD0CB;
+  --teal-500: #26A69A;
+  --teal-600: #00897B;
+  --teal-700: #00796B;
+  --teal-800: #00695C;
+  --teal-900: #004D40;
+  
+  /* Amber Palette (Humanities) */
+  --amber-100: #FFF8E1;
+  --amber-200: #FFECB3;
+  --amber-300: #FFE082;
+  --amber-400: #FFD54F;
+  --amber-500: #FFC107;
+  --amber-600: #FFB300;
+  --amber-700: #FFA000;
+  --amber-800: #FF8F00;
+  --amber-900: #FF6F00;
+  
+  /* Rose Palette (Arts) */
+  --rose-100: #FCE4EC;
+  --rose-200: #F8BBD0;
+  --rose-300: #F48FB1;
+  --rose-400: #F06292;
+  --rose-500: #EC407A;
+  --rose-600: #D81B60;
+  --rose-700: #C2185B;
+  --rose-800: #AD1457;
+  --rose-900: #880E4F;
+  
+  /* Accent Colors */
+  --accent-blue: #2979FF;
+  --accent-green: #00C853;
+  --accent-red: #FF1744;
+  --accent-yellow: #FFD600;
+  
+  /* Neutral Colors */
+  --white: #FFFFFF;
+  --gray-100: #F5F5F5;
+  --gray-200: #EEEEEE;
+  --gray-300: #E0E0E0;
+  --gray-400: #BDBDBD;
+  --gray-500: #9E9E9E;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #212121;
+  --black: #000000;
+  
+  /* Semantic Colors */
+  --color-primary: var(--purple-500);
+  --color-primary-light: var(--purple-300);
+  --color-primary-dark: var(--purple-700);
+  
+  --color-secondary: var(--teal-500);
+  --color-secondary-light: var(--teal-300);
+  --color-secondary-dark: var(--teal-700);
+  
+  --color-background: var(--white);
+  --color-surface: var(--white);
+  --color-error: var(--accent-red);
+  --color-success: var(--accent-green);
+  --color-warning: var(--accent-yellow);
+  --color-info: var(--accent-blue);
+  
+  /* Text Colors */
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-700);
+  --text-tertiary: var(--gray-500);
+  --text-disabled: var(--gray-400);
+  --text-on-primary: var(--white);
+  --text-on-secondary: var(--white);
+  
+  /* Border Colors */
+  --border-light: var(--gray-200);
+  --border-medium: var(--gray-300);
+  --border-dark: var(--gray-400);
+  
+  /* Shadow Colors */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-dark: rgba(0, 0, 0, 0.2);
+}
+
+/* Age-Appropriate Color Variations */
+
+/* Nursery (Ages 3-5) */
+.age-nursery {
+  --color-primary: #8C52FF; /* Slightly brighter purple */
+  --color-background: var(--purple-100);
+  --border-radius: 12px;
+  
+  /* Brighter accent colors for nursery */
+  --accent-blue: #2979FF;
+  --accent-green: #00E676;
+  --accent-red: #FF5252;
+  --accent-yellow: #FFEA00;
+}
+
+/* Early Primary (Ages 5-7) */
+.age-early-primary {
+  --color-primary: #7C4DFF; /* Standard purple */
+  --color-background: #FAFAFA;
+  --border-radius: 8px;
+}
+
+/* Late Primary (Ages 8-11) */
+.age-late-primary {
+  --color-primary: #7C4DFF; /* Standard purple */
+  --color-background: var(--white);
+  --border-radius: 6px;
+}
+
+/* Secondary (Ages 12-18) */
+.age-secondary {
+  --color-primary: #6A35F2; /* Slightly darker purple */
+  --color-background: var(--white);
+  --border-radius: 4px;
+}
+
+/* Subject-Specific Color Themes */
+
+.theme-stem {
+  --theme-color: var(--teal-500);
+  --theme-color-light: var(--teal-100);
+  --theme-color-dark: var(--teal-700);
+}
+
+.theme-humanities {
+  --theme-color: var(--amber-500);
+  --theme-color-light: var(--amber-100);
+  --theme-color-dark: var(--amber-700);
+}
+
+.theme-arts {
+  --theme-color: var(--rose-500);
+  --theme-color-light: var(--rose-100);
+  --theme-color-dark: var(--rose-700);
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --color-primary: #0000FF; /* Blue */
+  --color-secondary: #008000; /* Green */
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --text-tertiary: #000000;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --border-light: #000000;
+  --border-medium: #000000;
+  --border-dark: #000000;
+  --color-background: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-error: #FF0000;
+  --color-success: #008000;
+  --color-warning: #FF8000;
+  --color-info: #0000FF;
+}

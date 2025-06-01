@@ -1,0 +1,139 @@
+/* Global styles for EdPsych Connect */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Accessibility improvements */
+:focus {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+  body {
+    /* Add padding for iOS safe areas */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Offline indicator styles */
+.offline-indicator {
+  background-color: #f59e0b;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Toast notification styles */
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 1rem;
+  background: white;
+  color: black;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+  max-width: 24rem;
+}
+
+/* Educational content styles */
+.educational-content {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.educational-content h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.educational-content h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.educational-content p {
+  margin-bottom: 1.25rem;
+}
+
+.educational-content ul,
+.educational-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.educational-content ul {
+  list-style-type: disc;
+}
+
+.educational-content ol {
+  list-style-type: decimal;
+}
+
+/* Print styles for educational resources */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .educational-content {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+}
+
+/* Animation for PWA install prompt */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.install-prompt {
+  animation: slideUp 0.3s ease-out;
+}

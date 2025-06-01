@@ -1,0 +1,214 @@
+/* High Contrast Mode Styles */
+
+/* Base high contrast styles */
+.high-contrast {
+  --text-color: #000000;
+  --background-color: #ffffff;
+  --link-color: #0000EE;
+  --border-color: #000000;
+  --focus-color: #0000EE;
+}
+
+.dark-high-contrast {
+  --text-color: #ffffff;
+  --background-color: #000000;
+  --link-color: #ffff00;
+  --border-color: #ffffff;
+  --focus-color: #ffff00;
+}
+
+.yellow-black {
+  --text-color: #ffff00;
+  --background-color: #000000;
+  --link-color: #00ffff;
+  --border-color: #ffff00;
+  --focus-color: #00ffff;
+}
+
+.black-yellow {
+  --text-color: #000000;
+  --background-color: #ffff00;
+  --link-color: #0000EE;
+  --border-color: #000000;
+  --focus-color: #0000EE;
+}
+
+.blue-yellow {
+  --text-color: #0000ff;
+  --background-color: #ffff00;
+  --link-color: #800080;
+  --border-color: #0000ff;
+  --focus-color: #800080;
+}
+
+.custom-contrast {
+  --text-color: var(--custom-text-color, #ffffff);
+  --background-color: var(--custom-background-color, #000000);
+  --link-color: var(--custom-link-color, #ffff00);
+  --border-color: var(--custom-text-color, #ffffff);
+  --focus-color: var(--custom-link-color, #ffff00);
+}
+
+/* Apply high contrast styles to elements */
+.high-contrast,
+.dark-high-contrast,
+.yellow-black,
+.black-yellow,
+.blue-yellow,
+.custom-contrast {
+  color: var(--text-color) !important;
+  background-color: var(--background-color) !important;
+  font-size: calc(1rem * var(--text-size-adjust, 100) / 100) !important;
+}
+
+.high-contrast *,
+.dark-high-contrast *,
+.yellow-black *,
+.black-yellow *,
+.blue-yellow *,
+.custom-contrast * {
+  color: var(--text-color) !important;
+  background-color: var(--background-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.high-contrast a,
+.dark-high-contrast a,
+.yellow-black a,
+.black-yellow a,
+.blue-yellow a,
+.custom-contrast a {
+  color: var(--link-color) !important;
+  text-decoration: underline !important;
+}
+
+.high-contrast button,
+.dark-high-contrast button,
+.yellow-black button,
+.black-yellow button,
+.blue-yellow button,
+.custom-contrast button {
+  color: var(--background-color) !important;
+  background-color: var(--text-color) !important;
+  border: 2px solid var(--border-color) !important;
+  outline: 2px solid transparent !important;
+}
+
+.high-contrast button:focus,
+.dark-high-contrast button:focus,
+.yellow-black button:focus,
+.black-yellow button:focus,
+.blue-yellow button:focus,
+.custom-contrast button:focus {
+  outline: 2px solid var(--focus-color) !important;
+  outline-offset: 2px !important;
+}
+
+.high-contrast input,
+.dark-high-contrast input,
+.yellow-black input,
+.black-yellow input,
+.blue-yellow input,
+.custom-contrast input,
+.high-contrast textarea,
+.dark-high-contrast textarea,
+.yellow-black textarea,
+.black-yellow textarea,
+.blue-yellow textarea,
+.custom-contrast textarea,
+.high-contrast select,
+.dark-high-contrast select,
+.yellow-black select,
+.black-yellow select,
+.blue-yellow select,
+.custom-contrast select {
+  color: var(--text-color) !important;
+  background-color: var(--background-color) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+/* Preview container specific styles */
+.preview-high-contrast {
+  color: var(--text-color) !important;
+  background-color: var(--background-color) !important;
+}
+
+.preview-high-contrast a {
+  color: var(--link-color) !important;
+  text-decoration: underline !important;
+}
+
+/* Reduced animations */
+.reduce-animations * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Increase contrast for focus states */
+.high-contrast *:focus,
+.dark-high-contrast *:focus,
+.yellow-black *:focus,
+.black-yellow *:focus,
+.blue-yellow *:focus,
+.custom-contrast *:focus {
+  outline: 3px solid var(--focus-color) !important;
+  outline-offset: 2px !important;
+}
+
+/* Ensure text remains visible during webfont load */
+.high-contrast,
+.dark-high-contrast,
+.yellow-black,
+.black-yellow,
+.blue-yellow,
+.custom-contrast {
+  font-display: swap !important;
+}
+
+/* Ensure sufficient contrast for placeholder text */
+.high-contrast ::placeholder,
+.dark-high-contrast ::placeholder,
+.yellow-black ::placeholder,
+.black-yellow ::placeholder,
+.blue-yellow ::placeholder,
+.custom-contrast ::placeholder {
+  color: var(--text-color) !important;
+  opacity: 0.7 !important;
+}
+
+/* Ensure form controls have visible boundaries */
+.high-contrast input[type="checkbox"],
+.dark-high-contrast input[type="checkbox"],
+.yellow-black input[type="checkbox"],
+.black-yellow input[type="checkbox"],
+.blue-yellow input[type="checkbox"],
+.custom-contrast input[type="checkbox"],
+.high-contrast input[type="radio"],
+.dark-high-contrast input[type="radio"],
+.yellow-black input[type="radio"],
+.black-yellow input[type="radio"],
+.blue-yellow input[type="radio"],
+.custom-contrast input[type="radio"] {
+  border: 2px solid var(--border-color) !important;
+  outline: 2px solid transparent !important;
+}
+
+/* Ensure links are distinguishable */
+.high-contrast a:hover,
+.dark-high-contrast a:hover,
+.yellow-black a:hover,
+.black-yellow a:hover,
+.blue-yellow a:hover,
+.custom-contrast a:hover {
+  text-decoration: none !important;
+}
+
+/* Ensure contrast for disabled elements */
+.high-contrast [disabled],
+.dark-high-contrast [disabled],
+.yellow-black [disabled],
+.black-yellow [disabled],
+.blue-yellow [disabled],
+.custom-contrast [disabled] {
+  opacity: 0.5 !important;
+}

@@ -1,0 +1,130 @@
+/* Reduced Motion Mode Styles */
+
+/* Base reduced motion styles */
+.reduce-motion-minimal {
+  --animation-duration-adjust: 0.75;
+  --transition-duration-adjust: 0.75;
+}
+
+.reduce-motion-moderate {
+  --animation-duration-adjust: 0.5;
+  --transition-duration-adjust: 0.5;
+}
+
+.reduce-motion-strict {
+  --animation-duration-adjust: 0.25;
+  --transition-duration-adjust: 0.25;
+}
+
+.reduce-motion-custom {
+  --animation-duration-adjust: var(--transition-speed-adjust, 50) / 100;
+  --transition-duration-adjust: var(--transition-speed-adjust, 50) / 100;
+}
+
+/* Apply reduced motion styles to elements */
+.reduce-motion-minimal *,
+.reduce-motion-moderate *,
+.reduce-motion-strict *,
+.reduce-motion-custom * {
+  animation-duration: calc(var(--animation-duration-adjust) * 1s) !important;
+  transition-duration: calc(var(--transition-duration-adjust) * 0.3s) !important;
+}
+
+/* Strict and custom settings with no transitions */
+.reduce-motion-strict *,
+.reduce-motion-no-transitions * {
+  transition: none !important;
+}
+
+/* Strict and custom settings with no animations */
+.reduce-motion-strict *,
+.reduce-motion-no-essential * {
+  animation: none !important;
+}
+
+/* Custom settings with no hover effects */
+.reduce-motion-no-hover *:hover {
+  transform: none !important;
+  filter: none !important;
+  opacity: inherit !important;
+  background-color: inherit !important;
+}
+
+/* Prevent autoplay for videos and animations */
+.reduce-motion-moderate video[autoplay],
+.reduce-motion-strict video[autoplay],
+.reduce-motion-no-autoplay video[autoplay] {
+  autoplay: false !important;
+  pause: true !important;
+}
+
+/* Respect user's system preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Preview animation for demonstration */
+@keyframes bounce {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% - 2rem));
+  }
+}
+
+/* Ensure smooth scrolling is disabled */
+.reduce-motion-moderate,
+.reduce-motion-strict,
+.reduce-motion-custom {
+  scroll-behavior: auto !important;
+}
+
+/* Ensure carousels and sliders don't auto-advance */
+.reduce-motion-moderate [data-carousel-auto="true"],
+.reduce-motion-strict [data-carousel-auto="true"],
+.reduce-motion-no-autoplay [data-carousel-auto="true"] {
+  data-carousel-auto: false !important;
+}
+
+/* Ensure progress bars and loaders use reduced motion */
+.reduce-motion-moderate progress,
+.reduce-motion-strict progress,
+.reduce-motion-custom progress,
+.reduce-motion-moderate .loader,
+.reduce-motion-strict .loader,
+.reduce-motion-custom .loader {
+  transition: none !important;
+}
+
+/* Ensure parallax effects are disabled */
+.reduce-motion-moderate [data-parallax],
+.reduce-motion-strict [data-parallax],
+.reduce-motion-custom [data-parallax] {
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Ensure scroll animations are disabled */
+.reduce-motion-moderate [data-aos],
+.reduce-motion-strict [data-aos],
+.reduce-motion-custom [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Ensure CSS counters don't animate */
+.reduce-motion-moderate [data-count-animation],
+.reduce-motion-strict [data-count-animation],
+.reduce-motion-custom [data-count-animation] {
+  counter-increment: none !important;
+  transition: none !important;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdPsych Connect - Direct CSS Link</title>
+  <link rel="stylesheet" href="/styles/global.css">
+  <style>
+    /* Critical inline styles to ensure basic styling */
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #8b5cf6;
+      --secondary-dark: #7c3aed;
+    }
+    
+    .nav-item {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="direct-css-test">
+    <h1>EdPsych Connect CSS Test</h1>
+    <p>This page tests direct CSS linking to ensure styles are properly loaded.</p>
+    <div class="button-test">
+      <button class="btn-primary">Primary Button</button>
+      <a href="#" class="nav-item">Navigation Item</a>
+    </div>
+  </div>
+</body>
+</html>

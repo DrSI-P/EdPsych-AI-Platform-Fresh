@@ -1,0 +1,13 @@
+This is a placeholder for special needs support avatar videos.
+
+In production, this directory would contain MP4 video files with the following naming convention:
+special_needs_[name]_[category]_[clip_id].mp4
+
+Examples:
+- special_needs_sam_introduction_welcome.mp4
+- special_needs_jordan_instructional_executive_function_support.mp4
+- special_needs_sam_emotional_support_managing_frustration.mp4
+- special_needs_jordan_transition_preparing_for_transition.mp4
+- special_needs_sam_specialized_support_emotional_regulation.mp4
+
+These videos would be generated using HeyGen with appropriate special needs support avatar models.

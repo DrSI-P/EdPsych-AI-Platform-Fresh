@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80">
+  <style>
+    .logo-text { font-family: 'Arial', sans-serif; font-weight: bold; }
+    .primary { fill: #6366f1; }
+    .secondary { fill: #4f46e5; }
+    .accent { fill: #8b5cf6; }
+  </style>
+  <g>
+    <path class="primary" d="M20,20 C20,15 25,10 30,10 H50 C55,10 60,15 60,20 V60 C60,65 55,70 50,70 H30 C25,70 20,65 20,60 V20 Z" />
+    <path class="secondary" d="M30,25 L50,25 M30,40 L50,40 M30,55 L50,55" stroke="white" stroke-width="3" />
+    <circle class="accent" cx="40" cy="15" r="3" fill="white" />
+    <circle class="accent" cx="40" cy="65" r="3" fill="white" />
+  </g>
+  <text x="70" y="45" class="logo-text primary" font-size="24">EdPsych Connect</text>
+</svg>

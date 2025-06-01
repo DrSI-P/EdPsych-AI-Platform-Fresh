@@ -1,0 +1,55 @@
+// Blog-related models to add to schema.prisma
+
+model BlogPost {
+  id             String             @id @default(cuid())
+  title          String
+  slug           String             @unique
+  summary        String?
+  content        String             @db.Text
+  featuredImage  String?
+  status         String             @default("draft") // draft, published, archived
+  viewCount      Int                @default(0)
+  publishedAt    DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  authorId       String
+  tags           String[]
+  curriculumArea String?
+  keyStage       String?
+  
+  // Relations
+  author         User               @relation(fields: [authorId], references: [id])
+  categories     BlogPostCategory[]
+  relatedResources Json?
+}
+
+model BlogCategory {
+  id          String             @id @default(cuid())
+  name        String
+  slug        String             @unique
+  description String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  
+  // Relations
+  posts       BlogPostCategory[]
+}
+
+model BlogPostCategory {
+  id         String       @id @default(cuid())
+  postId     String
+  categoryId String
+  createdAt  DateTime     @default(now())
+  
+  // Relations
+  post       BlogPost     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category   BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  @@unique([postId, categoryId])
+}
+
+// Add these relations to the User model
+// model User {
+//   ...existing fields
+//   blogPosts BlogPost[]
+// }

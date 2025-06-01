@@ -1,0 +1,13 @@
+This is a placeholder for Dr. Scott's teacher avatar videos.
+
+In production, this directory would contain MP4 video files with the following naming convention:
+teacher_dr_scott_[category]_[clip_id].mp4
+
+Examples:
+- teacher_dr_scott_introduction_welcome.mp4
+- teacher_dr_scott_instructional_assessment_module.mp4
+- teacher_dr_scott_emotional_support_celebrating_achievement.mp4
+- teacher_dr_scott_transition_starting_session.mp4
+- teacher_dr_scott_full_length_executive_summary.mp4
+
+These videos would be generated using HeyGen with Dr. Scott's image and voice.

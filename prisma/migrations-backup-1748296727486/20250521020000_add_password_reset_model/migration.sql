@@ -1,0 +1,2 @@
+-- This is an empty migration to fix the migration history
+-- The actual schema changes were already applied by the 20250516234555_add_password_reset migration

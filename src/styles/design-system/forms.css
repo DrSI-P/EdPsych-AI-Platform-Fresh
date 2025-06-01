@@ -1,0 +1,470 @@
+/**
+ * EdPsych Connect Design System
+ * Form Elements
+ * 
+ * This file defines the comprehensive form element styles for the EdPsych Connect platform,
+ * including inputs, checkboxes, radio buttons, and other form controls with age-appropriate adaptations.
+ */
+
+/* Import base design system */
+@import './colors.css';
+@import './typography.css';
+
+/* Form Base Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.form-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--font-size-body-small);
+  color: var(--text-tertiary);
+}
+
+/* Text Inputs */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--white);
+  background-clip: padding-box;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius, 4px);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(124, 77, 255, 0.25);
+}
+
+.form-control::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: var(--gray-200);
+  opacity: 1;
+}
+
+/* Form Control Sizes */
+.form-control-sm {
+  padding: 0.5rem;
+  font-size: var(--font-size-body-small);
+}
+
+.form-control-lg {
+  padding: 1rem;
+  font-size: var(--font-size-body-large);
+}
+
+/* Form Control States */
+.form-control.is-valid {
+  border-color: var(--color-success);
+}
+
+.form-control.is-valid:focus {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 0.25rem rgba(0, 200, 83, 0.25);
+}
+
+.form-control.is-invalid {
+  border-color: var(--color-error);
+}
+
+.form-control.is-invalid:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 0.25rem rgba(255, 23, 68, 0.25);
+}
+
+.valid-feedback,
+.invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: var(--font-size-body-small);
+}
+
+.valid-feedback {
+  color: var(--color-success);
+}
+
+.invalid-feedback {
+  color: var(--color-error);
+}
+
+.was-validated .form-control:valid ~ .valid-feedback,
+.form-control.is-valid ~ .valid-feedback {
+  display: block;
+}
+
+.was-validated .form-control:invalid ~ .invalid-feedback,
+.form-control.is-invalid ~ .invalid-feedback {
+  display: block;
+}
+
+/* Checkboxes & Radio Buttons */
+.form-check {
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.75em;
+  margin-bottom: 0.125rem;
+}
+
+.form-check-input {
+  width: 1.25em;
+  height: 1.25em;
+  margin-top: 0.125em;
+  margin-left: -1.75em;
+  background-color: var(--white);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid var(--gray-400);
+  appearance: none;
+}
+
+.form-check-input[type="checkbox"] {
+  border-radius: 0.25em;
+}
+
+.form-check-input[type="radio"] {
+  border-radius: 50%;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.form-check-input:checked[type="checkbox"] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+
+.form-check-input:checked[type="radio"] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.form-check-input:focus {
+  border-color: var(--purple-300);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(124, 77, 255, 0.25);
+}
+
+.form-check-input:disabled {
+  pointer-events: none;
+  filter: none;
+  opacity: 0.5;
+}
+
+.form-check-input:disabled ~ .form-check-label {
+  opacity: 0.5;
+}
+
+.form-check-label {
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* Inline Form Checks */
+.form-check-inline {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+/* Select Dropdown */
+.form-select {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 2.25rem 0.75rem 0.75rem;
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--white);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius, 4px);
+  appearance: none;
+}
+
+.form-select:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(124, 77, 255, 0.25);
+}
+
+.form-select:disabled {
+  background-color: var(--gray-200);
+  opacity: 1;
+}
+
+/* Form Select Sizes */
+.form-select-sm {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: var(--font-size-body-small);
+}
+
+.form-select-lg {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: var(--font-size-body-large);
+}
+
+/* Range Input */
+.form-range {
+  width: 100%;
+  height: 1.5rem;
+  padding: 0;
+  background-color: transparent;
+  appearance: none;
+}
+
+.form-range:focus {
+  outline: 0;
+}
+
+.form-range::-webkit-slider-thumb {
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.25rem;
+  background-color: var(--color-primary);
+  border: 0;
+  border-radius: 1rem;
+  appearance: none;
+}
+
+.form-range::-webkit-slider-thumb:focus {
+  outline: 0;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(124, 77, 255, 0.25);
+}
+
+.form-range::-webkit-slider-thumb:active {
+  background-color: var(--purple-300);
+}
+
+.form-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5rem;
+  color: transparent;
+  cursor: pointer;
+  background-color: var(--gray-300);
+  border-color: transparent;
+  border-radius: 1rem;
+}
+
+/* File Input */
+.form-file {
+  position: relative;
+}
+
+.form-file-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: calc(1.5em + 1.5rem + 2px);
+  margin: 0;
+  opacity: 0;
+}
+
+.form-file-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  height: calc(1.5em + 1.5rem + 2px);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius, 4px);
+  overflow: hidden;
+}
+
+.form-file-text {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0.75rem;
+  overflow: hidden;
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: var(--white);
+}
+
+.form-file-button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: var(--text-on-primary);
+  background-color: var(--color-primary);
+  border-left: 1px solid var(--gray-300);
+}
+
+/* Age-Appropriate Form Styling */
+
+/* Nursery (Ages 3-5) */
+.age-nursery .form-control,
+.age-nursery .form-select {
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: var(--font-size-body-large);
+  border-width: 2px;
+}
+
+.age-nursery .form-check-input {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.age-nursery .form-check {
+  padding-left: 2.25em;
+}
+
+.age-nursery .form-check-input {
+  margin-left: -2.25em;
+}
+
+.age-nursery .form-label {
+  font-size: var(--font-size-body-large);
+  margin-bottom: 0.75rem;
+}
+
+/* Early Primary (Ages 5-7) */
+.age-early-primary .form-control,
+.age-early-primary .form-select {
+  border-radius: 8px;
+  padding: 0.875rem;
+  font-size: var(--font-size-body-medium);
+}
+
+.age-early-primary .form-check-input {
+  width: 1.375em;
+  height: 1.375em;
+}
+
+.age-early-primary .form-check {
+  padding-left: 2em;
+}
+
+.age-early-primary .form-check-input {
+  margin-left: -2em;
+}
+
+/* Late Primary (Ages 8-11) */
+.age-late-primary .form-control,
+.age-late-primary .form-select {
+  border-radius: 6px;
+}
+
+/* Secondary (Ages 12-18) */
+.age-secondary .form-control,
+.age-secondary .form-select {
+  border-radius: 4px;
+}
+
+/* Subject-Specific Form Styling */
+
+.theme-stem .form-control:focus,
+.theme-stem .form-select:focus,
+.theme-stem .form-check-input:focus {
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 0.25rem rgba(38, 166, 154, 0.25);
+}
+
+.theme-stem .form-check-input:checked {
+  background-color: var(--teal-500);
+  border-color: var(--teal-500);
+}
+
+.theme-stem .form-file-button {
+  background-color: var(--teal-500);
+}
+
+.theme-humanities .form-control:focus,
+.theme-humanities .form-select:focus,
+.theme-humanities .form-check-input:focus {
+  border-color: var(--amber-500);
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+.theme-humanities .form-check-input:checked {
+  background-color: var(--amber-500);
+  border-color: var(--amber-500);
+}
+
+.theme-humanities .form-file-button {
+  background-color: var(--amber-500);
+}
+
+.theme-arts .form-control:focus,
+.theme-arts .form-select:focus,
+.theme-arts .form-check-input:focus {
+  border-color: var(--rose-500);
+  box-shadow: 0 0 0 0.25rem rgba(236, 64, 122, 0.25);
+}
+
+.theme-arts .form-check-input:checked {
+  background-color: var(--rose-500);
+  border-color: var(--rose-500);
+}
+
+.theme-arts .form-file-button {
+  background-color: var(--rose-500);
+}
+
+/* Accessibility Enhancements */
+
+.high-contrast .form-control,
+.high-contrast .form-select {
+  border: 2px solid var(--black);
+  box-shadow: none;
+}
+
+.high-contrast .form-control:focus,
+.high-contrast .form-select:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.high-contrast .form-check-input {
+  border: 2px solid var(--black);
+}
+
+.high-contrast .form-check-input:checked {
+  background-color: var(--black);
+  border-color: var(--black);
+}
+
+.high-contrast .form-file-button {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.high-contrast .form-range::-webkit-slider-thumb {
+  background-color: var(--black);
+}
+
+.high-contrast .form-range::-webkit-slider-runnable-track {
+  background-color: var(--gray-500);
+}

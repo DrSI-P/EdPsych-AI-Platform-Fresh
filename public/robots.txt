@@ -1,0 +1,22 @@
+# EdPsych Connect robots.txt
+# https://edpsychconnect.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and authentication pages
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /settings/
+
+# Disallow draft content
+Disallow: /blog/draft/
+Disallow: /resources/draft/
+Disallow: /courses/draft/
+
+# Sitemap location
+Sitemap: https://edpsychconnect.com/sitemap.xml

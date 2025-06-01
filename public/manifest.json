@@ -1,0 +1,62 @@
+{
+  "name": "EdPsych Connect",
+  "short_name": "EdPsych",
+  "description": "Educational psychology resources and tools",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Resources",
+      "short_name": "Resources",
+      "description": "View educational resources",
+      "url": "/resources",
+      "icons": [{ "src": "/icons/resources-icon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Read educational blog posts",
+      "url": "/blog",
+      "icons": [{ "src": "/icons/blog-icon.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/homepage.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Homepage of EdPsych Connect"
+    },
+    {
+      "src": "/screenshots/resources.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Educational resources page"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "scope": "/"
+}

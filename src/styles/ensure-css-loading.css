@@ -1,0 +1,29 @@
+/* Ensure CSS files are loaded correctly in production */
+/* This file forces CSS to be included in the build */
+
+/* Import all CSS files explicitly */
+@import './brand.css';
+@import './enhanced-brand.css';
+@import './globals.css';
+@import './accessibility.css';
+@import './high-contrast.css';
+@import './keyboard-navigation.css';
+@import './reduced-motion.css';
+@import './screen-reader.css';
+
+/* Force CSS to be recognized and included */
+:root {
+  --ensure-css-loading: true;
+}
+
+/* Add explicit classes to ensure CSS is not tree-shaken */
+.ensure-brand-css-loaded,
+.ensure-enhanced-brand-css-loaded,
+.ensure-globals-css-loaded,
+.ensure-accessibility-css-loaded,
+.ensure-high-contrast-css-loaded,
+.ensure-keyboard-navigation-css-loaded,
+.ensure-reduced-motion-css-loaded,
+.ensure-screen-reader-css-loaded {
+  display: none;
+}

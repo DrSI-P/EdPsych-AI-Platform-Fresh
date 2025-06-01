@@ -1,0 +1,232 @@
+/* EdPsych Connect Learning Style Adaptation Styles */
+
+/* Base styles for learning style content */
+.learning-style-content {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Visual learner styles */
+.learning-style-visual {
+  --visual-accent: #3b82f6;
+}
+
+.learning-style-visual h1,
+.learning-style-visual h2,
+.learning-style-visual h3 {
+  color: var(--visual-accent);
+  border-left: 4px solid var(--visual-accent);
+  padding-left: 0.75rem;
+}
+
+.learning-style-visual img,
+.learning-style-visual video,
+.learning-style-visual figure {
+  border: 2px solid var(--visual-accent);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.learning-style-visual .diagram,
+.learning-style-visual .chart {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+/* Auditory learner styles */
+.learning-style-auditory {
+  --auditory-accent: #8b5cf6;
+}
+
+.learning-style-auditory h1,
+.learning-style-auditory h2,
+.learning-style-auditory h3 {
+  color: var(--auditory-accent);
+  border-left: 4px solid var(--auditory-accent);
+  padding-left: 0.75rem;
+}
+
+.learning-style-auditory audio,
+.learning-style-auditory .audio-player {
+  width: 100%;
+  margin: 1rem 0;
+  border: 2px solid var(--auditory-accent);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.learning-style-auditory .transcript {
+  background-color: rgba(139, 92, 246, 0.1);
+  border-left: 4px solid var(--auditory-accent);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.25rem;
+}
+
+/* Reading/writing learner styles */
+.learning-style-reading {
+  --reading-accent: #10b981;
+}
+
+.learning-style-reading h1,
+.learning-style-reading h2,
+.learning-style-reading h3 {
+  color: var(--reading-accent);
+  border-left: 4px solid var(--reading-accent);
+  padding-left: 0.75rem;
+}
+
+.learning-style-reading p {
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.learning-style-reading blockquote {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-left: 4px solid var(--reading-accent);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.learning-style-reading .key-points {
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--reading-accent);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+}
+
+/* Kinesthetic learner styles */
+.learning-style-kinesthetic {
+  --kinesthetic-accent: #f59e0b;
+}
+
+.learning-style-kinesthetic h1,
+.learning-style-kinesthetic h2,
+.learning-style-kinesthetic h3 {
+  color: var(--kinesthetic-accent);
+  border-left: 4px solid var(--kinesthetic-accent);
+  padding-left: 0.75rem;
+}
+
+.learning-style-kinesthetic .interactive-element {
+  border: 2px solid var(--kinesthetic-accent);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.learning-style-kinesthetic .activity {
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 1px solid var(--kinesthetic-accent);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+}
+
+/* Multimodal learner styles */
+.learning-style-multimodal {
+  --multimodal-accent: #ec4899;
+}
+
+.learning-style-multimodal h1,
+.learning-style-multimodal h2,
+.learning-style-multimodal h3 {
+  color: var(--multimodal-accent);
+  border-left: 4px solid var(--multimodal-accent);
+  padding-left: 0.75rem;
+}
+
+/* Age-specific adaptations */
+
+/* Nursery age group (3-5) */
+.age-nursery {
+  font-size: 1.1rem;
+}
+
+.age-nursery h1 {
+  font-size: 2rem;
+}
+
+.age-nursery h2 {
+  font-size: 1.75rem;
+}
+
+.age-nursery h3 {
+  font-size: 1.5rem;
+}
+
+.age-nursery p {
+  line-height: 1.6;
+}
+
+.age-nursery img {
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 1rem;
+}
+
+/* Primary age group (5-11) */
+.age-primary {
+  font-size: 1rem;
+}
+
+.age-primary h1 {
+  font-size: 1.8rem;
+}
+
+.age-primary h2 {
+  font-size: 1.5rem;
+}
+
+.age-primary h3 {
+  font-size: 1.3rem;
+}
+
+.age-primary p {
+  line-height: 1.5;
+}
+
+/* Secondary age group (11-18) */
+.age-secondary {
+  font-size: 0.95rem;
+}
+
+.age-secondary h1 {
+  font-size: 1.7rem;
+}
+
+.age-secondary h2 {
+  font-size: 1.4rem;
+}
+
+.age-secondary h3 {
+  font-size: 1.2rem;
+}
+
+.age-secondary p {
+  line-height: 1.6;
+}
+
+/* Adult age group (18+) */
+.age-adult {
+  font-size: 0.9rem;
+}
+
+.age-adult h1 {
+  font-size: 1.6rem;
+}
+
+.age-adult h2 {
+  font-size: 1.3rem;
+}
+
+.age-adult h3 {
+  font-size: 1.1rem;
+}
+
+.age-adult p {
+  line-height: 1.7;
+}

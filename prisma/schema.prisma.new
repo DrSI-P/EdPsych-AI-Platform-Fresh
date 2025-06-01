@@ -1,0 +1,273 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id                    String                  @id @default(cuid())
+  name                  String?
+  email                 String?                 @unique
+  emailVerified         DateTime?
+  image                 String?
+  role                  String                  @default("user")
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  accounts              Account[]
+  sessions              Session[]
+  usageRecords          UsageRecord[]
+  learningStyleProfiles LearningStyleProfile[]
+  contentTransformations ContentTransformation[]
+  curriculumPlans       CurriculumPlan[]
+  curriculumDifferentiations CurriculumDifferentiation[]
+  emotionalCheckins     EmotionalCheckin[]
+  executiveFunctionProfile ExecutiveFunctionProfile?
+  executiveFunctionTasks ExecutiveFunctionTask[]
+  avatarProfiles        AvatarProfile[]
+  avatarVideos          AvatarVideo[]
+}
+
+// Next Auth models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Usage tracking model
+model UsageRecord {
+  id        String   @id @default(cuid())
+  userId    String
+  feature   String
+  count     Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Learning Style Models
+model LearningStyleProfile {
+  id           String   @id @default(cuid())
+  userId       String
+  primaryStyle String
+  visualScore  Float
+  auditoryScore Float
+  kinestheticScore Float
+  readingWritingScore Float
+  responses    Json?    // Store the questionnaire responses
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Content Transformation Models
+model ContentTransformation {
+  id           String   @id @default(cuid())
+  userId       String
+  originalContent String @db.Text
+  contentType  String
+  subjectArea  String?
+  targetAge    Int
+  complexity   Int
+  learningStylePreference String?
+  visualContent String @db.Text
+  auditoryContent String @db.Text
+  kinestheticContent String @db.Text
+  readingWritingContent String @db.Text
+  multimodalContent String @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Curriculum Models
+model CurriculumPlan {
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  subject      String
+  keyStage     String
+  year         Int
+  content      String   @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  objectives   CurriculumObjective[]
+  differentiations CurriculumDifferentiation[]
+}
+
+model CurriculumObjective {
+  id              String   @id @default(cuid())
+  curriculumPlanId String
+  description     String
+  order           Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  curriculumPlan  CurriculumPlan @relation(fields: [curriculumPlanId], references: [id], onDelete: Cascade)
+}
+
+model CurriculumDifferentiation {
+  id              String   @id @default(cuid())
+  userId          String
+  curriculumPlanId String?
+  originalContent String   @db.Text
+  differentiatedContent Json
+  settings        Json
+  subject         String?
+  keyStage        String?
+  year            Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  curriculumPlan  CurriculumPlan? @relation(fields: [curriculumPlanId], references: [id], onDelete: SetNull)
+}
+
+// Emotional Support Models
+model EmotionalCheckin {
+  id           String   @id @default(cuid())
+  userId       String
+  mood         String
+  intensity    Int
+  notes        String?  @db.Text
+  triggers     String[] // Array of trigger factors
+  strategies   String[] // Array of coping strategies
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Executive Function Models
+model ExecutiveFunctionProfile {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  planningScore     Int?
+  organizationScore Int?
+  timeManagementScore Int?
+  workingMemoryScore Int?
+  metacognitionScore Int?
+  responseInhibitionScore Int?
+  emotionalControlScore Int?
+  taskInitiationScore Int?
+  flexibilityScore  Int?
+  goalDirectedPersistenceScore Int?
+  attentionScore    Int?
+  preferredReminders String[]
+  preferredBreakdown String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ExecutiveFunctionTask {
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  description  String?  @db.Text
+  dueDate      DateTime?
+  priority     String?
+  status       String   @default("pending")
+  complexity   Int?
+  estimatedTime Int?
+  actualTime   Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  steps        ExecutiveFunctionTaskStep[]
+}
+
+model ExecutiveFunctionTaskStep {
+  id           String   @id @default(cuid())
+  taskId       String
+  description  String
+  order        Int
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  task         ExecutiveFunctionTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+// AI Avatar Models
+model AvatarProfile {
+  id                String   @id @default(cuid())
+  userId            String
+  name              String
+  provider          String   // e.g., 'veed', 'heygen', 'simli'
+  imageUrl          String?
+  providerSpecificId String?
+  voiceId           String?
+  ageGroup          String?  // e.g., 'child', 'teen', 'adult'
+  style             String?  // e.g., 'professional', 'casual', 'educational'
+  accentPreference  String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videos            AvatarVideo[]
+}
+
+model AvatarVideo {
+  id                String   @id @default(cuid())
+  userId            String
+  avatarProfileId   String
+  script            String   @db.Text
+  status            String   @default("pending") // pending, processing, completed, failed
+  outputUrl         String?
+  providerJobId     String?
+  outputFormat      String?  // e.g., 'mp4', 'webm'
+  resolution        String?  // e.g., '720p', '1080p'
+  background        String?  // e.g., 'solid', 'gradient', 'custom'
+  customBackgroundUrl String?
+  includeSubtitles  Boolean  @default(false)
+  subtitleLanguage  String?
+  duration          Int?     // in seconds
+  callToAction      String?  @db.Text
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  avatarProfile     AvatarProfile @relation(fields: [avatarProfileId], references: [id], onDelete: Cascade)
+  history           AvatarVideoHistory[]
+}
+
+model AvatarVideoHistory {
+  id                String   @id @default(cuid())
+  avatarVideoId     String
+  status            String
+  message           String?
+  timestamp         DateTime @default(now())
+  avatarVideo       AvatarVideo @relation(fields: [avatarVideoId], references: [id], onDelete: Cascade)
+}

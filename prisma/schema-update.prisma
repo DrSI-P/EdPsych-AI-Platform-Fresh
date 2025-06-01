@@ -1,0 +1,44 @@
+// This is an update to the Prisma schema file to add missing models
+// Add these models to your existing schema.prisma file
+
+// Curriculum Standard Model
+model CurriculumStandard {
+  id                String   @id @default(cuid())
+  code              String   @unique
+  description       String   @db.Text
+  subject           String
+  keyStage          String
+  category          String
+  subcategory       String   @default("")
+  year              String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  // Relations
+  assessments       CurriculumAlignment[]
+}
+
+// Curriculum Alignment Model
+model CurriculumAlignment {
+  id                   String   @id @default(cuid())
+  curriculumStandardId String
+  assessmentId         String
+  alignedById          String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  // Relations
+  standard             CurriculumStandard @relation(fields: [curriculumStandardId], references: [id], onDelete: Cascade)
+  assessment           Assessment        @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  alignedBy            User              @relation(fields: [alignedById], references: [id])
+}
+
+// Add these relations to the existing Assessment model
+// model Assessment {
+//   ...existing fields
+//   curriculumAlignments CurriculumAlignment[]
+// }
+
+// Add this relation to the existing User model
+// model User {
+//   ...existing fields
+//   curriculumAlignments CurriculumAlignment[]
+// }

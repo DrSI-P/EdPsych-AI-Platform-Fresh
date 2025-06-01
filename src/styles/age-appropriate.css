@@ -1,0 +1,374 @@
+/* EdPsych Connect Age-Appropriate Styles */
+
+/* Base styles for age-appropriate content */
+.age-appropriate-content {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* UK Curriculum mapping styles */
+.uk-curriculum-content {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.uk-curriculum-badge {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.key-stage-badge {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.key-stage {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.key-stage.early-years {
+  background-color: rgba(244, 63, 94, 0.15);
+  color: var(--nursery);
+  border: 1px solid var(--nursery-light);
+}
+
+.key-stage.ks1 {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: var(--primary-age);
+  border: 1px solid var(--primary-light);
+}
+
+.key-stage.ks2 {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: var(--primary-age);
+  border: 1px solid var(--primary-light);
+}
+
+.key-stage.ks3 {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--secondary-age);
+  border: 1px solid var(--secondary-light);
+}
+
+.key-stage.ks4 {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--secondary-age);
+  border: 1px solid var(--secondary-light);
+}
+
+.key-stage.ks5 {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--secondary-age);
+  border: 1px solid var(--secondary-light);
+}
+
+.subject-badge {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.subject {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.subject.english {
+  background-color: rgba(236, 72, 153, 0.15);
+  color: var(--language);
+  border: 1px solid var(--language-light);
+}
+
+.subject.maths {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: var(--math);
+  border: 1px solid var(--math-light);
+}
+
+.subject.science {
+  background-color: rgba(6, 182, 212, 0.15);
+  color: var(--science);
+  border: 1px solid var(--science-light);
+}
+
+.subject.computing {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: var(--arts);
+  border: 1px solid var(--arts-light);
+}
+
+.subject.history, 
+.subject.geography,
+.subject.citizenship {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--humanities);
+  border: 1px solid var(--humanities-light);
+}
+
+.subject.art,
+.subject.music {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: var(--arts);
+  border: 1px solid var(--arts-light);
+}
+
+/* Nursery age group (3-5) specific styles */
+.age-nursery-ui {
+  --border-radius: 1rem;
+  --button-size: 4rem;
+  --font-size-base: 1.2rem;
+  --line-height: 1.6;
+  --spacing: 1.5rem;
+  
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+}
+
+.age-nursery-ui .card,
+.age-nursery-ui .button,
+.age-nursery-ui .input {
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing);
+}
+
+.age-nursery-ui .button {
+  min-height: var(--button-size);
+  font-size: calc(var(--font-size-base) * 1.1);
+  padding: 1rem 1.5rem;
+}
+
+.age-nursery-ui .card {
+  padding: var(--spacing);
+  border: 3px solid var(--nursery-light);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.age-nursery-ui h1,
+.age-nursery-ui h2,
+.age-nursery-ui h3 {
+  color: var(--nursery);
+}
+
+.age-nursery-ui .icon {
+  font-size: 2rem;
+}
+
+/* Primary age group (5-11) specific styles */
+.age-primary-ui {
+  --border-radius: 0.75rem;
+  --button-size: 3rem;
+  --font-size-base: 1rem;
+  --line-height: 1.5;
+  --spacing: 1.25rem;
+  
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+}
+
+.age-primary-ui .card,
+.age-primary-ui .button,
+.age-primary-ui .input {
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing);
+}
+
+.age-primary-ui .button {
+  min-height: var(--button-size);
+  font-size: calc(var(--font-size-base) * 1.05);
+  padding: 0.75rem 1.25rem;
+}
+
+.age-primary-ui .card {
+  padding: var(--spacing);
+  border: 2px solid var(--primary-light);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.age-primary-ui h1,
+.age-primary-ui h2,
+.age-primary-ui h3 {
+  color: var(--primary-age);
+}
+
+.age-primary-ui .icon {
+  font-size: 1.5rem;
+}
+
+/* Secondary age group (11-18) specific styles */
+.age-secondary-ui {
+  --border-radius: 0.5rem;
+  --button-size: 2.5rem;
+  --font-size-base: 0.95rem;
+  --line-height: 1.5;
+  --spacing: 1rem;
+  
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+}
+
+.age-secondary-ui .card,
+.age-secondary-ui .button,
+.age-secondary-ui .input {
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing);
+}
+
+.age-secondary-ui .button {
+  min-height: var(--button-size);
+  font-size: var(--font-size-base);
+  padding: 0.5rem 1rem;
+}
+
+.age-secondary-ui .card {
+  padding: var(--spacing);
+  border: 1px solid var(--secondary-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.age-secondary-ui h1,
+.age-secondary-ui h2,
+.age-secondary-ui h3 {
+  color: var(--secondary-age);
+}
+
+.age-secondary-ui .icon {
+  font-size: 1.25rem;
+}
+
+/* Age-appropriate content complexity variations */
+.complexity-very-simple {
+  --font-size-multiplier: 1.2;
+  --line-height-multiplier: 1.8;
+  --spacing-multiplier: 1.5;
+}
+
+.complexity-simple {
+  --font-size-multiplier: 1.1;
+  --line-height-multiplier: 1.6;
+  --spacing-multiplier: 1.3;
+}
+
+.complexity-moderate {
+  --font-size-multiplier: 1;
+  --line-height-multiplier: 1.5;
+  --spacing-multiplier: 1.1;
+}
+
+.complexity-advanced {
+  --font-size-multiplier: 0.95;
+  --line-height-multiplier: 1.4;
+  --spacing-multiplier: 1;
+}
+
+/* Age-inappropriate warning */
+.age-inappropriate-warning {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* UK Curriculum resources */
+.uk-curriculum-resource {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.uk-curriculum-resource-header {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.uk-curriculum-resource-content {
+  padding: 1.5rem;
+}
+
+.uk-curriculum-resource-footer {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+}
+
+/* Early Years Foundation Stage specific */
+.eyfs-resource {
+  background-color: rgba(244, 63, 94, 0.05);
+  border: 2px solid var(--nursery-light);
+}
+
+.eyfs-resource .uk-curriculum-resource-header {
+  background-color: var(--nursery-light);
+  color: var(--nursery-dark);
+}
+
+/* Key Stage 1 specific */
+.ks1-resource {
+  background-color: rgba(99, 102, 241, 0.05);
+  border: 2px solid var(--primary-light);
+}
+
+.ks1-resource .uk-curriculum-resource-header {
+  background-color: var(--primary-light);
+  color: var(--primary-age-dark);
+}
+
+/* Key Stage 2 specific */
+.ks2-resource {
+  background-color: rgba(99, 102, 241, 0.05);
+  border: 2px solid var(--primary-light);
+}
+
+.ks2-resource .uk-curriculum-resource-header {
+  background-color: var(--primary-light);
+  color: var(--primary-age-dark);
+}
+
+/* Key Stage 3 specific */
+.ks3-resource {
+  background-color: rgba(16, 185, 129, 0.05);
+  border: 1px solid var(--secondary-light);
+}
+
+.ks3-resource .uk-curriculum-resource-header {
+  background-color: var(--secondary-light);
+  color: var(--secondary-age-dark);
+}
+
+/* Key Stage 4 specific */
+.ks4-resource {
+  background-color: rgba(16, 185, 129, 0.05);
+  border: 1px solid var(--secondary-light);
+}
+
+.ks4-resource .uk-curriculum-resource-header {
+  background-color: var(--secondary-light);
+  color: var(--secondary-age-dark);
+}
+
+/* Key Stage 5 specific */
+.ks5-resource {
+  background-color: rgba(16, 185, 129, 0.05);
+  border: 1px solid var(--secondary-light);
+}
+
+.ks5-resource .uk-curriculum-resource-header {
+  background-color: var(--secondary-light);
+  color: var(--secondary-age-dark);
+}

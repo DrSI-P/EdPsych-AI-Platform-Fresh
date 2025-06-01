@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "EdPsych Connect",
+    "tagline": "Revolucionando el aprendizaje a través de recursos de psicología educativa personalizados y basados en evidencia"
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Nosotros",
+    "resources": "Recursos",
+    "blog": "Blog",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "login": "Iniciar Sesión",
+    "signup": "Registrarse",
+    "dashboard": "Panel de Control",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "footer": {
+    "quickLinks": "Enlaces Rápidos",
+    "resources": "Recursos",
+    "legal": "Legal",
+    "copyright": "© {{year}} EdPsych Connect Limited. Todos los derechos reservados.",
+    "tagline": "Diseñado y desarrollado con principios de psicología educativa basados en evidencia",
+    "cookieSettings": "Configuración de Cookies"
+  },
+  "buttons": {
+    "learnMore": "Saber Más",
+    "getStarted": "Comenzar",
+    "readMore": "Leer Más",
+    "viewAll": "Ver Todo",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "back": "Atrás",
+    "next": "Siguiente"
+  },
+  "accessibility": {
+    "skipToContent": "Saltar al contenido",
+    "darkMode": "Modo Oscuro",
+    "lightMode": "Modo Claro",
+    "increaseText": "Aumentar Tamaño del Texto",
+    "decreaseText": "Disminuir Tamaño del Texto",
+    "highContrast": "Modo de Alto Contraste"
+  },
+  "errors": {
+    "pageNotFound": "Página No Encontrada",
+    "serverError": "Error del Servidor",
+    "goHome": "Volver al Inicio",
+    "tryAgain": "Intentar de Nuevo",
+    "formError": "Hubo un error con tu envío. Por favor, revisa el formulario e inténtalo de nuevo."
+  },
+  "loading": {
+    "default": "Cargando...",
+    "content": "Cargando contenido...",
+    "resources": "Cargando recursos...",
+    "processing": "Procesando..."
+  },
+  "uk": {
+    "education": {
+      "keyStages": {
+        "eyfs": "Etapa de Fundación Temprana",
+        "ks1": "Etapa Clave 1",
+        "ks2": "Etapa Clave 2",
+        "ks3": "Etapa Clave 3",
+        "ks4": "Etapa Clave 4",
+        "ks5": "Etapa Clave 5"
+      },
+      "schoolTypes": {
+        "primary": "Escuela Primaria",
+        "secondary": "Escuela Secundaria",
+        "college": "Instituto",
+        "specialSchool": "Escuela Especial",
+        "pupilReferralUnit": "Unidad de Referencia de Alumnos"
+      }
+    }
+  }
+}

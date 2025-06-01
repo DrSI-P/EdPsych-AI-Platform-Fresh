@@ -1,0 +1,78 @@
+model User {
+  id                    String    @id @default(cuid())
+  name                  String?
+  email                 String?   @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  String    @default("student") // student, teacher, admin, parent, ep
+  accounts              Account[]
+  sessions              Session[]
+  profile               Profile?
+  studentProfile        StudentProfile?
+  teacherProfile        TeacherProfile?
+  parentProfile         ParentProfile?
+  epProfile             EPProfile?
+  accessibilitySettings AccessibilitySettings?
+  accessibilityLogs     AccessibilityLog[]
+  learningStyles        LearningStyle[]
+  progressReports       ProgressReport[]
+  assessmentResponses   AssessmentResponse[]
+  enrollments           Enrollment[]
+  createdCourses        Course[]
+  createdLessons        Lesson[]
+  createdAssessments    Assessment[]
+  createdTemplates      AssessmentTemplate[]
+  notifications         Notification[]
+  messages              Message[]
+  sentMessages          Message[]           @relation("SentMessages")
+  pupilVoiceResponses   PupilVoiceResponse[]
+  createdPupilVoiceSurveys PupilVoiceSurvey[]
+  gradedResponses       AssessmentResponse[] @relation("GradedResponses")
+  // Added missing opposite relations for new models
+  contentTransformations ContentTransformation[]
+  curriculumPlans       CurriculumPlan[]
+  curriculumDifferentiations CurriculumDifferentiation[]
+  emotionalCheckins     EmotionalCheckin[]
+  executiveFunctionProfile ExecutiveFunctionProfile?
+  executiveFunctionTasks ExecutiveFunctionTask[]
+  multiModalContents    MultiModalContent[]
+  progressPacings       ProgressPacing[]
+  adaptiveContents      AdaptiveContent[]
+  speechCalibrations    SpeechCalibration[]
+  speechRecognitionLogs SpeechRecognitionLog[]
+  passwordReset         PasswordReset?
+  curriculumCollaborations CurriculumPlanCollaborator[]
+  curriculumComments    CurriculumPlanComment[]
+  createdTasks          CurriculumPlanTask[]       @relation("TaskCreator")
+  assignedTasks         CurriculumPlanTask[]       @relation("TaskAssignee")
+  immersiveExperiences  ImmersiveExperience[]      // Relation to created immersive experiences
+  immersiveExperienceReviews ImmersiveExperienceReview[] // Relation to immersive experience reviews
+  immersiveTools        ImmersiveTool[]            // Relation to created immersive tools
+  immersiveToolReviews  ImmersiveToolReview[]      // Relation to immersive tool reviews
+  pluginCredentials     PluginCredential[]         // Relation to plugin credentials
+  courseDiscussions     CourseDiscussion[]         // Relation to course discussions
+  discussionReplies     DiscussionReply[]          // Relation to discussion replies
+  cpdActivities         CPDActivity[]              // Relation to CPD activities
+  cpdGoals              CPDGoal[]                  // Relation to CPD goals
+  cpdReflections        CPDReflection[]            // Relation to CPD reflections
+  cpdEvidence           CPDEvidence[]              // Relation to CPD evidence
+  
+  // New relations for Mentorship models
+  mentorProfile         MentorProfile?
+  mentorRequests        MentorshipRequest[]        @relation("MentorRequests")
+  menteeRequests        MentorshipRequest[]        @relation("MenteeRequests")
+  mentorMentorships     Mentorship[]               @relation("MentorMentorships")
+  menteeMentorships     Mentorship[]               @relation("MenteeMentorships")
+  sentFeedback          MentorshipFeedback[]       @relation("SentFeedback")
+  receivedFeedback      MentorshipFeedback[]       @relation("ReceivedFeedback")
+  cpdProfile            CPDProfile?
+  
+  // New relations for Portfolio models
+  portfolioProfile      PortfolioProfile?
+  portfolioQualifications PortfolioQualification[]
+  portfolioAchievements PortfolioAchievement[]
+  portfolioEvidence     PortfolioEvidence[]
+  portfolioReflections  PortfolioReflection[]
+  certificates          Certificate[]
+}

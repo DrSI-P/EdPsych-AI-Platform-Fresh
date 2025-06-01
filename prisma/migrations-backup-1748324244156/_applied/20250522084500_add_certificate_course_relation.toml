@@ -1,0 +1,2 @@
+migration_name = "20250522084500_add_certificate_course_relation"
+applied_at = 1748010968

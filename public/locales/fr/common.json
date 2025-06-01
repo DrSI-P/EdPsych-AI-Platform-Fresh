@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "EdPsych Connect",
+    "tagline": "Révolutionner l'apprentissage grâce à des ressources de psychologie éducative personnalisées et fondées sur des preuves"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "resources": "Ressources",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "dashboard": "Tableau de bord",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "footer": {
+    "quickLinks": "Liens rapides",
+    "resources": "Ressources",
+    "legal": "Mentions légales",
+    "copyright": "© {{year}} EdPsych Connect Limited. Tous droits réservés.",
+    "tagline": "Conçu et développé selon des principes de psychologie éducative fondés sur des preuves",
+    "cookieSettings": "Paramètres des cookies"
+  },
+  "buttons": {
+    "learnMore": "En savoir plus",
+    "getStarted": "Commencer",
+    "readMore": "Lire la suite",
+    "viewAll": "Voir tout",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant"
+  },
+  "accessibility": {
+    "skipToContent": "Aller au contenu",
+    "darkMode": "Mode sombre",
+    "lightMode": "Mode clair",
+    "increaseText": "Augmenter la taille du texte",
+    "decreaseText": "Diminuer la taille du texte",
+    "highContrast": "Mode contraste élevé"
+  },
+  "errors": {
+    "pageNotFound": "Page non trouvée",
+    "serverError": "Erreur du serveur",
+    "goHome": "Retour à l'accueil",
+    "tryAgain": "Réessayer",
+    "formError": "Une erreur s'est produite lors de votre soumission. Veuillez vérifier le formulaire et réessayer."
+  },
+  "loading": {
+    "default": "Chargement...",
+    "content": "Chargement du contenu...",
+    "resources": "Chargement des ressources...",
+    "processing": "Traitement en cours..."
+  },
+  "uk": {
+    "education": {
+      "keyStages": {
+        "eyfs": "Petite enfance",
+        "ks1": "Étape clé 1",
+        "ks2": "Étape clé 2",
+        "ks3": "Étape clé 3",
+        "ks4": "Étape clé 4",
+        "ks5": "Étape clé 5"
+      },
+      "schoolTypes": {
+        "primary": "École primaire",
+        "secondary": "École secondaire",
+        "college": "Collège",
+        "specialSchool": "École spécialisée",
+        "pupilReferralUnit": "Unité d'orientation des élèves"
+      }
+    }
+  }
+}
