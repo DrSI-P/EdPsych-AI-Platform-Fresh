@@ -4,12 +4,37 @@
  */
 
 // Export UK curriculum types directly from this file
-export type UKKeyStage = 'KS1' | 'KS2' | 'KS3' | 'KS4' | 'KS5';
+export type UKKeyStage = 'ks1' | 'ks2' | 'ks3' | 'ks4' | 'ks5' | 'nursery' | 'reception';
 export type UKSubject = 'Mathematics' | 'English' | 'Science' | 'History' | 'Geography' | 'Art' | 'Music' | 'Physical Education' | 'Computing' | 'Design and Technology' | 'Languages' | 'Religious Education' | 'Citizenship' | 'PSHE';
 
 // Aliases for compatibility with other components
 export type KeyStage = UKKeyStage;
 export type Subject = UKSubject;
+
+// Enhanced KeyStage namespace for enum-like access while preserving the original type
+export namespace KeyStage {
+  export const NURSERY: KeyStage = 'nursery';
+  export const RECEPTION: KeyStage = 'reception';
+  export const KS1: KeyStage = 'ks1';
+  export const KS2: KeyStage = 'ks2';
+  export const KS3: KeyStage = 'ks3';
+  export const KS4: KeyStage = 'ks4';
+  export const KS5: KeyStage = 'ks5';
+}
+
+// Enhanced Subject namespace for enum-like access while preserving the original type
+export namespace Subject {
+  export const MATHS: Subject = 'Mathematics';
+  export const ENGLISH: Subject = 'English';
+  export const SCIENCE: Subject = 'Science';
+  export const HISTORY: Subject = 'History';
+  export const GEOGRAPHY: Subject = 'Geography';
+  export const ART: Subject = 'Art';
+  export const MUSIC: Subject = 'Music';
+  export const PE: Subject = 'Physical Education';
+  export const COMPUTING: Subject = 'Computing';
+  export const LANGUAGES: Subject = 'Languages';
+}
 
 /**
  * Topic status for tracking progress
