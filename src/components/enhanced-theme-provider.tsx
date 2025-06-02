@@ -314,3 +314,7 @@ export const useEnhancedTheme = () => {
     throw new Error("useEnhancedTheme must be used within an EnhancedThemeProvider");
   return context;
 };
+
+// Aliases for compatibility
+export const ThemeProvider = EnhancedThemeProvider;
+export const useTheme = useEnhancedTheme;

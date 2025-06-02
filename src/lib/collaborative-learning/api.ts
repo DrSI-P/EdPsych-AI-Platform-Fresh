@@ -264,6 +264,25 @@ export async function updateTaskStatus(projectId: string, taskId: string, status
   }
 }
 
+// Update a project task
+export async function updateProjectTask(projectId: string, taskId: string, updates: Partial<ProjectTask>): Promise<ProjectTask> {
+  try {
+    const response = await fetch(`/api/collaborative-learning/group-projects/${projectId}/tasks/${taskId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    });
+    
+    if (!response.ok) throw new Error('Failed to update project task');
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating project task:', error);
+    throw error;
+  }
+}
+
 /**
  * Discussion Forum API Functions
  */

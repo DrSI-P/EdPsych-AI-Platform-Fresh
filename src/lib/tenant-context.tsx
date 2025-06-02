@@ -1,7 +1,9 @@
+'use client';
+
 // Tenant Context Provider for Supabase Integration
 // This file provides a solution for the "Tenant or user not found" error
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 

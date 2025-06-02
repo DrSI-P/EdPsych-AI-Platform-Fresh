@@ -12,7 +12,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { 
   BarChart, 
   LineChart, 
-  PieChart, 
   DonutChart, 
   AreaChart 
 } from '@tremor/react';
@@ -151,7 +150,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
         );
       case ChartType.PIE:
         return (
-          <PieChart
+          <DonutChart
             data={chartData.map(item => ({
               name: item.category,
               value: item[datasetNames[0]]
