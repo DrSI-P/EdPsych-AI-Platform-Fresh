@@ -4,6 +4,12 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1"],
+  "builds": [
+    { "src": "server.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/server.js" }
+  ],
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1",
     "NEXT_SKIP_STATIC_GENERATION": "true",
