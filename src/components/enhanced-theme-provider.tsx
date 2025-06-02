@@ -26,7 +26,7 @@ type ThemeProviderState = {
 
 // Create context
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: "light",
   setTheme: () => null,
   ageGroup: "late-primary",
   setAgeGroup: () => null,
@@ -50,7 +50,7 @@ export function cn(...inputs: any[]) {
 // Enhanced Theme provider component
 export function EnhancedThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "light",
   defaultAgeGroup = "late-primary",
   defaultDyslexicFont = false,
   defaultFontSize = 16,
