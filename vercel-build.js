@@ -34,6 +34,16 @@ async function simplifiedBuild() {
     
     log('✅ Environment variables set for build', colors.green);
     
+    // Run Prisma migrations
+    log('🔄 Running Prisma migrations...', colors.cyan);
+    try {
+      execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+      log('✅ Prisma migrations applied successfully', colors.green);
+    } catch (error) {
+      log('❌ Failed to apply Prisma migrations: ' + error.message, colors.red);
+      log('⚠️ Continuing with build, but the application may not work correctly', colors.yellow);
+    }
+    
     // Check environment variables
     log('🔍 Checking environment variables...', colors.cyan);
     try {
