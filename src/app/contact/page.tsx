@@ -17,31 +17,41 @@ export default function ContactPage() {
     {
       title: "General Inquiries",
       email: "info@edpsychconnect.com",
-      phone: "+44 (0) 20 1234 5678"
+      phone: "+44 07376113640"
     },
     {
-      title: "Technical Support",
+      title: "Technical Support", 
       email: "support@edpsychconnect.com",
-      phone: "+44 (0) 20 1234 5679"
+      phone: "+44 07376113640"
     },
     {
-      title: "Sales",
-      email: "sales@edpsychconnect.com",
-      phone: "+44 (0) 20 1234 5680"
+      title: "Customer Service",
+      email: "enquiries@edpsychconnect.com", 
+      phone: "+44 07376113640"
+    },
+    {
+      title: "Help & Assistance",
+      email: "help@edpsychconnect.com",
+      phone: "+44 07376113640"
+    },
+    {
+      title: "Administration",
+      email: "admin@edpsychconnect.com",
+      phone: "+44 07376113640"
+    },
+    {
+      title: "Billing & Payments",
+      email: "billing@edpsychconnect.com",
+      phone: "+44 07376113640"
     }
   ];
   
   // Office locations
   const officeLocations = [
     {
-      city: "London",
-      address: "123 Education Lane\nLondon, EC1A 1BB\nUnited Kingdom",
-      image: "/images/contact/london-office.jpg"
-    },
-    {
-      city: "Manchester",
-      address: "456 Learning Street\nManchester, M1 1AA\nUnited Kingdom",
-      image: "/images/contact/manchester-office.jpg"
+      city: "Chesham",
+      address: "Buckingham View\nChesham HP5 3HA\nUnited Kingdom",
+      image: "/images/contact/chesham-office.jpg"
     }
   ];
   

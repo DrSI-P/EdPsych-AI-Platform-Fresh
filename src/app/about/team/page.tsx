@@ -15,7 +15,6 @@ export default function TeamPage() {
       imageSrc: "/images/team/dr-scott.jpg", // Placeholder - will need actual image
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/dr-scott-ighavongbe-patrick-dedpsych-cpsychol-9143941b6/",
-        email: "scott@edpsychconnect.com",
         publications: "/publications/dr-scott"
       },
       specialties: [
@@ -34,8 +33,7 @@ export default function TeamPage() {
       bio: "Hannah Ighavongbe-Patrick brings her expertise in marketing and deep understanding of psychology to her role as Marketing Executive at EdPsych Connect. With a BA in Marketing and ongoing postgraduate studies in Psychology, Hannah combines commercial acumen with psychological insight to ensure the platform effectively reaches and engages its diverse user groups. Her approach to marketing is grounded in understanding user needs and communicating the platform's educational value with clarity and impact. Hannah plays a crucial role in shaping the platform's brand identity and ensuring its message resonates with students, parents, educators, and professionals alike.",
       imageSrc: "/images/team/hannah.jpg", // Placeholder - will need actual image
       socialLinks: {
-        linkedin: "#",
-        email: "hannah@edpsychconnect.com"
+        linkedin: "#"
       },
       specialties: [
         "Educational Marketing",
@@ -52,8 +50,7 @@ export default function TeamPage() {
       bio: "Dr. Manus Roocode serves as the Technical Manager for EdPsych Connect, bringing extensive expertise in artificial intelligence, educational technology, and software development. Working closely with Dr. Scott, Manus has been instrumental in translating educational psychology principles into innovative technical solutions. His approach combines cutting-edge AI capabilities with evidence-based educational practices to create a platform that truly adapts to individual learning needs. Dr. Manus oversees all technical aspects of the platform, ensuring robust architecture, seamless user experience, and continuous innovation in features like adaptive complexity adjustment, voice input functionality, and immersive learning environments.",
       imageSrc: "/images/team/dr-manus.jpg", // Placeholder - will need actual image
       socialLinks: {
-        linkedin: "#",
-        email: "manus@edpsychconnect.com"
+        linkedin: "#"
       },
       specialties: [
         "Artificial Intelligence in Education",
