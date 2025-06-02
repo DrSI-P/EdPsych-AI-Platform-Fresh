@@ -51,8 +51,8 @@ export function UKCurriculumAlignment() {
   const { toast } = useToast();
   
   // State for curriculum standards
-  const [selectedKeyStage, setSelectedKeyStage] = useState<UKKeyStage>(UKKeyStage.KS2);
-  const [selectedSubject, setSelectedSubject] = useState<UKSubject>(UKSubject.MATHEMATICS);
+  const [selectedKeyStage, setSelectedKeyStage] = useState<UKKeyStage>('ks2');
+  const [selectedSubject, setSelectedSubject] = useState<UKSubject>('Mathematics');
   const [selectedRegion, setSelectedRegion] = useState<UKCurriculumRegion>(UKCurriculumRegion.ENGLAND);
   
   // State for curriculum objectives
@@ -67,7 +67,7 @@ export function UKCurriculumAlignment() {
     LearningStyle.VISUAL,
     LearningStyle.AUDITORY,
     LearningStyle.KINESTHETIC,
-    LearningStyle.READ_WRITE
+    LearningStyle.READING_WRITING
   ]);
   
   // State for content personalization
@@ -194,12 +194,13 @@ export function UKCurriculumAlignment() {
                   <SelectValue placeholder="Select key stage" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={UKKeyStage.EYFS}>Early Years (EYFS)</SelectItem>
-                  <SelectItem value={UKKeyStage.KS1}>Key Stage 1</SelectItem>
-                  <SelectItem value={UKKeyStage.KS2}>Key Stage 2</SelectItem>
-                  <SelectItem value={UKKeyStage.KS3}>Key Stage 3</SelectItem>
-                  <SelectItem value={UKKeyStage.KS4}>Key Stage 4</SelectItem>
-                  <SelectItem value={UKKeyStage.KS5}>Key Stage 5</SelectItem>
+                  <SelectItem value="nursery">Nursery</SelectItem>
+                  <SelectItem value="reception">Reception</SelectItem>
+                  <SelectItem value="ks1">Key Stage 1</SelectItem>
+                  <SelectItem value="ks2">Key Stage 2</SelectItem>
+                  <SelectItem value="ks3">Key Stage 3</SelectItem>
+                  <SelectItem value="ks4">Key Stage 4</SelectItem>
+                  <SelectItem value="ks5">Key Stage 5</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -214,17 +215,20 @@ export function UKCurriculumAlignment() {
                   <SelectValue placeholder="Select subject" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={UKSubject.ENGLISH}>English</SelectItem>
-                  <SelectItem value={UKSubject.MATHEMATICS}>Mathematics</SelectItem>
-                  <SelectItem value={UKSubject.SCIENCE}>Science</SelectItem>
-                  <SelectItem value={UKSubject.HISTORY}>History</SelectItem>
-                  <SelectItem value={UKSubject.GEOGRAPHY}>Geography</SelectItem>
-                  <SelectItem value={UKSubject.ART_AND_DESIGN}>Art and Design</SelectItem>
-                  <SelectItem value={UKSubject.COMPUTING}>Computing</SelectItem>
-                  <SelectItem value={UKSubject.DESIGN_AND_TECHNOLOGY}>Design and Technology</SelectItem>
-                  <SelectItem value={UKSubject.LANGUAGES}>Languages</SelectItem>
-                  <SelectItem value={UKSubject.MUSIC}>Music</SelectItem>
-                  <SelectItem value={UKSubject.PHYSICAL_EDUCATION}>Physical Education</SelectItem>
+                  <SelectItem value="English">English</SelectItem>
+                  <SelectItem value="Mathematics">Mathematics</SelectItem>
+                  <SelectItem value="Science">Science</SelectItem>
+                  <SelectItem value="History">History</SelectItem>
+                  <SelectItem value="Geography">Geography</SelectItem>
+                  <SelectItem value="Art">Art</SelectItem>
+                  <SelectItem value="Computing">Computing</SelectItem>
+                  <SelectItem value="Design and Technology">Design and Technology</SelectItem>
+                  <SelectItem value="Languages">Languages</SelectItem>
+                  <SelectItem value="Music">Music</SelectItem>
+                  <SelectItem value="Physical Education">Physical Education</SelectItem>
+                  <SelectItem value="Religious Education">Religious Education</SelectItem>
+                  <SelectItem value="Citizenship">Citizenship</SelectItem>
+                  <SelectItem value="PSHE">PSHE</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -392,8 +396,8 @@ export function UKCurriculumAlignment() {
                     <input 
                       type="checkbox" 
                       id="read-write-style"
-                      checked={selectedLearningStyles.includes(LearningStyle.READ_WRITE)}
-                      onChange={() => handleToggleLearningStyle(LearningStyle.READ_WRITE)}
+                      checked={selectedLearningStyles.includes(LearningStyle.READING_WRITING)}
+                      onChange={() => handleToggleLearningStyle(LearningStyle.READING_WRITING)}
                       className="h-4 w-4 mt-1"
                     />
                     <div>
