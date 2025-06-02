@@ -34,10 +34,53 @@ async function simplifiedBuild() {
     
     log('✅ Environment variables set for build', colors.green);
     
-    // Run Prisma migrations
+    // Verify database connection
+    log('🔍 Verifying database connection...', colors.cyan);
+    try {
+      // Generate Prisma client first
+      execSync('npx prisma generate', { stdio: 'inherit' });
+      log('✅ Prisma client generated successfully', colors.green);
+      
+      // Create a simple script to test database connection
+      const testDbScript = `
+        const { PrismaClient } = require('@prisma/client');
+        async function testConnection() {
+          const prisma = new PrismaClient();
+          try {
+            // Try a simple query
+            const result = await prisma.$queryRaw\`SELECT 1 as test\`;
+            console.log('Database connection successful:', result);
+            await prisma.$disconnect();
+            return true;
+          } catch (error) {
+            console.error('Database connection failed:', error);
+            await prisma.$disconnect();
+            return false;
+          }
+        }
+        testConnection().then(success => process.exit(success ? 0 : 1));
+      `;
+      
+      fs.writeFileSync('test-db-connection.js', testDbScript);
+      execSync('node test-db-connection.js', { stdio: 'inherit' });
+      log('✅ Database connection verified successfully', colors.green);
+    } catch (error) {
+      log('❌ Database connection verification failed: ' + error.message, colors.red);
+      log('⚠️ Continuing with build, but database operations may fail', colors.yellow);
+    }
+    
+    // Run Prisma migrations with detailed output
     log('🔄 Running Prisma migrations...', colors.cyan);
     try {
-      execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+      // First, check what migrations need to be applied
+      execSync('npx prisma migrate status', { stdio: 'inherit' });
+      
+      // Then apply the migrations
+      execSync('npx prisma migrate deploy --verbose', { stdio: 'inherit' });
+      
+      // Verify migrations were applied
+      execSync('npx prisma migrate status', { stdio: 'inherit' });
+      
       log('✅ Prisma migrations applied successfully', colors.green);
     } catch (error) {
       log('❌ Failed to apply Prisma migrations: ' + error.message, colors.red);
