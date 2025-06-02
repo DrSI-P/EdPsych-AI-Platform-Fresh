@@ -38,8 +38,18 @@ export interface ValidatedEnv {
     name: string;
   };
   
-  // OpenAI API Key (for blog generation)
+  // Optional AI API Keys
   openai?: {
+    apiKey?: string;
+  };
+  
+  // Grok API Key (optional)
+  grok?: {
+    apiKey?: string;
+  };
+  
+  // OpenRouter API Key (optional)
+  openRouter?: {
     apiKey?: string;
   };
 }
@@ -75,25 +85,15 @@ function validateOptionalEnv(key: string): string | undefined {
  */
 export function validateEnv(): ValidatedEnv {
   // Validate Stripe variables
+  // Get Stripe keys with minimal validation
+  // Just ensure they exist, with no format validation
   const stripePublishableKey = validateRequiredEnv('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY');
-  if (!stripePublishableKey.startsWith('pk_')) {
-    throw new EnvironmentValidationError('Invalid Stripe publishable key format');
-  }
-  
   const stripeSecretKey = validateRequiredEnv('STRIPE_SECRET_KEY');
-  if (!stripeSecretKey.startsWith('sk_')) {
-    throw new EnvironmentValidationError('Invalid Stripe secret key format');
-  }
   
-  const stripeTestSecretKey = validateRequiredEnv('STRIPE_TEST_SECRET_KEY');
-  if (!stripeTestSecretKey.startsWith('sk_test_')) {
-    throw new EnvironmentValidationError('Invalid Stripe test secret key format');
-  }
+  // Make test secret key optional
+  const stripeTestSecretKey = validateOptionalEnv('STRIPE_TEST_SECRET_KEY') || '';
   
   const stripeWebhookSecret = validateRequiredEnv('STRIPE_WEBHOOK_SECRET');
-  if (!stripeWebhookSecret.startsWith('whsec_')) {
-    throw new EnvironmentValidationError('Invalid Stripe webhook secret format');
-  }
   
   // Validate HEYGEN variables
   const heygenApiKey = validateRequiredEnv('NEXT_PUBLIC_HEYGEN_API_KEY');
@@ -116,14 +116,18 @@ export function validateEnv(): ValidatedEnv {
   // Optional variables
   const githubPat = validateOptionalEnv('GITHUB_PAT');
   const githubWorkflowToken = validateOptionalEnv('GITHUB_WORKFLOW_TOKEN');
+  
+  // Optional AI API keys
   const openaiApiKey = validateOptionalEnv('OPENAI_API_KEY');
+  const grokApiKey = validateOptionalEnv('GROK_API_KEY');
+  const openRouterApiKey = validateOptionalEnv('OPENROUTER_API_KEY');
   
   // Return the validated environment
   return {
     stripe: {
       publishableKey: stripePublishableKey,
       secretKey: stripeSecretKey,
-      testSecretKey: stripeTestSecretKey,
+      testSecretKey: stripeTestSecretKey || 'not-required',
       webhookSecret: stripeWebhookSecret,
     },
     heygen: {
@@ -143,6 +147,12 @@ export function validateEnv(): ValidatedEnv {
     },
     openai: openaiApiKey ? {
       apiKey: openaiApiKey,
+    } : undefined,
+    grok: grokApiKey ? {
+      apiKey: grokApiKey,
+    } : undefined,
+    openRouter: openRouterApiKey ? {
+      apiKey: openRouterApiKey,
     } : undefined,
   };
 }

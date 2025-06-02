@@ -1,0 +1,92 @@
+// Custom server for EdPsych Connect
+const { createServer } = require('http');
+const { parse } = require('url');
+const next = require('next');
+const fs = require('fs');
+const path = require('path');
+
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
+// Create redirect HTML content
+const redirectHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0;url=/innovations/educator-dashboard">
+  <title>EdPsych Connect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #4338ca;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #4338ca;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>EdPsych Connect</h1>
+  <p>Redirecting to platform...</p>
+  <div class="spinner"></div>
+  <script>
+    window.location.href = '/innovations/educator-dashboard';
+  </script>
+</body>
+</html>
+`;
+
+app.prepare().then(() => {
+  createServer((req, res) => {
+    const parsedUrl = parse(req.url, true);
+    const { pathname } = parsedUrl;
+    
+    // Handle root path specifically
+    if (pathname === '/' || pathname === '/index.html') {
+      console.log('Redirecting from homepage to educator dashboard');
+      
+      // Set headers
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      
+      // Send redirect HTML
+      res.end(redirectHtml);
+      return;
+    }
+    
+    // Let Next.js handle all other routes
+    handle(req, res, parsedUrl);
+  }).listen(process.env.PORT || 3000, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${process.env.PORT || 3000}`);
+  });
+});

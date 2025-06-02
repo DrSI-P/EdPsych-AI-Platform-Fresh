@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import TransitionPlanningEngine from '@/components/special-needs/transition-planning/transition-planning-engine';
+import TransitionPlanningWrapper from './wrapper';
 
 export const metadata: Metadata = {
   title: 'Transition Planning Tools | EdPsych Connect',
@@ -21,7 +21,7 @@ export default function TransitionPlanningPage() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-semibold text-blue-800">About Transition Planning</h2>
           <p className="text-blue-700">
-            Educational transitions can be challenging for all students, but particularly for those with special educational needs. 
+            Educational transitions can be challenging for all students, but particularly for those with special educational needs.
             Effective transition planning helps reduce anxiety, builds confidence, and ensures appropriate support is in place.
           </p>
           <div className="grid gap-4 md:grid-cols-2 mt-4">
@@ -48,7 +48,7 @@ export default function TransitionPlanningPage() {
           </div>
         </div>
         
-        <TransitionPlanningEngine />
+        <TransitionPlanningWrapper />
         
         <div className="bg-grey-50 border rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-semibold">Evidence-Based Approach</h2>
@@ -57,15 +57,15 @@ export default function TransitionPlanningPage() {
           </p>
           <div className="space-y-2 mt-2">
             <p className="text-sm text-grey-600">
-              <span className="font-medium">Research basis:</span> This feature draws on research from the Department for Education's SEND Code of Practise, 
+              <span className="font-medium">Research basis:</span> This feature draws on research from the Department for Education's SEND Code of Practise,
               the Education Endowment Foundation's research on effective transitions, and studies published in the British Journal of Special Education.
             </p>
             <p className="text-sm text-grey-600">
-              <span className="font-medium">Person-centred approach:</span> Our tools emphasize student voice and preferences, aligning with best practices 
+              <span className="font-medium">Person-centred approach:</span> Our tools emphasize student voice and preferences, aligning with best practices
               in person-centred planning and the SEND Code of Practise's focus on putting children, young people, and families at the centre of the process.
             </p>
             <p className="text-sm text-grey-600">
-              <span className="font-medium">Collaborative framework:</span> The transition planning tools facilitate collaboration between students, parents, 
+              <span className="font-medium">Collaborative framework:</span> The transition planning tools facilitate collaboration between students, parents,
               teachers, and other professionals, reflecting research showing that multi-agency approaches lead to more successful transitions.
             </p>
           </div>
