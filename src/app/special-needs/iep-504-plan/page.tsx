@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import IEP504PlanEngine from '@/components/special-needs/iep-504-plan/iep-504-plan-engine';
+import IEP504PlanWrapper from './wrapper';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, BookOpen, Users, School, Briefcase, CheckCircle2 } from "lucide-react";
@@ -28,7 +28,7 @@ export default function IEP504PlanPage(): React.ReactNode {
         </TabsList>
         
         <TabsContent value="tool" className="space-y-4">
-          <IEP504PlanEngine />
+          <IEP504PlanWrapper />
         </TabsContent>
         
         <TabsContent value="about" className="space-y-6">

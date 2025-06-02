@@ -18,7 +18,7 @@ import {
   Wifi,
   WifiOff
 } from 'lucide-react';
-import { Sync } from '@/components/icons';
+// import { Sync } from '@/components/icons';
 import { EnhancedAccessibilityWrapper } from '@/components/accessibility/enhanced-accessibility-components';
 
 /**
@@ -181,7 +181,7 @@ const MobileSynchronization: React.FC = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="w-full grid grid-cols-3 mb-6">
             <TabsTrigger value="status" className="flex items-center space-x-2">
-              <Sync className="h-4 w-4" />
+              <RefreshCw className="h-4 w-4" />
               <span>Sync Status</span>
             </TabsTrigger>
             <TabsTrigger value="history" className="flex items-center space-x-2">

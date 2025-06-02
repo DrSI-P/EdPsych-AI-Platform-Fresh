@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import ParentTeacherCommunication from '@/components/special-needs/parent-teacher-communication/parent-teacher-communication';
+import ParentTeacherCommunicationWrapper from './wrapper';
 
 export const metadata: Metadata = {
   title: 'Parent-Teacher-Student Emotional Communication | EdPsych Connect',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ParentTeacherCommunicationPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-6">
-      <ParentTeacherCommunication />
+      <ParentTeacherCommunicationWrapper />
     </div>
   );
 }

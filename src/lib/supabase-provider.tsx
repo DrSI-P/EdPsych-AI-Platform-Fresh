@@ -35,8 +35,12 @@ export function SupabaseProvider({ children }: { children: ReactNode }) {
     const initializeSupabase = async () => {
       try {
         // Use environment variables for Supabase URL and anon key
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://vrailhsvlqdavpbrkxy.supabase.co';
-        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyYWlsaHN2bHFkYXZwYnJreHkiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcxNzQ0MjA5MywiZXhwIjoyMDMzMDE4MDkzfQ.eyJhbGciOiJIUzI1NiJ9';
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+        
+        if (!supabaseUrl || !supabaseAnonKey) {
+          throw new Error('Supabase URL or anon key not found in environment variables');
+        }
         
         // Create the Supabase client
         const client = createClient(supabaseUrl, supabaseAnonKey);

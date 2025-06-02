@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import EmotionalPatternRecognition from '@/components/special-needs/emotional-regulation/pattern-recognition/emotional-pattern-recognition';
+import PatternRecognitionWrapper from './wrapper';
 
 export const metadata: Metadata = {
   title: 'Emotional Pattern Recognition | EdPsych Connect',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function EmotionalPatternRecognitionPage() {
   return (
     <div className="container mx-auto py-8">
-      <EmotionalPatternRecognition />
+      <PatternRecognitionWrapper />
     </div>
   );
 }

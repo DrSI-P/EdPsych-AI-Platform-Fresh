@@ -37,6 +37,68 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format, subDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
 import { CalendarIcon, TrendingUp, Clock, Calendar as CalendarIcon2, Activity, AlertCircle, Lightbulb, Download } from "lucide-react";
 
+// Pre-defined data outside component to avoid recreation on each render
+const basicEmotions = [
+  { name: "Happy", color: "#FFD700", icon: "😊" },
+  { name: "Sad", color: "#6495ED", icon: "😢" },
+  { name: "Angry", color: "#FF4500", icon: "😠" },
+  { name: "Scared", color: "#9370DB", icon: "😨" },
+  { name: "Disgusted", color: "#32CD32", icon: "🤢" },
+  { name: "Surprised", color: "#FF69B4", icon: "😲" }
+];
+
+// Advanced emotions with UK spelling
+const advancedEmotions = [
+  { name: "Anxious", color: "#DAA520", icon: "😰" },
+  { name: "Frustrated", color: "#CD5C5C", icon: "😤" },
+  { name: "Excited", color: "#FF8C00", icon: "🤩" },
+  { name: "Proud", color: "#4682B4", icon: "😌" },
+  { name: "Embarrassed", color: "#DB7093", icon: "😳" },
+  { name: "Jealous", color: "#228B22", icon: "😒" },
+  { name: "Confused", color: "#9932CC", icon: "😕" },
+  { name: "Calm", color: "#87CEEB", icon: "😌" },
+  { name: "Bored", color: "#A9A9A9", icon: "😑" },
+  { name: "Nervous", color: "#FFA07A", icon: "😬" },
+  { name: "Overwhelmed", color: "#800080", icon: "😩" },
+  { name: "Disappointed", color: "#708090", icon: "😞" }
+];
+
+// All emotions combined
+const allEmotions = [...basicEmotions, ...advancedEmotions];
+
+// Time periods for analysis
+const timePeriods = [
+  { value: "7days", label: "Last 7 Days" },
+  { value: "30days", label: "Last 30 Days" },
+  { value: "90days", label: "Last 90 Days" },
+  { value: "custom", label: "Custom Range" }
+];
+
+// Helper functions moved outside component
+const getEmotionColor = (emotionName) => {
+  const emotion =
+    basicEmotions.find(e => e.name === emotionName) ||
+    advancedEmotions.find(e => e.name === emotionName);
+  return emotion ? emotion.color : "#808080";
+};
+
+const getEmotionIcon = (emotionName) => {
+  const emotion =
+    basicEmotions.find(e => e.name === emotionName) ||
+    advancedEmotions.find(e => e.name === emotionName);
+  return emotion ? emotion.icon : "😐";
+};
+
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+  return new Date(dateString).toLocaleDateString('en-GB', options);
+};
+
+// Main component with optimizations to prevent stack overflow
 const EmotionalPatternRecognition = () => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -54,42 +116,6 @@ const EmotionalPatternRecognition = () => {
   const [emotionTrends, setEmotionTrends] = useState([]);
   const [emotionCorrelations, setEmotionCorrelations] = useState([]);
   
-  // Basic emotions with UK spelling
-  const basicEmotions = [
-    { name: "Happy", color: "#FFD700", icon: "😊" },
-    { name: "Sad", color: "#6495ED", icon: "😢" },
-    { name: "Angry", color: "#FF4500", icon: "😠" },
-    { name: "Scared", color: "#9370DB", icon: "😨" },
-    { name: "Disgusted", color: "#32CD32", icon: "🤢" },
-    { name: "Surprised", color: "#FF69B4", icon: "😲" }
-  ];
-  
-  // Advanced emotions with UK spelling
-  const advancedEmotions = [
-    { name: "Anxious", color: "#DAA520", icon: "😰" },
-    { name: "Frustrated", color: "#CD5C5C", icon: "😤" },
-    { name: "Excited", color: "#FF8C00", icon: "🤩" },
-    { name: "Proud", color: "#4682B4", icon: "😌" },
-    { name: "Embarrassed", color: "#DB7093", icon: "😳" },
-    { name: "Jealous", color: "#228B22", icon: "😒" },
-    { name: "Confused", color: "#9932CC", icon: "😕" },
-    { name: "Calm", color: "#87CEEB", icon: "😌" },
-    { name: "Bored", color: "#A9A9A9", icon: "😑" },
-    { name: "Nervous", color: "#FFA07A", icon: "😬" },
-    { name: "Overwhelmed", color: "#800080", icon: "😩" },
-    { name: "Disappointed", color: "#708090", icon: "😞" }
-  ];
-  
-  // All emotions combined
-  const allEmotions = [...basicEmotions, ...advancedEmotions];
-  
-  // Time periods for analysis
-  const timePeriods = [
-    { value: "7days", label: "Last 7 Days" },
-    { value: "30days", label: "Last 30 Days" },
-    { value: "90days", label: "Last 90 Days" },
-    { value: "custom", label: "Custom Range" }
-  ];
   
   // Load emotion history and generate patterns on component mount
   useEffect(() => {
@@ -471,64 +497,65 @@ const EmotionalPatternRecognition = () => {
   };
   
   const generateEmotionCorrelations = (history) => {
-    // Find emotions that often occur together or in sequence
-    const emotionPairs = {};
-    const allEmotionNames = [...basicEmotions, ...advancedEmotions].map(e => e.name);
-    
-    // Initialize all possible pairs
-    allEmotionNames.forEach(emotion1 => {
-      allEmotionNames.forEach(emotion2 => {
-        if (emotion1 !== emotion2) {
-          const pairKey = [emotion1, emotion2].sort().join('-');
-          if (!emotionPairs[pairKey]) {
-            emotionPairs[pairKey] = {
-              source: emotion1,
-              target: emotion2,
-              count: 0,
-              strength: 0
-            };
+    try {
+      // Simplified approach to avoid potential stack overflow
+      if (history.length < 2) {
+        setEmotionCorrelations([]);
+        return;
+      }
+      
+      // Create a map to track emotion pairs
+      const pairCounts = {};
+      
+      // Sort history by timestamp
+      const sortedHistory = [...history].sort((a, b) =>
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      );
+      
+      // Look for emotions that occur within 24 hours of each other
+      // Limit the number of entries we process to avoid potential issues
+      const maxEntries = Math.min(sortedHistory.length, 100);
+      
+      for (let i = 0; i < maxEntries - 1; i++) {
+        const currentEmotion = sortedHistory[i].name;
+        const currentTime = new Date(sortedHistory[i].timestamp).getTime();
+        
+        // Look ahead up to 3 entries or 24 hours, whichever comes first
+        for (let j = i + 1; j < Math.min(i + 4, maxEntries); j++) {
+          const nextEmotion = sortedHistory[j].name;
+          const nextTime = new Date(sortedHistory[j].timestamp).getTime();
+          
+          // Check if within 24 hours
+          const hoursDiff = (nextTime - currentTime) / (1000 * 60 * 60);
+          if (hoursDiff <= 24 && currentEmotion !== nextEmotion) {
+            const pairKey = `${currentEmotion}-${nextEmotion}`;
+            pairCounts[pairKey] = (pairCounts[pairKey] || 0) + 1;
           }
         }
-      });
-    });
-    
-    // Sort history by timestamp
-    const sortedHistory = [...history].sort((a, b) => 
-      new Date(a.timestamp) - new Date(b.timestamp)
-    );
-    
-    // Look for emotions that occur within 24 hours of each other
-    for (let i = 0; i < sortedHistory.length - 1; i++) {
-      const currentEmotion = sortedHistory[i].name;
-      const currentTime = new Date(sortedHistory[i].timestamp);
-      
-      // Look ahead up to 3 entries or 24 hours, whichever comes first
-      for (let j = i + 1; j < Math.min(i + 4, sortedHistory.length); j++) {
-        const nextEmotion = sortedHistory[j].name;
-        const nextTime = new Date(sortedHistory[j].timestamp);
-        
-        // Check if within 24 hours
-        const hoursDiff = (nextTime - currentTime) / (1000 * 60 * 60);
-        if (hoursDiff <= 24 && currentEmotion !== nextEmotion) {
-          const pairKey = [currentEmotion, nextEmotion].sort().join('-');
-          emotionPairs[pairKey].count++;
-        }
       }
+      
+      // Convert to the format needed for visualization
+      const correlations = Object.entries(pairCounts).map(([key, count]) => {
+        const [source, target] = key.split('-');
+        return { source, target, count, strength: 0 };
+      });
+      
+      // Calculate strength based on count
+      const maxCount = correlations.length > 0
+        ? Math.max(...correlations.map(pair => pair.count))
+        : 0;
+      
+      correlations.forEach(pair => {
+        pair.strength = maxCount > 0 ? pair.count / maxCount : 0;
+      });
+      
+      // Sort and limit to top 10
+      correlations.sort((a, b) => b.count - a.count);
+      setEmotionCorrelations(correlations.slice(0, 10));
+    } catch (error) {
+      console.error('Error generating emotion correlations:', error);
+      setEmotionCorrelations([]);
     }
-    
-    // Calculate strength based on count
-    const maxCount = Math.max(...Object.values(emotionPairs).map(pair => pair.count));
-    
-    Object.values(emotionPairs).forEach(pair => {
-      pair.strength = maxCount > 0 ? pair.count / maxCount : 0;
-    });
-    
-    // Filter to only include pairs that occurred at least once
-    const significantPairs = Object.values(emotionPairs)
-      .filter(pair => pair.count > 0)
-      .sort((a, b) => b.count - a.count);
-    
-    setEmotionCorrelations(significantPairs.slice(0, 10)); // Top 10 correlations
   };
   
   const handleDateRangeChange = (period) => {
@@ -559,28 +586,6 @@ const EmotionalPatternRecognition = () => {
     setSelectedEmotions(emotions);
   };
   
-  const getEmotionColor = (emotionName) => {
-    const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.color : "#808080";
-  };
-  
-  const getEmotionIcon = (emotionName) => {
-    const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.icon : "😐";
-  };
-  
-  const formatDate = (dateString) => {
-    const options = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric'
-    };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
-  };
   
   const exportData = () => {
     // Create CSV content
@@ -789,7 +794,7 @@ const EmotionalPatternRecognition = () => {
                               <PieChart>
                                 <Pie
                                   data={Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
+                                    emotionHistory.slice(0, 100).reduce((acc, entry) => {
                                       acc[entry.name] = (acc[entry.name] || 0) + 1;
                                       return acc;
                                     }, {})
@@ -803,12 +808,12 @@ const EmotionalPatternRecognition = () => {
                                   nameKey="name"
                                   label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                                 >
-                                  {Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
-                                      acc[entry.name] = (acc[entry.name] || 0) + 1;
+                                  {Object.keys(
+                                    emotionHistory.slice(0, 100).reduce((acc, entry) => {
+                                      acc[entry.name] = true;
                                       return acc;
                                     }, {})
-                                  ).map(([name]) => (
+                                  ).map(name => (
                                     <Cell key={name} fill={getEmotionColor(name)} />
                                   ))}
                                 </Pie>
@@ -1290,40 +1295,42 @@ const EmotionalPatternRecognition = () => {
                           <div className="h-[300px]">
                             <ResponsiveContainer width="100%" height="100%">
                               <BarChart
-                                data={
-                                  Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
-                                      acc[entry.name] = (acc[entry.name] || 0) + 1;
-                                      return acc;
-                                    }, {})
-                                  ).map(([name, count]) => ({ name, count }))
+                                data={Object.entries(
+                                  emotionHistory.slice(0, 100).reduce((acc, entry) => {
+                                    acc[entry.name] = (acc[entry.name] || 0) + 1;
+                                    return acc;
+                                  }, {})
+                                )
+                                  .map(([name, count]) => ({ name, count }))
                                   .sort((a, b) => b.count - a.count)
-                                  .slice(0, 10) // Top 10 emotions
-                                }
+                                  .slice(0, 10)}
                                 layout="vertical"
                                 margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
                               >
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis type="number" />
-                                <YAxis 
-                                  dataKey="name" 
-                                  type="category" 
+                                <YAxis
+                                  dataKey="name"
+                                  type="category"
                                   width={80}
                                   tick={{ fontSize: 12 }}
                                 />
                                 <Tooltip />
-                                <Bar 
-                                  dataKey="count" 
-                                  name="Frequency" 
+                                <Bar
+                                  dataKey="count"
+                                  name="Frequency"
                                 >
                                   {Object.entries(
-                                    emotionHistory.reduce((acc, entry) => {
+                                    emotionHistory.slice(0, 100).reduce((acc, entry) => {
                                       acc[entry.name] = (acc[entry.name] || 0) + 1;
                                       return acc;
                                     }, {})
-                                  ).map(([name]) => (
-                                    <Cell key={name} fill={getEmotionColor(name)} />
-                                  ))}
+                                  )
+                                    .sort((a, b) => b[1] - a[1])
+                                    .slice(0, 10)
+                                    .map(([name]) => (
+                                      <Cell key={name} fill={getEmotionColor(name)} />
+                                    ))}
                                 </Bar>
                               </BarChart>
                             </ResponsiveContainer>

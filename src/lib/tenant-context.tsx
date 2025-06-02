@@ -33,7 +33,7 @@ interface TenantProviderProps {
 
 export const TenantProvider = ({ 
   children, 
-  defaultTenantId = 'default' 
+  defaultTenantId = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID || 'debdcb9f-f3d3-4dc5-8000-000000000000'
 }: TenantProviderProps) => {
   const [currentTenantId, setCurrentTenantId] = useState<string | null>(defaultTenantId);
   const [isLoading, setIsLoading] = useState(true);
@@ -132,7 +132,7 @@ CREATE OR REPLACE FUNCTION ensure_default_tenant()
 RETURNS void AS $$
 BEGIN
   INSERT INTO "Tenant" ("id", "name", "domain", "updatedAt")
-  VALUES ('default', 'Default Tenant', 'edpsychconnect.com', CURRENT_TIMESTAMP)
+  VALUES ('debdcb9f-f3d3-4dc5-8000-000000000000', 'Default Tenant', 'edpsychconnect.com', CURRENT_TIMESTAMP)
   ON CONFLICT ("id") DO NOTHING;
 END;
 $$ LANGUAGE plpgsql;
