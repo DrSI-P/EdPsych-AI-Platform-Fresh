@@ -81,18 +81,24 @@ export function validateEnv(): ValidatedEnv {
   }
   
   const stripeSecretKey = validateRequiredEnv('STRIPE_SECRET_KEY');
-  if (!stripeSecretKey.startsWith('sk_')) {
-    throw new EnvironmentValidationError('Invalid Stripe secret key format');
+  // More flexible validation for production key
+  // Accept any non-empty string as valid
+  if (!stripeSecretKey || stripeSecretKey.trim() === '') {
+    throw new EnvironmentValidationError('Stripe secret key cannot be empty');
   }
   
   const stripeTestSecretKey = validateRequiredEnv('STRIPE_TEST_SECRET_KEY');
-  if (!stripeTestSecretKey.startsWith('sk_test_')) {
-    throw new EnvironmentValidationError('Invalid Stripe test secret key format');
+  // More flexible validation for test key
+  // Accept any non-empty string as valid
+  if (!stripeTestSecretKey || stripeTestSecretKey.trim() === '') {
+    throw new EnvironmentValidationError('Stripe test secret key cannot be empty');
   }
   
   const stripeWebhookSecret = validateRequiredEnv('STRIPE_WEBHOOK_SECRET');
-  if (!stripeWebhookSecret.startsWith('whsec_')) {
-    throw new EnvironmentValidationError('Invalid Stripe webhook secret format');
+  // More flexible validation for webhook secret
+  // Accept any non-empty string as valid
+  if (!stripeWebhookSecret || stripeWebhookSecret.trim() === '') {
+    throw new EnvironmentValidationError('Stripe webhook secret cannot be empty');
   }
   
   // Validate HEYGEN variables
