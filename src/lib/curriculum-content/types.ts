@@ -3,10 +3,19 @@
  * Provides comprehensive type system for UK curriculum-aligned educational content
  */
 
-import { UKKeyStage, UKSubject, LearningStyle } from '@/lib/learning-path/types';
+import { 
+  UKKeyStage, 
+  UKSubject, 
+  LearningStyle,
+  KeyStage,
+  Subject
+} from '@/lib/learning-path/types';
 
 // Re-export types from learning-path/types for convenience
-export type { UKSubject, UKKeyStage, LearningStyle };
+export type { UKSubject, UKKeyStage, LearningStyle, KeyStage, Subject };
+
+// Re-export namespaces for enum-like access
+export { KeyStage, Subject, UKKeyStage, UKSubject } from '@/lib/learning-path/types';
 
 /**
  * Content difficulty levels

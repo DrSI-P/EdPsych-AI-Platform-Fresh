@@ -36,6 +36,35 @@ export namespace Subject {
   export const LANGUAGES: Subject = 'Languages';
 }
 
+// Enhanced UKKeyStage namespace for enum-like access
+export namespace UKKeyStage {
+  export const NURSERY: UKKeyStage = 'nursery';
+  export const RECEPTION: UKKeyStage = 'reception';
+  export const KS1: UKKeyStage = 'ks1';
+  export const KS2: UKKeyStage = 'ks2';
+  export const KS3: UKKeyStage = 'ks3';
+  export const KS4: UKKeyStage = 'ks4';
+  export const KS5: UKKeyStage = 'ks5';
+}
+
+// Enhanced UKSubject namespace for enum-like access
+export namespace UKSubject {
+  export const MATHEMATICS: UKSubject = 'Mathematics';
+  export const ENGLISH: UKSubject = 'English';
+  export const SCIENCE: UKSubject = 'Science';
+  export const HISTORY: UKSubject = 'History';
+  export const GEOGRAPHY: UKSubject = 'Geography';
+  export const ART: UKSubject = 'Art';
+  export const MUSIC: UKSubject = 'Music';
+  export const PHYSICAL_EDUCATION: UKSubject = 'Physical Education';
+  export const COMPUTING: UKSubject = 'Computing';
+  export const DESIGN_AND_TECHNOLOGY: UKSubject = 'Design and Technology';
+  export const LANGUAGES: UKSubject = 'Languages';
+  export const RELIGIOUS_EDUCATION: UKSubject = 'Religious Education';
+  export const CITIZENSHIP: UKSubject = 'Citizenship';
+  export const PSHE: UKSubject = 'PSHE';
+}
+
 /**
  * Topic status for tracking progress
  */
