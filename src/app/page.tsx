@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const router = useRouter();
   
-  // Automatically redirect to dashboard on page load
+  // Automatically redirect to educator dashboard on page load
   useEffect(() => {
-    router.push('/dashboard');
+    router.push('/innovations/educator-dashboard');
   }, [router]);
 
   // Show a brief loading state while redirecting
