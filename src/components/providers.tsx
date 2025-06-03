@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import { EnhancedThemeProvider } from '@/components/enhanced-theme-provider';
 import { TenantProvider } from '@/lib/tenant-context';
 import { SupabaseProvider } from '@/lib/supabase-provider';
+import { AvatarProvider } from '@/components/heygen/avatar-provider';
 import { Analytics } from '@/components/analytics';
 
 interface ProvidersProps {
@@ -16,8 +17,10 @@ export function Providers({ children }: ProvidersProps) {
       <SupabaseProvider>
         <TenantProvider>
           <EnhancedThemeProvider>
-            <Analytics />
-            {children}
+            <AvatarProvider>
+              <Analytics />
+              {children}
+            </AvatarProvider>
           </EnhancedThemeProvider>
         </TenantProvider>
       </SupabaseProvider>
