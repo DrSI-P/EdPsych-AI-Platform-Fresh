@@ -66,9 +66,9 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      value: "dr.scott@edpsychconnect.com",
+      value: "scott.ipatrick@edpsychconnect.app",
       description: "Professional inquiries and consultations",
-      action: "mailto:dr.scott@edpsychconnect.com"
+      action: "mailto:scott.ipatrick@edpsychconnect.app"
     },
     {
       icon: Phone,
