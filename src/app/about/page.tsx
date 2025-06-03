@@ -210,12 +210,13 @@ export default function AboutPage() {
                 </AvatarFallback>
               </Avatar>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Mrs Hayley Baverstock</h3>
-              <p className="text-sm text-green-600 font-medium mb-2">Senior Specialist Teacher</p>
-              <p className="text-sm text-gray-600 mb-3">Educational Specialist</p>
-              <Badge className="bg-green-100 text-green-800 text-xs">Senior Specialist</Badge>
+              <p className="text-sm text-green-600 font-medium mb-2">Senior Specialist Advisor & Specialist Teacher</p>
+              <p className="text-sm text-gray-600 mb-3">Strategic Educational Specialist</p>
+              <Badge className="bg-green-100 text-green-800 text-xs">Senior Advisor</Badge>
               <p className="text-xs text-gray-500 mt-3">
-                Experienced senior specialist teacher bringing extensive classroom expertise 
-                and innovative teaching strategies to support diverse learning needs.
+                Senior specialist advisor providing strategic guidance and expert teaching 
+                methodologies. Combines high-level advisory expertise with hands-on specialist 
+                teaching to support diverse educational needs and strategic development.
               </p>
             </div>
 
