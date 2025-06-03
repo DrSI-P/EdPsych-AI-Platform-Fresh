@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,8 +21,14 @@ import {
   Shield,
   Minimize2,
   Maximize2,
-  X
+  X,
+  Mic,
+  MicOff,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
+import { getKnowledgeBase } from '@/lib/knowledge-base';
+import { HeygenAPI } from '@/lib/heygen/heygen-api';
 
 // Types for the Interactive Avatar system
 export interface Message {
@@ -28,10 +36,13 @@ export interface Message {
   type: 'user' | 'avatar';
   content: string;
   timestamp: Date;
+  audioUrl?: string;
+  videoUrl?: string;
   metadata?: {
     userRole?: string;
     confidence?: number;
     sources?: string[];
+    sessionId?: string;
   };
 }
 
@@ -48,7 +59,14 @@ export interface AvatarConfig {
   title: string;
   expertise: string[];
   avatar_id?: string;
-  heygen_session_id?: string;
+  voice_id?: string;
+}
+
+export interface HeyGenStreamingSession {
+  sessionId: string;
+  status: 'initializing' | 'ready' | 'speaking' | 'listening' | 'error' | 'closed';
+  avatarId: string;
+  websocket?: WebSocket;
 }
 
 // User roles configuration
@@ -94,7 +112,9 @@ const DR_SCOTT_CONFIG: AvatarConfig = {
     'Intervention Planning',
     'Special Educational Needs',
     'Inclusive Education'
-  ]
+  ],
+  avatar_id: process.env.NEXT_PUBLIC_HEYGEN_AVATAR_ID || 'default_avatar_id',
+  voice_id: process.env.NEXT_PUBLIC_HEYGEN_VOICE_ID || 'default_voice_id'
 };
 
 interface InteractiveAvatarProps {
@@ -119,8 +139,14 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   const [isTyping, setIsTyping] = useState(false);
   const [selectedRole, setSelectedRole] = useState(defaultRole);
   const [isConnected, setIsConnected] = useState(false);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [streamingSession, setStreamingSession] = useState<HeyGenStreamingSession | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [heygenApi, setHeygenApi] = useState<HeygenAPI | null>(null);
+  const [useRealAPI, setUseRealAPI] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const knowledgeBase = getKnowledgeBase();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -130,108 +156,202 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     scrollToBottom();
   }, [messages]);
 
-  // Initialize avatar session
+  // Initialize HeyGen API and avatar session
   useEffect(() => {
-    initializeAvatarSession();
+    initializeHeyGenAPI();
   }, []);
 
-  const initializeAvatarSession = async () => {
+  const initializeHeyGenAPI = async () => {
     try {
-      // Simulate HeyGen session initialization
-      // In real implementation, this would connect to HeyGen API
-      const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      setSessionId(newSessionId);
-      setIsConnected(true);
+      const apiKey = process.env.NEXT_PUBLIC_HEYGEN_API_KEY;
       
-      // Add welcome message
-      const welcomeMessage: Message = {
-        id: `msg_${Date.now()}`,
-        type: 'avatar',
-        content: `Hello! I'm Dr. Scott I-Patrick, and I'm delighted to meet you. As an Educational Psychologist with over 12 years of experience, I'm here to provide you with evidence-based support and guidance. How can I help you today?`,
-        timestamp: new Date(),
-        metadata: {
-          userRole: selectedRole,
-          confidence: 1.0,
-          sources: ['Dr. Scott I-Patrick Professional Profile']
-        }
-      };
-      
-      setMessages([welcomeMessage]);
+      if (!apiKey || apiKey === 'your_heygen_api_key_here') {
+        console.log('HeyGen API key not configured, using demo mode');
+        setUseRealAPI(false);
+        initializeDemoSession();
+        return;
+      }
+
+      // Initialize real HeyGen API
+      const api = HeygenAPI.getInstance();
+      api.initialize(apiKey);
+      setHeygenApi(api);
+      setUseRealAPI(true);
+
+      // Test API connection
+      try {
+        await api.getAvatars();
+        console.log('HeyGen API connected successfully');
+        await initializeStreamingSession();
+      } catch (error) {
+        console.error('HeyGen API connection failed, falling back to demo mode:', error);
+        setUseRealAPI(false);
+        initializeDemoSession();
+      }
     } catch (error) {
-      console.error('Failed to initialize avatar session:', error);
-      setIsConnected(false);
+      console.error('Failed to initialize HeyGen API:', error);
+      setUseRealAPI(false);
+      initializeDemoSession();
     }
   };
 
-  const getAvatarResponse = async (userInput: string, userRole: string): Promise<string> => {
-    // Enhanced knowledge base with role-specific responses
-    const knowledgeBase = {
-      greeting: {
-        student: "Hello! I'm here to support your learning journey. Whether you're facing challenges with schoolwork, need study strategies, or want to understand your learning style better, I'm here to help. What would you like to explore today?",
-        teacher: "Welcome! As an educator, you're making such an important difference. I can help with evidence-based classroom strategies, behavior management, assessment techniques, and supporting students with diverse needs. What's on your mind?",
-        parent: "Hello! Supporting your child's education is one of the most important things you can do. I can help you understand assessment results, develop home support strategies, navigate school systems, and advocate for your child's needs. How can I assist you?",
-        professional: "Greetings, colleague! I'm excited to collaborate with you on supporting students and families. Whether you need consultation on complex cases, want to discuss latest research, or explore intervention strategies, I'm here to help. What would you like to discuss?"
-      },
+  const initializeStreamingSession = async () => {
+    if (!heygenApi || !useRealAPI) return;
+
+    try {
+      // Create streaming session with HeyGen
+      const response = await fetch('/api/heygen/streaming/new', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          avatar_id: DR_SCOTT_CONFIG.avatar_id,
+          voice_id: DR_SCOTT_CONFIG.voice_id,
+          quality: 'high',
+          avatar_style: 'normal'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create streaming session');
+      }
+
+      const sessionData = await response.json();
       
-      restorative_justice: {
-        general: "Restorative Justice is at the heart of my doctoral research and practice. It's about building relationships, understanding underlying causes of behavior, and creating healing rather than punishment. In schools, this means focusing on repairing harm and strengthening community bonds.",
-        teacher: "For teachers, Restorative Justice transforms classroom management. Instead of traditional punishments, we use circle processes, restorative conversations, and community agreements. This approach builds stronger relationships and creates a more positive learning environment.",
-        student: "Restorative Justice means when conflicts happen, we focus on understanding what went wrong and how to make things better. It's about taking responsibility, making amends, and learning from mistakes rather than just getting punished.",
-        parent: "Restorative Justice in schools means your child learns to take responsibility for their actions while being supported to make positive changes. It focuses on repairing relationships and building empathy rather than exclusionary discipline."
-      },
+      const session: HeyGenStreamingSession = {
+        sessionId: sessionData.session_id,
+        status: 'initializing',
+        avatarId: DR_SCOTT_CONFIG.avatar_id!
+      };
+
+      setStreamingSession(session);
       
-      assessments: {
-        general: "Educational psychology assessments are powerful tools for understanding learning needs. I can guide you through various assessment types, from cognitive evaluations to social-emotional assessments, helping you understand what they measure and how to interpret results.",
-        teacher: "Assessments help us understand each student's unique profile. I can guide you through classroom-based assessments, progress monitoring tools, and how to use assessment data to inform your teaching strategies and support planning.",
-        parent: "Assessment results can feel overwhelming, but they're actually roadmaps to understanding your child's strengths and needs. I can help you interpret results, understand recommendations, and know what questions to ask at school meetings.",
-        professional: "Assessment is the foundation of effective intervention. I can discuss assessment selection, administration protocols, interpretation frameworks, and how to translate results into actionable intervention plans."
-      },
+      // Initialize WebSocket connection for real-time communication
+      await initializeWebSocket(session);
       
-      interventions: {
-        general: "Evidence-based interventions are the cornerstone of effective educational psychology practice. I can guide you through selecting, implementing, and monitoring interventions that are proven to work for specific learning and behavioral needs.",
-        teacher: "Classroom interventions should be practical and evidence-based. I can help you implement strategies for academic support, behavior management, social-emotional learning, and creating inclusive environments that work for all students.",
-        student: "Interventions are strategies that help you learn better and feel more successful at school. We can explore study techniques, organization strategies, ways to manage stress, and approaches that match your learning style.",
-        parent: "Home interventions complement what's happening at school. I can suggest strategies for homework support, behavior management, communication skills, and creating structure that supports your child's success."
+      setIsConnected(true);
+      addWelcomeMessage();
+      
+    } catch (error) {
+      console.error('Failed to initialize streaming session:', error);
+      setUseRealAPI(false);
+      initializeDemoSession();
+    }
+  };
+
+  const initializeWebSocket = async (session: HeyGenStreamingSession) => {
+    try {
+      const wsUrl = `wss://api.heygen.com/v1/streaming/${session.sessionId}`;
+      const websocket = new WebSocket(wsUrl);
+
+      websocket.onopen = () => {
+        console.log('WebSocket connected');
+        setStreamingSession(prev => prev ? { ...prev, status: 'ready', websocket } : null);
+      };
+
+      websocket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        handleWebSocketMessage(data);
+      };
+
+      websocket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        setStreamingSession(prev => prev ? { ...prev, status: 'error' } : null);
+      };
+
+      websocket.onclose = () => {
+        console.log('WebSocket closed');
+        setStreamingSession(prev => prev ? { ...prev, status: 'closed' } : null);
+        setIsConnected(false);
+      };
+
+    } catch (error) {
+      console.error('Failed to initialize WebSocket:', error);
+      throw error;
+    }
+  };
+
+  const handleWebSocketMessage = (data: any) => {
+    switch (data.type) {
+      case 'avatar_response':
+        if (data.audio_url || data.video_url) {
+          const avatarMessage: Message = {
+            id: `msg_${Date.now()}`,
+            type: 'avatar',
+            content: data.text || 'Audio/Video response',
+            timestamp: new Date(),
+            audioUrl: data.audio_url,
+            videoUrl: data.video_url,
+            metadata: {
+              sessionId: streamingSession?.sessionId,
+              confidence: data.confidence
+            }
+          };
+          setMessages(prev => [...prev, avatarMessage]);
+        }
+        setIsTyping(false);
+        break;
+      
+      case 'status_update':
+        setStreamingSession(prev => prev ? { ...prev, status: data.status } : null);
+        break;
+      
+      case 'error':
+        console.error('Avatar error:', data.message);
+        setIsTyping(false);
+        break;
+    }
+  };
+
+  const initializeDemoSession = () => {
+    // Demo mode initialization
+    const demoSessionId = `demo_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    setStreamingSession({
+      sessionId: demoSessionId,
+      status: 'ready',
+      avatarId: 'demo_avatar'
+    });
+    setIsConnected(true);
+    addWelcomeMessage();
+  };
+
+  const addWelcomeMessage = () => {
+    const welcomeMessage: Message = {
+      id: `msg_${Date.now()}`,
+      type: 'avatar',
+      content: getRoleSpecificWelcome(selectedRole),
+      timestamp: new Date(),
+      metadata: {
+        userRole: selectedRole,
+        confidence: 1.0,
+        sessionId: streamingSession?.sessionId
       }
     };
-
-    const input = userInput.toLowerCase();
-    
-    // Determine response category
-    let category = 'general';
-    let responseType = 'help';
-    
-    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
-      responseType = 'greeting';
-    } else if (input.includes('restorative') || input.includes('justice') || input.includes('behavior')) {
-      responseType = 'restorative_justice';
-    } else if (input.includes('assessment') || input.includes('test') || input.includes('evaluate')) {
-      responseType = 'assessments';
-    } else if (input.includes('intervention') || input.includes('strategy') || input.includes('support')) {
-      responseType = 'interventions';
-    }
-    
-    // Get role-specific response
-    const responses = knowledgeBase[responseType as keyof typeof knowledgeBase];
-    if (responses && typeof responses === 'object') {
-      return responses[userRole as keyof typeof responses] || responses.general || "I'd be happy to help you with that. Could you tell me more about what specific area you'd like to explore?";
-    }
-    
-    // Default response
-    return `That's a great question! As an Educational Psychologist, I can help you with assessments, interventions, learning strategies, behavioral support, and restorative justice practices. Could you tell me more about what specific area you'd like to explore?`;
+    setMessages([welcomeMessage]);
   };
 
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim() || !isConnected) return;
+  const getRoleSpecificWelcome = (role: string): string => {
+    const welcomes = {
+      student: "Hello! I'm Dr. Scott I-Patrick, and I'm here to support your learning journey. Whether you're facing challenges with schoolwork, need study strategies, or want to understand your learning style better, I'm here to help. What would you like to explore today?",
+      teacher: "Welcome! As an educator, you're making such an important difference. I can help with evidence-based classroom strategies, behavior management, assessment techniques, and supporting students with diverse needs. What's on your mind?",
+      parent: "Hello! Supporting your child's education is one of the most important things you can do. I can help you understand assessment results, develop home support strategies, navigate school systems, and advocate for your child's needs. How can I assist you?",
+      professional: "Greetings, colleague! I'm excited to collaborate with you on supporting students and families. Whether you need consultation on complex cases, want to discuss latest research, or explore intervention strategies, I'm here to help. What would you like to discuss?"
+    };
+    return welcomes[role as keyof typeof welcomes] || welcomes.student;
+  };
 
-    // Add user message
+  const sendMessage = async () => {
+    if (!inputMessage.trim() || !streamingSession) return;
+
     const userMessage: Message = {
       id: `msg_${Date.now()}`,
       type: 'user',
-      content: inputMessage,
+      content: inputMessage.trim(),
       timestamp: new Date(),
       metadata: {
-        userRole: selectedRole
+        userRole: selectedRole,
+        sessionId: streamingSession.sessionId
       }
     };
 
@@ -239,228 +359,285 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     setInputMessage('');
     setIsTyping(true);
 
-    try {
-      // Simulate processing delay
-      await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
-      
-      // Get avatar response
-      const responseContent = await getAvatarResponse(inputMessage, selectedRole);
-      
-      const avatarResponse: Message = {
-        id: `msg_${Date.now() + 1}`,
-        type: 'avatar',
-        content: responseContent,
-        timestamp: new Date(),
+    if (useRealAPI && streamingSession.websocket && streamingSession.status === 'ready') {
+      // Send message via WebSocket to HeyGen
+      const messageData = {
+        type: 'user_message',
+        text: userMessage.content,
+        session_id: streamingSession.sessionId,
         metadata: {
-          userRole: selectedRole,
-          confidence: 0.95,
-          sources: ['Dr. Scott I-Patrick Knowledge Base', 'Educational Psychology Research']
+          user_role: selectedRole,
+          timestamp: userMessage.timestamp.toISOString()
         }
       };
-      
-      setMessages(prev => [...prev, avatarResponse]);
-    } catch (error) {
-      console.error('Failed to get avatar response:', error);
-      
-      const errorResponse: Message = {
-        id: `msg_${Date.now() + 1}`,
-        type: 'avatar',
-        content: "I apologize, but I'm experiencing some technical difficulties right now. Please try again in a moment, or feel free to contact our support team for immediate assistance.",
-        timestamp: new Date(),
-        metadata: {
+
+      streamingSession.websocket.send(JSON.stringify(messageData));
+    } else {
+      // Demo mode - use knowledge base
+      setTimeout(() => {
+        const response = knowledgeBase.generateResponse(userMessage.content, {
           userRole: selectedRole,
-          confidence: 0.0
-        }
-      };
-      
-      setMessages(prev => [...prev, errorResponse]);
-    } finally {
-      setIsTyping(false);
+          previousTopics: messages.map(m => m.content).slice(-5),
+          sessionHistory: messages.map(m => m.content)
+        });
+
+        const avatarMessage: Message = {
+          id: `msg_${Date.now()}`,
+          type: 'avatar',
+          content: response,
+          timestamp: new Date(),
+          metadata: {
+            userRole: selectedRole,
+            confidence: 0.95,
+            sessionId: streamingSession.sessionId
+          }
+        };
+
+        setMessages(prev => [...prev, avatarMessage]);
+        setIsTyping(false);
+      }, 1500 + Math.random() * 1000);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+  const handleRoleChange = (newRole: string) => {
+    setSelectedRole(newRole);
+    
+    // Add role change message
+    const roleChangeMessage: Message = {
+      id: `msg_${Date.now()}`,
+      type: 'avatar',
+      content: `I've updated my responses for your role as a ${newRole}. ${getRoleSpecificWelcome(newRole)}`,
+      timestamp: new Date(),
+      metadata: {
+        userRole: newRole,
+        confidence: 1.0,
+        sessionId: streamingSession?.sessionId
+      }
+    };
+    
+    setMessages(prev => [...prev, roleChangeMessage]);
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
     }
   };
 
-  const quickQuestions = [
-    "Tell me about EdPsych Connect",
-    "What is Restorative Justice?",
-    "How do assessments work?",
-    "What interventions do you recommend?",
-    "How can I support learning at home?"
-  ];
+  const startListening = () => {
+    // Voice input functionality
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+      
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInputMessage(transcript);
+        setIsListening(false);
+      };
+      
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+      
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+      
+      recognition.start();
+    }
+  };
 
   if (isMinimized) {
     return (
       <div className={`fixed bottom-4 right-4 z-50 ${className}`}>
-        <Button
-          onClick={onToggleMinimize}
-          className="rounded-full w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg"
-        >
-          <MessageCircle className="w-8 h-8 text-white" />
-        </Button>
+        <Card className="w-16 h-16 cursor-pointer shadow-lg border-2 border-blue-500" onClick={onToggleMinimize}>
+          <CardContent className="p-0 h-full flex items-center justify-center">
+            <div className="relative">
+              <Avatar className="w-12 h-12">
+                <AvatarImage src="/dr-scott-avatar.jpg" alt="Dr. Scott" />
+                <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold">
+                  DS
+                </AvatarFallback>
+              </Avatar>
+              {isConnected && (
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
   return (
     <div className={`fixed bottom-4 right-4 z-50 ${className}`}>
-      <Card className="w-96 h-[600px] flex flex-col shadow-2xl border-2 border-blue-200">
-        <CardHeader className="flex-shrink-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
+      <Card className="w-96 h-[600px] shadow-2xl border-2 border-blue-200">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Avatar className="w-10 h-10 border-2 border-white">
-                <AvatarImage src="/api/placeholder/40/40" alt="Dr. Scott" />
-                <AvatarFallback className="bg-white text-blue-600 font-bold">
-                  DS
-                </AvatarFallback>
+              <Avatar className="w-10 h-10">
+                <AvatarImage src="/dr-scott-avatar.jpg" alt="Dr. Scott" />
+                <AvatarFallback className="bg-white text-blue-600 font-bold">DS</AvatarFallback>
               </Avatar>
               <div>
-                <CardTitle className="text-sm font-semibold">{DR_SCOTT_CONFIG.name}</CardTitle>
-                <p className="text-xs opacity-90">{DR_SCOTT_CONFIG.title}</p>
+                <CardTitle className="text-lg font-semibold">{DR_SCOTT_CONFIG.name}</CardTitle>
+                <p className="text-blue-100 text-sm">{DR_SCOTT_CONFIG.title}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse"></div>
-                {isConnected ? 'Online' : 'Offline'}
+              <Badge variant={isConnected ? "secondary" : "destructive"} className="text-xs">
+                {useRealAPI ? (isConnected ? "Live" : "Connecting...") : "Demo"}
               </Badge>
-              <div className="flex space-x-1">
-                {onToggleMinimize && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={onToggleMinimize}
-                    className="text-white hover:bg-white/20 p-1 h-auto"
-                  >
-                    <Minimize2 className="w-4 h-4" />
-                  </Button>
-                )}
-                {onClose && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={onClose}
-                    className="text-white hover:bg-white/20 p-1 h-auto"
-                  >
-                    <X className="w-4 h-4" />
-                  </Button>
-                )}
-              </div>
+              {onToggleMinimize && (
+                <Button variant="ghost" size="sm" onClick={onToggleMinimize} className="text-white hover:bg-white/20">
+                  <Minimize2 className="w-4 h-4" />
+                </Button>
+              )}
+              {onClose && (
+                <Button variant="ghost" size="sm" onClick={onClose} className="text-white hover:bg-white/20">
+                  <X className="w-4 h-4" />
+                </Button>
+              )}
             </div>
           </div>
         </CardHeader>
 
-        {showRoleSelector && (
-          <div className="flex-shrink-0 p-3 bg-gray-50 border-b">
-            <div className="flex space-x-1">
-              {USER_ROLES.map((role) => {
-                const IconComponent = role.icon;
-                return (
-                  <Button
-                    key={role.id}
-                    variant={selectedRole === role.id ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedRole(role.id)}
-                    className="flex-1 text-xs"
-                    title={role.description}
-                  >
-                    <IconComponent className="w-3 h-3 mr-1" />
-                    {role.label}
-                  </Button>
-                );
-              })}
+        <CardContent className="p-0 h-[calc(600px-80px)] flex flex-col">
+          {/* Role Selector */}
+          {showRoleSelector && (
+            <div className="p-4 border-b bg-gray-50">
+              <p className="text-sm text-gray-600 mb-2">I'm here as a:</p>
+              <div className="grid grid-cols-2 gap-2">
+                {USER_ROLES.map((role) => {
+                  const IconComponent = role.icon;
+                  return (
+                    <Button
+                      key={role.id}
+                      variant={selectedRole === role.id ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleRoleChange(role.id)}
+                      className={`justify-start ${selectedRole === role.id ? role.color + ' text-white' : ''}`}
+                    >
+                      <IconComponent className="w-4 h-4 mr-2" />
+                      {role.label}
+                    </Button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Messages Area */}
-        <ScrollArea className="flex-1 p-4">
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[85%] rounded-lg p-3 ${
-                    message.type === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-900'
-                  }`}
+          {/* Video Display for Real API */}
+          {useRealAPI && streamingSession && (
+            <div className="relative bg-black">
+              <video
+                ref={videoRef}
+                className="w-full h-48 object-cover"
+                autoPlay
+                muted={isMuted}
+                playsInline
+              />
+              <div className="absolute top-2 right-2 flex space-x-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={toggleMute}
+                  className="bg-black/50 text-white hover:bg-black/70"
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  <div className={`flex items-center justify-between mt-2 text-xs ${
-                    message.type === 'user' ? 'text-blue-100' : 'text-gray-500'
-                  }`}>
-                    <span>{message.timestamp.toLocaleTimeString()}</span>
-                    {message.metadata?.confidence && (
-                      <Badge variant="outline" className="text-xs">
-                        {Math.round(message.metadata.confidence * 100)}% confident
-                      </Badge>
-                    )}
-                  </div>
-                </div>
+                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                </Button>
               </div>
-            ))}
-            
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg p-3 max-w-[85%]">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          <div ref={messagesEndRef} />
-        </ScrollArea>
+            </div>
+          )}
 
-        {/* Quick Questions */}
-        <div className="flex-shrink-0 p-2 border-t bg-gray-50">
-          <div className="flex flex-wrap gap-1">
-            {quickQuestions.slice(0, 3).map((question, index) => (
+          {/* Messages */}
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.type === 'user'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
+                    <p className="text-sm">{message.content}</p>
+                    {message.audioUrl && (
+                      <audio controls className="mt-2 w-full">
+                        <source src={message.audioUrl} type="audio/mpeg" />
+                      </audio>
+                    )}
+                    <p className="text-xs opacity-70 mt-1">
+                      {message.timestamp.toLocaleTimeString()}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 p-3 rounded-lg">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </ScrollArea>
+
+          {/* Input Area */}
+          <div className="p-4 border-t bg-white">
+            <div className="flex space-x-2">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                placeholder="Ask Dr. Scott anything..."
+                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                className="flex-1"
+                disabled={!isConnected}
+              />
               <Button
-                key={index}
                 variant="ghost"
                 size="sm"
-                className="text-xs h-auto p-1 text-gray-600 hover:text-blue-600"
-                onClick={() => setInputMessage(question)}
+                onClick={startListening}
+                disabled={!isConnected || isListening}
+                className={isListening ? "bg-red-100 text-red-600" : ""}
               >
-                {question}
+                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
               </Button>
-            ))}
+              <Button 
+                onClick={sendMessage} 
+                disabled={!inputMessage.trim() || !isConnected}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+            {!useRealAPI && (
+              <p className="text-xs text-gray-500 mt-2 text-center">
+                Demo mode - Configure HeyGen API for live avatar interaction
+              </p>
+            )}
           </div>
-        </div>
-
-        {/* Input Area */}
-        <div className="flex-shrink-0 p-3 border-t">
-          <div className="flex space-x-2">
-            <Input
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Ask Dr. Scott about educational psychology..."
-              className="flex-1 text-sm"
-              disabled={isTyping || !isConnected}
-            />
-            <Button 
-              onClick={handleSendMessage}
-              disabled={!inputMessage.trim() || isTyping || !isConnected}
-              size="sm"
-              className="bg-blue-600 hover:bg-blue-700"
-            >
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
+        </CardContent>
       </Card>
     </div>
   );
