@@ -168,7 +168,7 @@ export default function AboutPage() {
             {/* Dr. Scott I-Patrick */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
               <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-blue-200">
-                <AvatarImage src="/images/dr-scott-team.jpg" alt="Dr. Scott I-Patrick" />
+                <AvatarImage src="/images/team/Scott.jpg" alt="Dr. Scott I-Patrick" />
                 <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold">
                   DS
                 </AvatarFallback>
@@ -186,18 +186,18 @@ export default function AboutPage() {
             {/* Professor Piers */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
               <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-purple-200">
-                <AvatarImage src="/images/professor-piers.jpg" alt="Professor Piers" />
+                <AvatarImage src="/images/professor-piers.jpg" alt="Professor Piers Worth" />
                 <AvatarFallback className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl font-bold">
-                  PP
+                  PW
                 </AvatarFallback>
               </Avatar>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Professor Piers</h3>
-              <p className="text-sm text-purple-600 font-medium mb-2">Academic Advisor</p>
-              <p className="text-sm text-gray-600 mb-3">Research & Development Lead</p>
-              <Badge className="bg-purple-100 text-purple-800 text-xs">Professor</Badge>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Professor Piers Worth</h3>
+              <p className="text-sm text-purple-600 font-medium mb-2">Senior Consultant Advisor & Professor Emeritus</p>
+              <p className="text-sm text-gray-600 mb-3">Former Head of School, Buckinghamshire New University</p>
+              <Badge className="bg-purple-100 text-purple-800 text-xs">Professor Emeritus</Badge>
               <p className="text-xs text-gray-500 mt-3">
-                Leading academic researcher providing strategic guidance on evidence-based 
-                educational psychology practices and platform development.
+                Distinguished retired Psychology Professor and former Head of School at Buckinghamshire 
+                New University, providing senior strategic guidance and academic excellence to platform development.
               </p>
             </div>
 
@@ -229,12 +229,85 @@ export default function AboutPage() {
                 </AvatarFallback>
               </Avatar>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Mrs Sue Podolska</h3>
-              <p className="text-sm text-pink-600 font-medium mb-2">SEN Inclusion Specialist</p>
-              <p className="text-sm text-gray-600 mb-3">Special Educational Needs Expert</p>
-              <Badge className="bg-pink-100 text-pink-800 text-xs">SEN Specialist</Badge>
+              <p className="text-sm text-pink-600 font-medium mb-2">Senior Specialist Advisor & Specialist Teacher</p>
+              <p className="text-sm text-gray-600 mb-3">SEN Inclusion Expert</p>
+              <Badge className="bg-pink-100 text-pink-800 text-xs">Senior Advisor</Badge>
               <p className="text-xs text-gray-500 mt-3">
-                Dedicated SEN inclusion specialist ensuring accessible education and 
-                comprehensive support for students with special educational needs.
+                Senior specialist advisor providing strategic guidance for special educational needs. 
+                Combines high-level advisory expertise with specialist teaching to ensure 
+                comprehensive support and inclusive education for all students.
+              </p>
+            </div>
+
+            {/* Samantha */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-orange-200">
+                <AvatarImage src="/images/team/Samantha.jpeg" alt="Samantha" />
+                <AvatarFallback className="bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xl font-bold">
+                  SA
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Samantha</h3>
+              <p className="text-sm text-orange-600 font-medium mb-2">Business Admin Manager</p>
+              <p className="text-sm text-gray-600 mb-3">Operations & Administration</p>
+              <Badge className="bg-orange-100 text-orange-800 text-xs">Manager</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Business administration manager ensuring smooth operational excellence 
+                and efficient administrative processes across all platform activities.
+              </p>
+            </div>
+
+            {/* Hannah Patrick */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-cyan-200">
+                <AvatarImage src="/images/team/Hannah.jpg" alt="Hannah Patrick" />
+                <AvatarFallback className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-xl font-bold">
+                  HP
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Hannah Patrick</h3>
+              <p className="text-sm text-cyan-600 font-medium mb-2">Marketing Executive</p>
+              <p className="text-sm text-gray-600 mb-3">Brand & Communications</p>
+              <Badge className="bg-cyan-100 text-cyan-800 text-xs">Executive</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Marketing executive driving brand development and strategic communications 
+                to effectively reach and engage our diverse educational community.
+              </p>
+            </div>
+
+            {/* Osasogie Patrick */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-emerald-200">
+                <AvatarImage src="/images/team/Osasogie.jpg" alt="Osasogie Patrick" />
+                <AvatarFallback className="bg-gradient-to-r from-emerald-600 to-green-600 text-white text-xl font-bold">
+                  OP
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Osasogie Patrick</h3>
+              <p className="text-sm text-emerald-600 font-medium mb-2">Business Accounts Specialist</p>
+              <p className="text-sm text-gray-600 mb-3">Financial Operations</p>
+              <Badge className="bg-emerald-100 text-emerald-800 text-xs">Specialist</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Business accounts specialist managing financial operations and business 
+                account relationships with professional expertise and operational excellence.
+              </p>
+            </div>
+
+            {/* Louis Young */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-red-200">
+                <AvatarImage src="/images/team/louis-young.jpg" alt="Louis Young" />
+                <AvatarFallback className="bg-gradient-to-r from-red-600 to-pink-600 text-white text-xl font-bold">
+                  LY
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Louis Young</h3>
+              <p className="text-sm text-red-600 font-medium mb-2">Sales Director</p>
+              <p className="text-sm text-gray-600 mb-3">Strategic Sales Leadership</p>
+              <Badge className="bg-red-100 text-red-800 text-xs">Director</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Sales director leading strategic sales initiatives and business development 
+                to expand platform reach and educational impact across diverse markets.
               </p>
             </div>
           </div>
