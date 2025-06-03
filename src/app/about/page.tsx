@@ -153,6 +153,103 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Meet the Team Section */}
+      <div className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Meet the Team</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Our dedicated team of educational psychology professionals committed to transforming 
+              educational experiences for students, families, and educators.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Dr. Scott I-Patrick */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-blue-200">
+                <AvatarImage src="/images/dr-scott-team.jpg" alt="Dr. Scott I-Patrick" />
+                <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold">
+                  DS
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Dr. Scott I-Patrick</h3>
+              <p className="text-sm text-blue-600 font-medium mb-2">DEdPsych BSc CPsychol MBPSs</p>
+              <p className="text-sm text-gray-600 mb-3">Founder & Lead Educational Psychologist</p>
+              <Badge className="bg-blue-100 text-blue-800 text-xs">HCPC: PYL042340</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Chartered Educational Psychologist with 20+ years experience specializing in 
+                evidence-based practice and restorative justice.
+              </p>
+            </div>
+
+            {/* Professor Piers */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-purple-200">
+                <AvatarImage src="/images/professor-piers.jpg" alt="Professor Piers" />
+                <AvatarFallback className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl font-bold">
+                  PP
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Professor Piers</h3>
+              <p className="text-sm text-purple-600 font-medium mb-2">Academic Advisor</p>
+              <p className="text-sm text-gray-600 mb-3">Research & Development Lead</p>
+              <Badge className="bg-purple-100 text-purple-800 text-xs">Professor</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Leading academic researcher providing strategic guidance on evidence-based 
+                educational psychology practices and platform development.
+              </p>
+            </div>
+
+            {/* Mrs Hayley Baverstock */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-green-200">
+                <AvatarImage src="/images/hayley-baverstock.jpg" alt="Mrs Hayley Baverstock" />
+                <AvatarFallback className="bg-gradient-to-r from-green-600 to-teal-600 text-white text-xl font-bold">
+                  HB
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Mrs Hayley Baverstock</h3>
+              <p className="text-sm text-green-600 font-medium mb-2">Senior Specialist Teacher</p>
+              <p className="text-sm text-gray-600 mb-3">Educational Specialist</p>
+              <Badge className="bg-green-100 text-green-800 text-xs">Senior Specialist</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Experienced senior specialist teacher bringing extensive classroom expertise 
+                and innovative teaching strategies to support diverse learning needs.
+              </p>
+            </div>
+
+            {/* Mrs Sue Podolska */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-pink-200">
+                <AvatarImage src="/images/sue-podolska.jpg" alt="Mrs Sue Podolska" />
+                <AvatarFallback className="bg-gradient-to-r from-pink-600 to-rose-600 text-white text-xl font-bold">
+                  SP
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Mrs Sue Podolska</h3>
+              <p className="text-sm text-pink-600 font-medium mb-2">SEN Inclusion Specialist</p>
+              <p className="text-sm text-gray-600 mb-3">Special Educational Needs Expert</p>
+              <Badge className="bg-pink-100 text-pink-800 text-xs">SEN Specialist</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Dedicated SEN inclusion specialist ensuring accessible education and 
+                comprehensive support for students with special educational needs.
+              </p>
+            </div>
+          </div>
+
+          {/* Team Values */}
+          <div className="mt-12 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Team Commitment</h3>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+              Together, we bring decades of combined experience in educational psychology, 
+              special educational needs, and innovative teaching practices. Our collaborative 
+              approach ensures comprehensive support for every member of the educational community.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Expertise Section */}
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
