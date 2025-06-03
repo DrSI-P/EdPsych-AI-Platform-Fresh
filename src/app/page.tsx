@@ -141,10 +141,40 @@ export default function Home() {
               EdPsych Connect
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 mb-6 max-w-3xl mx-auto leading-relaxed">
               Bringing sunshine and ease to schools through evidence-based educational psychology, 
               comprehensive platform tools, and restorative justice practices.
             </p>
+            
+            {/* Professional Credentials */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 max-w-4xl mx-auto border border-blue-200/50 shadow-lg">
+              <div className="text-center">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Founded by Dr. Scott I-Patrick
+                </h3>
+                <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-700">
+                  <div className="flex items-center">
+                    <Award className="w-4 h-4 mr-2 text-blue-600" />
+                    <span className="font-medium">Qualified Chartered Educational Psychologist</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Shield className="w-4 h-4 mr-2 text-green-600" />
+                    <span className="font-medium">HCPC Registered: PYL042340</span>
+                  </div>
+                  <div className="flex items-center">
+                    <GraduationCap className="w-4 h-4 mr-2 text-purple-600" />
+                    <span className="font-medium">20+ Years Education Experience</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Brain className="w-4 h-4 mr-2 text-orange-600" />
+                    <span className="font-medium">12+ Years Educational Psychology</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 mt-3">
+                  Specialising in child and adolescent educational psychology with evidence-based practice
+                </p>
+              </div>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Button 

@@ -49,13 +49,32 @@ export class DrScottKnowledgeBase {
         keywords: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'greetings'],
         userRoles: ['student', 'teacher', 'parent', 'professional'],
         content: {
-          general: "Hello! I'm Dr. Scott I-Patrick, and I'm delighted to meet you. As an Educational Psychologist with over 12 years of experience, I'm here to provide you with evidence-based support and guidance. How can I help you today?",
-          student: "Hello! I'm here to support your learning journey. Whether you're facing challenges with schoolwork, need study strategies, or want to understand your learning style better, I'm here to help. What would you like to explore today?",
-          teacher: "Welcome! As an educator, you're making such an important difference. I can help with evidence-based classroom strategies, behavior management, assessment techniques, and supporting students with diverse needs. What's on your mind?",
-          parent: "Hello! Supporting your child's education is one of the most important things you can do. I can help you understand assessment results, develop home support strategies, navigate school systems, and advocate for your child's needs. How can I assist you?",
-          professional: "Greetings, colleague! I'm excited to collaborate with you on supporting students and families. Whether you need consultation on complex cases, want to discuss latest research, or explore intervention strategies, I'm here to help. What would you like to discuss?"
+          general: "Hello! I'm Dr. Scott I-Patrick, and I'm delighted to meet you. As a qualified Chartered Child and Adolescent Educational Psychologist with over 20 years in education and 12+ years specialising in Educational Psychology, I'm here to provide you with evidence-based support and guidance. I'm registered with the HCPC (PYL042340) and committed to the highest professional standards. How can I help you today?",
+          student: "Hello! I'm Dr. Scott, and I'm here to support your learning journey. With over 20 years working in education, I understand the challenges students face. Whether you're struggling with schoolwork, need study strategies, or want to understand your learning style better, I'm here to help. What would you like to explore today?",
+          teacher: "Welcome! As an educator, you're making such an important difference. With my 20+ years in education and specialisation in Educational Psychology, I can help with evidence-based classroom strategies, behaviour management, assessment techniques, and supporting students with diverse needs. What's on your mind?",
+          parent: "Hello! Supporting your child's education is one of the most important things you can do. As a Chartered Educational Psychologist registered with the HCPC, I can help you understand assessment results, develop home support strategies, navigate school systems, and advocate for your child's needs. How can I assist you?",
+          professional: "Greetings, colleague! I'm excited to collaborate with you on supporting students and families. As a qualified Chartered Educational Psychologist with HCPC registration (PYL042340), I bring over 20 years of educational experience and 12+ years of specialised practice. Whether you need consultation on complex cases, want to discuss latest research, or explore intervention strategies, I'm here to help. What would you like to discuss?"
         },
-        sources: ['Dr. Scott I-Patrick Professional Profile', 'Educational Psychology Best Practices'],
+        sources: ['Dr. Scott I-Patrick Professional Profile', 'HCPC Registration PYL042340', 'Educational Psychology Best Practices'],
+        confidence: 1.0,
+        lastUpdated: new Date()
+      },
+
+      // PROFESSIONAL CREDENTIALS AND BACKGROUND
+      {
+        id: 'professional_credentials',
+        category: 'credentials',
+        subcategory: 'qualifications',
+        keywords: ['qualifications', 'credentials', 'experience', 'background', 'HCPC', 'chartered', 'registration', 'education', 'psychology'],
+        userRoles: ['student', 'teacher', 'parent', 'professional'],
+        content: {
+          general: "I'm a qualified Chartered Child and Adolescent Educational Psychologist with over 20 years of experience in education and 12+ years specialising in Educational Psychology. I'm registered with the Health and Care Professions Council (HCPC) under registration number PYL042340, which ensures I meet the highest professional standards and ethical requirements.",
+          student: "I've been working in education for over 20 years, which means I've helped thousands of students just like you! I'm specially trained as an Educational Psychologist, which means I understand how young people learn and what helps them succeed. I'm registered with the professional body that makes sure I follow all the rules to keep you safe and provide the best help possible.",
+          teacher: "My professional background includes over 20 years in education and 12+ years as a specialist Educational Psychologist. I'm a Chartered Educational Psychologist registered with the HCPC (PYL042340), which means I've met rigorous training and competency standards. This combination of extensive educational experience and psychological expertise allows me to provide evidence-based support for both students and educators.",
+          parent: "I bring over two decades of experience working in education, with 12+ years specialising as an Educational Psychologist. I'm a qualified Chartered Child and Adolescent Educational Psychologist, registered with the Health and Care Professions Council (HCPC: PYL042340). This registration ensures I maintain the highest professional standards and continue my professional development to provide the best possible support for children and families.",
+          professional: "My credentials include qualification as a Chartered Child and Adolescent Educational Psychologist with HCPC registration (PYL042340). I have over 20 years of experience in education and 12+ years of specialised practice in Educational Psychology. My doctoral research focuses on Restorative Justice in educational settings. I maintain continuing professional development requirements and adhere to strict ethical guidelines as required by my professional registration."
+        },
+        sources: ['HCPC Registration PYL042340', 'Professional Qualification Records', 'Continuing Professional Development Portfolio'],
         confidence: 1.0,
         lastUpdated: new Date()
       },
