@@ -1,318 +1,247 @@
 'use client';
 
 import React from 'react';
-import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
-import { useEnhancedTheme } from '@/components/enhanced-theme-provider';
-import { Container, Typography, Flex, Card } from '@/components/ui/enhanced-layout-components';
-import { Button, Input, Select } from '@/components/ui/enhanced-form-components';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/enhanced-interactive-components';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import MainNavigation from '@/components/navigation/main-navigation';
+import { 
+  Brain,
+  GraduationCap,
+  Award,
+  Shield,
+  Heart,
+  Users,
+  BookOpen,
+  Target,
+  Sparkles,
+  Globe,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  CheckCircle
+} from 'lucide-react';
 
 export default function AboutPage() {
-  const { ageGroup } = useEnhancedTheme();
-  
-  // Team members data
-  const teamMembers = [
-    {
-      name: "Dr. Scott I-Patrick",
-      role: "Founder & Educational Psychologist",
-      bio: "Dr. Scott I-Patrick is an Educational Psychologist with over 12 years of experience advocating for inclusive education and equitable access. His doctoral research on school connectedness and restorative practices forms the foundation of EdPsych Connect's approach.",
-      image: "/images/team/dr-scott.jpg"
-    },
-    {
-      name: "Dr. Emma Williams",
-      role: "Head of Curriculum Development",
-      bio: "With a PhD in Educational Psychology and 15 years of classroom experience, Dr. Williams leads our curriculum development team, ensuring all content is evidence-based and aligned with UK educational standards.",
-      image: "/images/team/emma.jpg"
-    },
-    {
-      name: "Michael Thompson",
-      role: "Chief Technology Officer",
-      bio: "Michael brings 20 years of experience in educational technology, specializing in adaptive learning systems and accessibility. He leads our technical team in creating innovative solutions that support diverse learning needs.",
-      image: "/images/team/michael.jpg"
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Head of Professional Development",
-      bio: "Former headteacher with extensive experience in school leadership and teacher training, Sarah oversees our professional development programs, ensuring they provide practical, evidence-based strategies for educators.",
-      image: "/images/team/sarah.jpg"
-    }
+  const achievements = [
+    { icon: Award, title: "Chartered Educational Psychologist", description: "Qualified and registered professional" },
+    { icon: Shield, title: "HCPC Registered: PYL042340", description: "Health and Care Professions Council" },
+    { icon: GraduationCap, title: "DEdPsych BSc CPsychol MBPSs", description: "Advanced qualifications in psychology" },
+    { icon: Calendar, title: "20+ Years Education Experience", description: "Extensive field experience" },
+    { icon: Brain, title: "12+ Years Educational Psychology", description: "Specialized practice expertise" }
   ];
-  
-  // Mission and values
-  const values = [
+
+  const expertise = [
+    "Child and Adolescent Educational Psychology",
+    "Evidence-based Educational Interventions",
+    "Restorative Justice in Educational Settings",
+    "Learning Difficulties and Disabilities Assessment",
+    "Behavioral Support and Intervention",
+    "Family and School Collaboration",
+    "Professional Development and Training",
+    "Educational Research and Evaluation"
+  ];
+
+  const platformValues = [
     {
-      title: "Evidence-Based Practice",
-      description: "All our approaches and content are grounded in rigorous educational psychology research and evidence.",
-      icon: "📚"
+      icon: Heart,
+      title: "Empowerment Through Understanding",
+      description: "Every child deserves to have their unique learning needs understood and supported."
     },
     {
+      icon: Users,
       title: "Inclusive Education",
-      description: "We believe in creating learning environments that support all children and young people, regardless of background or ability.",
-      icon: "🌈"
+      description: "Creating educational environments where all students can thrive regardless of their starting point."
     },
     {
-      title: "Personalized Learning",
-      description: "We recognize that each learner is unique, with individual strengths, challenges, and interests that should inform their educational journey.",
-      icon: "🧩"
+      icon: Target,
+      title: "Evidence-Based Practice",
+      description: "All interventions and recommendations are grounded in robust psychological research."
     },
     {
-      title: "Relationship-Centered Approach",
-      description: "We prioritize building positive relationships as the foundation for effective learning and behavior support.",
-      icon: "🤝"
+      icon: Globe,
+      title: "Accessible Support",
+      description: "Making professional educational psychology support available to all who need it."
     }
   ];
-  
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <EnhancedHeader />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <MainNavigation />
       
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="bg-primary/10 py-16">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Typography variant="h1" className="mb-4">
-                  About EdPsych Connect
-                </Typography>
-                <Typography variant="lead" className="mb-6">
-                  Revolutionizing education through evidence-based psychology principles and innovative technology.
-                </Typography>
-                <Typography variant="body" className="mb-8">
-                  Founded by Dr. Scott I-Patrick, EdPsych Connect combines over 12 years of educational psychology expertise with cutting-edge technology to create a platform that truly understands and supports the diverse needs of learners across the UK.
-                </Typography>
-                <Button variant="primary" size="lg">
-                  Our Mission
-                </Button>
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">About EdPsych Connect</h1>
+            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
+              Bringing sunshine and ease to schools through evidence-based educational psychology, 
+              comprehensive platform tools, and restorative justice practices.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Founder Section */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="flex items-center mb-6">
+                <Avatar className="w-24 h-24 mr-6 border-4 border-blue-200">
+                  <AvatarImage src="/images/dr-scott-professional.jpg" alt="Dr. Scott I-Patrick" />
+                  <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-2xl font-bold">
+                    DS
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                    Dr. Scott I-Patrick DEdPsych BSc CPsychol MBPSs
+                  </h2>
+                  <p className="text-lg text-gray-600">
+                    Founder & Lead Educational Psychologist
+                  </p>
+                  <Badge className="mt-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                    HCPC Registered: PYL042340
+                  </Badge>
+                </div>
               </div>
-              <div className="relative h-[400px] rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/images/about/about-hero.jpg"
-                  alt="EdPsych Connect Team"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </Container>
-        </section>
-        
-        {/* Our Story Section */}
-        <section className="py-16">
-          <Container>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <Typography variant="h2" className="mb-4">
-                Our Story
-              </Typography>
-              <Typography variant="lead">
-                A journey driven by passion for inclusive education and equitable access for all learners.
-              </Typography>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="relative h-[400px] rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/images/about/founder.jpg"
-                  alt="Dr. Scott I-Patrick, Founder of EdPsych Connect"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <Typography variant="h3" className="mb-4">
-                  From Vision to Reality
-                </Typography>
-                <Typography variant="body" className="mb-4">
-                  EdPsych Connect was born from Dr. Scott I-Patrick's doctoral research on school connectedness and his extensive experience working with children and young people across diverse educational settings. After witnessing firsthand the challenges faced by students, particularly those from disadvantaged backgrounds, he envisioned a platform that could democratize access to high-quality, personalized education.
-                </Typography>
-                <Typography variant="body" className="mb-4">
-                  Drawing on principles of educational psychology, restorative practices, and relationship-building, Dr. I-Patrick assembled a team of dedicated educators, psychologists, and technologists to create a platform that addresses the root causes of educational challenges rather than just their symptoms.
-                </Typography>
-                <Typography variant="body">
-                  Today, EdPsych Connect serves thousands of students, teachers, and schools across the UK, providing evidence-based tools and resources that empower learners and educators alike. Our journey continues as we constantly evolve and improve our platform based on the latest research and feedback from our community.
-                </Typography>
+              
+              <div className="prose prose-lg text-gray-700">
+                <p className="mb-4">
+                  Dr. Scott I-Patrick is a qualified Chartered Child and Adolescent Educational Psychologist 
+                  with over 20 years of experience in education and 12+ years specializing in Educational Psychology. 
+                  Registered with the Health and Care Professions Council (HCPC: PYL042340), Dr. Scott brings 
+                  extensive expertise in evidence-based practice and innovative educational solutions.
+                </p>
+                <p className="mb-4">
+                  His doctoral research focuses on Restorative Justice in educational settings, exploring how 
+                  relationship-building and understanding underlying causes of behavior can transform school 
+                  environments. This research forms the foundation of the platform's approach to supporting 
+                  both students and educators.
+                </p>
+                <p>
+                  With a background that includes sales management, Dr. Scott brings unique negotiation and 
+                  facilitation skills that help reach hard-to-reach individuals and families, ensuring that 
+                  support is accessible to those who need it most.
+                </p>
               </div>
             </div>
-          </Container>
-        </section>
-        
-        {/* Mission and Values Section */}
-        <section className="py-16 bg-primary/5">
-          <Container>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <Typography variant="h2" className="mb-4">
-                Our Mission & Values
-              </Typography>
-              <Typography variant="lead">
-                Guided by educational psychology principles and a commitment to inclusive education.
-              </Typography>
-            </div>
-            
-            <Card className="p-8 mb-12">
-              <Typography variant="h3" className="mb-4 text-center">
-                Our Mission
-              </Typography>
-              <Typography variant="body" className="text-center max-w-3xl mx-auto">
-                To revolutionize learning through personalized educational experiences that recognize individual starting points, minimize learning gaps, adapt to diverse learning styles, and maximize motivation and engagement through content that resonates with each child and young person's interests and needs.
-              </Typography>
-            </Card>
-            
-            <Typography variant="h3" className="mb-8 text-center">
-              Our Core Values
-            </Typography>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {values.map((value, index) => (
-                <Card key={index} className="p-6">
-                  <Flex align="start" gap="md">
-                    <div className="text-4xl">{value.icon}</div>
-                    <div>
-                      <Typography variant="h4" className="mb-2">
-                        {value.title}
-                      </Typography>
-                      <Typography variant="body">
-                        {value.description}
-                      </Typography>
+
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Professional Achievements</h3>
+              <div className="space-y-4">
+                {achievements.map((achievement, index) => {
+                  const IconComponent = achievement.icon;
+                  return (
+                    <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{achievement.title}</h4>
+                        <p className="text-sm text-gray-600">{achievement.description}</p>
+                      </div>
                     </div>
-                  </Flex>
-                </Card>
-              ))}
-            </div>
-          </Container>
-        </section>
-        
-        {/* Team Section */}
-        <section className="py-16" id="team">
-          <Container>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <Typography variant="h2" className="mb-4">
-                Meet Our Team
-              </Typography>
-              <Typography variant="lead">
-                Passionate experts dedicated to transforming education through psychology and technology.
-              </Typography>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
-                <Card key={index} className="p-6 text-center">
-                  <div className="mb-4 mx-auto rounded-full overflow-hidden h-40 w-40 relative">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <Typography variant="h4" className="mb-1">
-                    {member.name}
-                  </Typography>
-                  <Typography variant="small" color="muted" className="mb-4">
-                    {member.role}
-                  </Typography>
-                  <Typography variant="body">
-                    {member.bio}
-                  </Typography>
-                </Card>
-              ))}
-            </div>
-          </Container>
-        </section>
-        
-        {/* Approach Section */}
-        <section className="py-16 bg-background">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Typography variant="h2" className="mb-4">
-                  Our Approach
-                </Typography>
-                <Typography variant="lead" className="mb-6">
-                  Combining educational psychology with innovative technology to create meaningful learning experiences.
-                </Typography>
-                
-                <Tabs defaultValue="psychology">
-                  <TabsList>
-                    <TabsTrigger value="psychology">Educational Psychology</TabsTrigger>
-                    <TabsTrigger value="personalization">Personalization</TabsTrigger>
-                    <TabsTrigger value="inclusion">Inclusive Design</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="psychology" className="pt-6">
-                    <Typography variant="h5" className="mb-2">
-                      Evidence-Based Psychology
-                    </Typography>
-                    <Typography variant="body" className="mb-4">
-                      Our platform is built on sound educational psychology principles, drawing from research on cognitive development, motivation, and learning theories. We prioritize relationship-building and understanding the underlying causes of behavior, using approaches like Restorative Justice to create supportive learning environments.
-                    </Typography>
-                    <Typography variant="body">
-                      Every feature and tool on our platform is designed with psychological principles in mind, ensuring that we're not just delivering content, but creating meaningful learning experiences that support cognitive, social, and emotional development.
-                    </Typography>
-                  </TabsContent>
-                  
-                  <TabsContent value="personalization" className="pt-6">
-                    <Typography variant="h5" className="mb-2">
-                      Adaptive Learning Paths
-                    </Typography>
-                    <Typography variant="body" className="mb-4">
-                      We recognize that each learner has unique strengths, challenges, and interests. Our platform uses sophisticated algorithms to create personalized learning paths based on individual starting points, learning styles, and interests.
-                    </Typography>
-                    <Typography variant="body">
-                      By adapting content and presentation to match each learner's needs, we maximize engagement and motivation, helping students develop a genuine love for learning while ensuring they master essential skills and knowledge.
-                    </Typography>
-                  </TabsContent>
-                  
-                  <TabsContent value="inclusion" className="pt-6">
-                    <Typography variant="h5" className="mb-2">
-                      Accessibility for All
-                    </Typography>
-                    <Typography variant="body" className="mb-4">
-                      Inclusion is at the heart of everything we do. Our platform is designed to be accessible to all learners, including those with special educational needs, disabilities, or those from disadvantaged backgrounds.
-                    </Typography>
-                    <Typography variant="body">
-                      Features like voice input for children who struggle with typing, customizable text spacing, and content adaptation for different learning styles ensure that every child can access and benefit from our platform, regardless of their individual circumstances.
-                    </Typography>
-                  </TabsContent>
-                </Tabs>
-              </div>
-              <div className="relative h-[500px] rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/images/about/approach.jpg"
-                  alt="Our Educational Approach"
-                  fill
-                  className="object-cover"
-                />
+                  );
+                })}
               </div>
             </div>
-          </Container>
-        </section>
-        
-        {/* CTA Section */}
-        <section className="py-16 bg-primary/10">
-          <Container>
-            <div className="max-w-3xl mx-auto text-center">
-              <Typography variant="h2" className="mb-4">
-                Join Our Mission
-              </Typography>
-              <Typography variant="lead" className="mb-8">
-                Be part of the educational revolution that's transforming how children and young people learn.
-              </Typography>
-              <Flex gap="md" justify="center">
-                <Button variant="primary" size="lg">
-                  Start Free Trial
-                </Button>
-                <Button variant="secondary" size="lg">
-                  Contact Us
-                </Button>
-              </Flex>
-            </div>
-          </Container>
-        </section>
-      </main>
-      
-      <EnhancedFooter />
+          </div>
+        </div>
+      </div>
+
+      {/* Expertise Section */}
+      <div className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Areas of Expertise</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Comprehensive educational psychology services grounded in evidence-based practice 
+              and over two decades of field experience.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {expertise.map((area, index) => (
+              <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="flex items-center mb-2">
+                  <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                  <span className="font-medium text-gray-900">{area}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Platform Values */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              The principles that guide our approach to educational psychology and platform development.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {platformValues.map((value, index) => {
+              const IconComponent = value.icon;
+              return (
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <IconComponent className="w-6 h-6 text-white" />
+                      </div>
+                      <CardTitle className="text-xl text-gray-900">{value.title}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{value.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Mission Statement */}
+      <div className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h2>
+          <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
+            To revolutionize educational support by making professional educational psychology 
+            accessible, evidence-based, and transformative for every child, family, and educator 
+            in the learning community.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg"
+              variant="secondary"
+              className="bg-white text-blue-600 hover:bg-gray-100"
+              onClick={() => window.location.href = '/contact'}
+            >
+              <Mail className="w-5 h-5 mr-2" />
+              Get in Touch
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-600"
+              onClick={() => window.location.href = '/platform-overview'}
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              Explore Platform
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+

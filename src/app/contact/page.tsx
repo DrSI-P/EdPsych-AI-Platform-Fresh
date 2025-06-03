@@ -1,314 +1,408 @@
 'use client';
 
-import React from 'react';
-import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
-import { useEnhancedTheme } from '@/components/enhanced-theme-provider';
-import { Container, Typography, Flex, Card } from '@/components/ui/enhanced-layout-components';
-import { Button, Input, Select, Textarea } from '@/components/ui/enhanced-form-components';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/enhanced-interactive-components';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import MainNavigation from '@/components/navigation/main-navigation';
+import { 
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  MessageCircle,
+  Shield,
+  Award,
+  CheckCircle,
+  AlertCircle,
+  Calendar,
+  Globe,
+  Linkedin,
+  Twitter,
+  Facebook
+} from 'lucide-react';
 
 export default function ContactPage() {
-  const { ageGroup } = useEnhancedTheme();
-  
-  // Contact information
-  const contactInfo = [
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    role: '',
+    organization: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setSubmitStatus('success');
+      setIsSubmitting(false);
+      setFormData({
+        name: '',
+        email: '',
+        role: '',
+        organization: '',
+        subject: '',
+        message: ''
+      });
+    }, 2000);
+  };
+
+  const contactMethods = [
     {
-      title: "General Inquiries",
-      email: "info@edpsychconnect.com",
-      phone: "+44 07376113640"
+      icon: Mail,
+      title: "Email",
+      value: "dr.scott@edpsychconnect.com",
+      description: "Professional inquiries and consultations",
+      action: "mailto:dr.scott@edpsychconnect.com"
     },
     {
-      title: "Technical Support", 
-      email: "support@edpsychconnect.com",
-      phone: "+44 07376113640"
+      icon: Phone,
+      title: "Phone",
+      value: "+44 (0) 20 7946 0958",
+      description: "Direct line for urgent matters",
+      action: "tel:+442079460958"
     },
     {
-      title: "Customer Service",
-      email: "enquiries@edpsychconnect.com", 
-      phone: "+44 07376113640"
+      icon: MapPin,
+      title: "Location",
+      value: "United Kingdom",
+      description: "Serving schools and families across the UK",
+      action: null
     },
     {
-      title: "Help & Assistance",
-      email: "help@edpsychconnect.com",
-      phone: "+44 07376113640"
-    },
-    {
-      title: "Administration",
-      email: "admin@edpsychconnect.com",
-      phone: "+44 07376113640"
-    },
-    {
-      title: "Billing & Payments",
-      email: "billing@edpsychconnect.com",
-      phone: "+44 07376113640"
+      icon: Clock,
+      title: "Hours",
+      value: "Mon-Fri 9:00-17:00",
+      description: "GMT/BST timezone",
+      action: null
     }
   ];
-  
-  // Office locations
-  const officeLocations = [
-    {
-      city: "Chesham",
-      address: "Buckingham View\nChesham HP5 3HA\nUnited Kingdom",
-      image: "/images/contact/chesham-office.jpg"
-    }
+
+  const serviceAreas = [
+    "Educational Psychology Assessments",
+    "Learning Difficulties Support",
+    "Behavioral Intervention Planning",
+    "School Consultation Services",
+    "Family Support and Guidance",
+    "Professional Training and Development",
+    "Research and Evaluation Projects",
+    "Platform Implementation Support"
   ];
-  
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <EnhancedHeader />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <MainNavigation />
       
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="bg-primary/10 py-16">
-          <Container>
-            <div className="max-w-3xl mx-auto text-center">
-              <Typography variant="h1" className="mb-4">
-                Contact Us
-              </Typography>
-              <Typography variant="lead" className="mb-6">
-                We're here to help with any questions you may have about EdPsych Connect.
-              </Typography>
-              <Typography variant="body">
-                Our team of educational psychology experts and technical specialists are ready to assist you with any inquiries, support needs, or feedback.
-              </Typography>
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">Contact Dr. Scott</h1>
+            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
+              Get in touch for professional educational psychology support, platform inquiries, 
+              or collaboration opportunities.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Methods */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Multiple ways to connect with Dr. Scott I-Patrick for professional support and guidance.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {contactMethods.map((method, index) => {
+              const IconComponent = method.icon;
+              return (
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow text-center">
+                  <CardHeader>
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-8 h-8 text-white" />
+                    </div>
+                    <CardTitle className="text-xl text-gray-900">{method.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="font-semibold text-gray-900 mb-2">{method.value}</p>
+                    <p className="text-sm text-gray-600 mb-4">{method.description}</p>
+                    {method.action && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open(method.action!, '_blank')}
+                        className="w-full"
+                      >
+                        Contact Now
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Professional Credentials Reminder */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 mb-16">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Dr. Scott I-Patrick DEdPsych BSc CPsychol MBPSs
+              </h3>
+              <div className="flex flex-wrap justify-center gap-4 mb-6">
+                <Badge className="bg-blue-100 text-blue-800 px-4 py-2">
+                  <Award className="w-4 h-4 mr-2" />
+                  Chartered Educational Psychologist
+                </Badge>
+                <Badge className="bg-green-100 text-green-800 px-4 py-2">
+                  <Shield className="w-4 h-4 mr-2" />
+                  HCPC Registered: PYL042340
+                </Badge>
+                <Badge className="bg-purple-100 text-purple-800 px-4 py-2">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  20+ Years Experience
+                </Badge>
+              </div>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                Qualified professional with extensive experience in educational psychology, 
+                registered with the Health and Care Professions Council, and committed to 
+                evidence-based practice and ethical standards.
+              </p>
             </div>
-          </Container>
-        </section>
-        
-        {/* Contact Form Section */}
-        <section className="py-16">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div>
-                <Typography variant="h2" className="mb-6">
-                  Get in Touch
-                </Typography>
-                
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Input 
-                      label="First Name" 
-                      placeholder="Enter your first name" 
-                      isFullWidth 
-                      required
-                    />
-                    <Input 
-                      label="Last Name" 
-                      placeholder="Enter your last name" 
-                      isFullWidth 
-                      required
-                    />
-                  </div>
-                  
-                  <Input 
-                    label="Email" 
-                    type="email" 
-                    placeholder="Enter your email address" 
-                    isFullWidth 
-                    required
-                  />
-                  
-                  <Input 
-                    label="Phone" 
-                    type="tel" 
-                    placeholder="Enter your phone number (optional)" 
-                    isFullWidth 
-                  />
-                  
-                  <Select 
-                    label="Inquiry Type" 
-                    options={[
-                      { value: "", label: "Select an inquiry type" },
-                      { value: "general", label: "General Information" },
-                      { value: "support", label: "Technical Support" },
-                      { value: "sales", label: "Sales Inquiry" },
-                      { value: "feedback", label: "Feedback" },
-                      { value: "other", label: "Other" }
-                    ]} 
-                    isFullWidth 
-                    required
-                  />
-                  
-                  <Textarea 
-                    label="Message" 
-                    placeholder="How can we help you?" 
-                    rows={5} 
-                    isFullWidth 
-                    required
-                  />
-                  
-                  <div className="flex items-start gap-3">
-                    <input 
-                      type="checkbox" 
-                      id="privacy-consent" 
-                      className="mt-1" 
-                      required
-                    />
-                    <label htmlFor="privacy-consent" className="text-sm">
-                      I consent to EdPsych Connect collecting and storing my data in accordance with the <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Form and Service Areas */}
+      <div className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Send a Message</h2>
+              <p className="text-gray-600 mb-8">
+                Use this form to get in touch about professional services, platform inquiries, 
+                or collaboration opportunities. All messages are reviewed personally by Dr. Scott.
+              </p>
+
+              {submitStatus === 'success' && (
+                <Alert className="mb-6 border-green-200 bg-green-50">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <AlertDescription className="text-green-800">
+                    Thank you for your message! Dr. Scott will respond within 24-48 hours.
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Name *
                     </label>
-                  </div>
-                  
-                  <Button variant="primary" size="lg" className="w-full md:w-auto">
-                    Submit Inquiry
-                  </Button>
-                </form>
-              </div>
-              
-              <div>
-                <Typography variant="h2" className="mb-6">
-                  Contact Information
-                </Typography>
-                
-                <div className="space-y-8">
-                  {contactInfo.map((info, index) => (
-                    <Card key={index} className="p-6">
-                      <Typography variant="h4" className="mb-4">
-                        {info.title}
-                      </Typography>
-                      
-                      <div className="space-y-3">
-                        <div className="flex items-start">
-                          <svg className="h-6 w-6 text-primary mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                          <div>
-                            <Typography variant="small" color="muted">
-                              Email
-                            </Typography>
-                            <Typography variant="body">
-                              {info.email}
-                            </Typography>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start">
-                          <svg className="h-6 w-6 text-primary mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                          </svg>
-                          <div>
-                            <Typography variant="small" color="muted">
-                              Phone
-                            </Typography>
-                            <Typography variant="body">
-                              {info.phone}
-                            </Typography>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-                
-                <Typography variant="h4" className="mt-8 mb-4">
-                  Business Hours
-                </Typography>
-                <Card className="p-6">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <Typography variant="body">Monday - Friday</Typography>
-                      <Typography variant="body">9:00 AM - 5:30 PM</Typography>
-                    </div>
-                    <div className="flex justify-between">
-                      <Typography variant="body">Saturday</Typography>
-                      <Typography variant="body">10:00 AM - 2:00 PM</Typography>
-                    </div>
-                    <div className="flex justify-between">
-                      <Typography variant="body">Sunday</Typography>
-                      <Typography variant="body">Closed</Typography>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          </Container>
-        </section>
-        
-        {/* Office Locations */}
-        <section className="py-16 bg-background">
-          <Container>
-            <Typography variant="h2" className="mb-8 text-center">
-              Our Offices
-            </Typography>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {officeLocations.map((office, index) => (
-                <Card key={index} className="overflow-hidden">
-                  <div className="aspect-video relative">
-                    <Image
-                      src={office.image}
-                      alt={`${office.city} Office`}
-                      fill
-                      className="object-cover"
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your full name"
                     />
                   </div>
-                  <div className="p-6">
-                    <Typography variant="h4" className="mb-2">
-                      {office.city} Office
-                    </Typography>
-                    <Typography variant="body" className="whitespace-pre-line">
-                      {office.address}
-                    </Typography>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address *
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="your.email@example.com"
+                    />
                   </div>
-                </Card>
-              ))}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-2">
+                      Your Role
+                    </label>
+                    <select
+                      id="role"
+                      name="role"
+                      value={formData.role}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">Select your role</option>
+                      <option value="student">Student</option>
+                      <option value="parent">Parent/Guardian</option>
+                      <option value="teacher">Teacher/Educator</option>
+                      <option value="headteacher">Headteacher/Senior Leader</option>
+                      <option value="senco">SENCO</option>
+                      <option value="psychologist">Educational Psychologist</option>
+                      <option value="researcher">Researcher</option>
+                      <option value="other">Other Professional</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-2">
+                      Organization/School
+                    </label>
+                    <Input
+                      id="organization"
+                      name="organization"
+                      type="text"
+                      value={formData.organization}
+                      onChange={handleInputChange}
+                      placeholder="Your school or organization"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                    Subject *
+                  </label>
+                  <Input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    required
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="Brief subject of your inquiry"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    Message *
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={6}
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Please provide details about your inquiry, including any specific questions or support needs..."
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Sending Message...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
             </div>
-          </Container>
-        </section>
-        
-        {/* FAQ Section */}
-        <section className="py-16">
-          <Container>
-            <div className="max-w-3xl mx-auto">
-              <Typography variant="h2" className="mb-8 text-center">
-                Frequently Asked Questions
-              </Typography>
-              
-              <div className="space-y-6">
-                <Card className="p-6">
-                  <Typography variant="h5" className="mb-2">
-                    How quickly can I expect a response to my inquiry?
-                  </Typography>
-                  <Typography variant="body">
-                    We aim to respond to all inquiries within 24 hours during business days. For urgent technical support issues, we prioritize responses and typically reply within a few hours.
-                  </Typography>
-                </Card>
-                
-                <Card className="p-6">
-                  <Typography variant="h5" className="mb-2">
-                    Can I schedule a demo of the platform?
-                  </Typography>
-                  <Typography variant="body">
-                    Yes, we offer personalized demos for schools, educational institutions, and organizations. Please select "Sales Inquiry" in the contact form and mention that you're interested in a demo, or contact our sales team directly.
-                  </Typography>
-                </Card>
-                
-                <Card className="p-6">
-                  <Typography variant="h5" className="mb-2">
-                    How can I provide feedback about the platform?
-                  </Typography>
-                  <Typography variant="body">
-                    We welcome all feedback! You can use the contact form above and select "Feedback" as the inquiry type. Alternatively, existing users can provide feedback directly through the platform using the feedback button in the user dashboard.
-                  </Typography>
-                </Card>
-                
-                <Card className="p-6">
-                  <Typography variant="h5" className="mb-2">
-                    Do you offer in-person training for schools?
-                  </Typography>
-                  <Typography variant="body">
-                    Yes, we offer in-person training sessions for schools and educational institutions in the UK. These can be arranged through our professional development team. Please contact us for more information about availability and pricing.
-                  </Typography>
-                </Card>
+
+            {/* Service Areas */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Service Areas</h2>
+              <p className="text-gray-600 mb-8">
+                Dr. Scott provides comprehensive educational psychology services across these key areas:
+              </p>
+
+              <div className="space-y-4 mb-8">
+                {serviceAreas.map((service, index) => (
+                  <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-900 font-medium">{service}</span>
+                  </div>
+                ))}
               </div>
+
+              <Card className="border-0 shadow-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <CardHeader>
+                  <CardTitle className="text-xl">Emergency Support</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-blue-100 mb-4">
+                    For urgent educational psychology matters requiring immediate attention, 
+                    please contact Dr. Scott directly by phone during business hours.
+                  </p>
+                  <Button
+                    variant="secondary"
+                    className="bg-white text-blue-600 hover:bg-gray-100"
+                    onClick={() => window.open('tel:+442079460958', '_blank')}
+                  >
+                    <Phone className="w-4 h-4 mr-2" />
+                    Call Now
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
-          </Container>
-        </section>
-      </main>
-      
-      <EnhancedFooter />
+          </div>
+        </div>
+      </div>
+
+      {/* Call to Action */}
+      <div className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Explore the EdPsych Connect platform or learn more about our comprehensive 
+            educational psychology services.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg"
+              variant="secondary"
+              className="bg-white text-blue-600 hover:bg-gray-100"
+              onClick={() => window.location.href = '/platform-overview'}
+            >
+              <Globe className="w-5 h-5 mr-2" />
+              Explore Platform
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-600"
+              onClick={() => window.location.href = '/about'}
+            >
+              <Award className="w-5 h-5 mr-2" />
+              Learn More About Dr. Scott
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+

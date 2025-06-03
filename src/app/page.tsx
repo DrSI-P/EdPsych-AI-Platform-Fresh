@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import InteractiveAvatar from '@/components/heygen/interactive-avatar';
+import LiveInteractiveAvatar from '@/components/heygen/live-interactive-avatar';
+import MainNavigation from '@/components/navigation/main-navigation';
 import { 
   GraduationCap, 
   BookOpen, 
@@ -125,6 +126,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Main Navigation */}
+      <MainNavigation onAvatarClick={() => setShowAvatar(true)} />
+      
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
@@ -150,7 +154,7 @@ export default function Home() {
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 max-w-4xl mx-auto border border-blue-200/50 shadow-lg">
               <div className="text-center">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Founded by Dr. Scott I-Patrick
+                  Founded by Dr. Scott I-Patrick DEdPsych BSc CPsychol MBPSs
                 </h3>
                 <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-700">
                   <div className="flex items-center">
@@ -180,7 +184,7 @@ export default function Home() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
-                onClick={() => window.location.href = '/innovations/educator-dashboard'}
+                onClick={() => window.location.href = '/platform-overview'}
               >
                 <BarChart3 className="w-5 h-5 mr-2" />
                 Explore Platform
@@ -335,7 +339,7 @@ export default function Home() {
               size="lg"
               variant="secondary"
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
-              onClick={() => window.location.href = '/innovations/educator-dashboard'}
+              onClick={() => window.location.href = '/platform-overview'}
             >
               <BarChart3 className="w-5 h-5 mr-2" />
               Explore Platform Features
@@ -353,14 +357,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Interactive Avatar Component - Subtle Integration */}
+      {/* Live Interactive Avatar Component - Enhanced with Voice Features */}
       {showAvatar && (
-        <InteractiveAvatar
+        <LiveInteractiveAvatar
           isMinimized={avatarMinimized}
           onToggleMinimize={() => setAvatarMinimized(!avatarMinimized)}
           onClose={() => setShowAvatar(false)}
-          defaultRole="student"
-          showRoleSelector={true}
           className="z-50"
         />
       )}
