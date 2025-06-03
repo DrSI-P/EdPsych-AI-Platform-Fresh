@@ -84,6 +84,18 @@ export default function ComprehensiveNavigation() {
       ]
     },
     {
+      title: 'About',
+      icon: Users,
+      color: 'indigo',
+      items: [
+        { name: 'About Us', href: '/about' },
+        { name: 'Meet the Team', href: '/about/team' },
+        { name: 'Contact', href: '/contact' },
+        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Terms of Service', href: '/terms' }
+      ]
+    },
+    {
       title: 'Community',
       icon: Users,
       color: 'pink',
@@ -119,13 +131,13 @@ export default function ComprehensiveNavigation() {
     <nav className="bg-white shadow-lg border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">EP</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">EdPsych Connect</span>
-          </Link>
+                      <a href="/" className="flex items-center gap-2">
+                <img 
+                  src="/images/logo-full.svg" 
+                  alt="EdPsych Connect" 
+                  className="h-8 w-auto"
+                />
+              </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">

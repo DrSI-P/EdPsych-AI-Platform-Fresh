@@ -186,12 +186,12 @@ export default function AvatarVideosPage() {
             Dr. Scott I-Patrick Avatar Videos
           </Badge>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Expert Guidance from Dr. Scott
+            Professional Evidence-Based Guidance from Dr. Scott
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Access comprehensive video guidance from Dr. Scott I-Patrick, DEdPsych BSc CPsychol MBPSs, 
-            covering all aspects of the EdPsych Connect platform and educational psychology best practices.
-          </p>
+           Access comprehensive video guidance from Dr. Scott I-Patrick, DEdPsych BSc CPsychol 
+        MBPSs, covering all aspects of the EdPsych Connect platform and educational psychology best 
+        practices.       </p>
         </div>
 
         {/* Search and Filter */}
