@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import LiveInteractiveAvatar from '@/components/heygen/live-interactive-avatar';
-import MainNavigation from '@/components/navigation/main-navigation';
+import ComprehensiveNavigation from '@/components/navigation/comprehensive-navigation';
 import { 
   GraduationCap, 
   BookOpen, 
@@ -126,8 +126,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Main Navigation */}
-      <MainNavigation onAvatarClick={() => setShowAvatar(true)} />
+      <ComprehensiveNavigation />
       
       {/* Hero Section */}
       <div className="relative overflow-hidden">
