@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run vercel-build",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "github": {
     "silent": false,
     "autoJobCancelation": true
   },
-  "projectId": "edpsych-ai-platform-fresh",
-  "orgId": "ed-psych-connect-limited"
+  "projectId": "prj_4DrM8m4YBfuq2Ez7gPAAsSE9CVvh",
+  "orgId": "team_Gm0c4kafxDYK5Pi6ksfvCW1I"
 }
