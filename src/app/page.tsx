@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import LiveInteractiveAvatar from '@/components/heygen/live-interactive-avatar';
+import { usePageAvatar } from '@/components/avatar';
 import MasterNavigation from '@/components/navigation/master-navigation';
 import { 
   GraduationCap, 
@@ -28,8 +28,8 @@ import {
 } from 'lucide-react';
 
 export default function Home() {
-  const [showAvatar, setShowAvatar] = useState(false);
-  const [avatarMinimized, setAvatarMinimized] = useState(false);
+  // Initialize Dr. Scott's welcome avatar for homepage
+  usePageAvatar('homepage-intro', 'dr-scott');
 
   const platformFeatures = [
     {
@@ -40,7 +40,7 @@ export default function Home() {
     },
     {
       icon: Users,
-      title: "Student Management",
+      title: "Student Management", 
       description: "Sophisticated tools for managing student profiles, learning paths, and individualised support plans.",
       color: "bg-green-500"
     },

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Providers } from '@/components/providers';
+import { FloatingAvatar } from '@/components/avatar/FloatingAvatar';
 import '@/styles/globals.css';
 import '@/styles/mobile-fixes.css';
 
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <Providers>
           {children}
+          <FloatingAvatar />
         </Providers>
       </body>
     </html>
