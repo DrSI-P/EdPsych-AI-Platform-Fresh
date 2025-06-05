@@ -21,7 +21,12 @@
     "pg": "^8.11.3",
     "lucide-react": "^0.294.0",
     "date-fns": "^2.30.0",
-    "recharts": "^2.9.0"
+    "recharts": "^2.9.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "@tremor/react": "^3.11.1",
+    "@tiptap/react": "^2.1.12",
+    "@tiptap/starter-kit": "^2.1.12"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
