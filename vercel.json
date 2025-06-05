@@ -10,8 +10,8 @@
     "NEXTAUTH_URL": "https://edpsych-ai-platform-fresh.vercel.app",
     "NEXTAUTH_SECRET": "placeholder_secret_for_build",
     "NEXT_PUBLIC_SITE_URL": "https://edpsychconnect.com",
-    "SKIP_DB_OPERATIONS": "true",
-    "TENANT_CONTEXT_BYPASS_DB": "true",
+    "SKIP_DB_OPERATIONS": "false",
+    "TENANT_CONTEXT_BYPASS_DB": "false",
     "BUILD_TENANT_CONTEXT_SET": "true"
   }
 }
