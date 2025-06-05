@@ -37,8 +37,16 @@ async function simplifiedBuild() {
     // Verify database connection
     log('🔍 Verifying database connection...', colors.cyan);
     try {
-      // Generate Prisma client first with explicit schema path
-      execSync('npx prisma generate --schema=./prisma/schema.prisma', { stdio: 'inherit' });
+      // Determine which schema.prisma file to use based on current directory
+      const currentDir = process.cwd();
+      const schemaPath = currentDir.endsWith('src')
+        ? './prisma/schema.prisma'
+        : './src/prisma/schema.prisma';
+      
+      log(`Using Prisma schema at: ${schemaPath}`, colors.cyan);
+      
+      // Generate Prisma client with explicit schema path
+      execSync(`npx prisma generate --schema=${schemaPath}`, { stdio: 'inherit' });
       log('✅ Prisma client generated successfully', colors.green);
       
       // Create a simple script to test database connection
@@ -83,14 +91,22 @@ async function simplifiedBuild() {
     // Run Prisma migrations with detailed output
     log('🔄 Running Prisma migrations...', colors.cyan);
     try {
+      // Determine which schema.prisma file to use based on current directory
+      const currentDir = process.cwd();
+      const schemaPath = currentDir.endsWith('src')
+        ? './prisma/schema.prisma'
+        : './src/prisma/schema.prisma';
+      
+      log(`Using Prisma schema at: ${schemaPath} for migrations`, colors.cyan);
+      
       // First, check what migrations need to be applied
-      execSync('npx prisma migrate status --schema=./prisma/schema.prisma', { stdio: 'inherit' });
+      execSync(`npx prisma migrate status --schema=${schemaPath}`, { stdio: 'inherit' });
       
       // Then apply the migrations
-      execSync('npx prisma migrate deploy --schema=./prisma/schema.prisma --verbose', { stdio: 'inherit' });
+      execSync(`npx prisma migrate deploy --schema=${schemaPath} --verbose`, { stdio: 'inherit' });
       
       // Verify migrations were applied
-      execSync('npx prisma migrate status --schema=./prisma/schema.prisma', { stdio: 'inherit' });
+      execSync(`npx prisma migrate status --schema=${schemaPath}`, { stdio: 'inherit' });
       
       log('✅ Prisma migrations applied successfully', colors.green);
     } catch (error) {
@@ -114,9 +130,17 @@ async function simplifiedBuild() {
       log('   This is expected in production where placeholder values are used', colors.yellow);
     }
     
-    // We're already in the src directory for Next.js build
-    log('🚀 Building Next.js application in src directory...', colors.cyan);
-    // No need to change directory since we're already in src
+    // Check if we're in the src directory, if not, change to it
+    const currentDir = process.cwd();
+    const isSrcDir = currentDir.endsWith('src');
+    
+    if (!isSrcDir) {
+      log('🚀 Changing to src directory for Next.js build...', colors.cyan);
+      process.chdir('./src');
+      log(`✅ Changed directory to: ${process.cwd()}`, colors.green);
+    } else {
+      log('✅ Already in src directory', colors.green);
+    }
     
     // Build Next.js application
     log('🚀 Building Next.js application...', colors.cyan);
