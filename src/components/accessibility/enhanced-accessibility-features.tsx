@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@/components/ui/theme-provider';
 import { Button } from '@/components/ui/button';
