@@ -45,7 +45,18 @@ async function simplifiedBuild() {
       const testDbScript = `
         const { PrismaClient } = require('@prisma/client');
         async function testConnection() {
-          const prisma = new PrismaClient();
+          // Make sure we're using the Railway PostgreSQL connection string
+          const connectionString = process.env.DATABASE_URL;
+          console.log('Using connection string:', connectionString.substring(0, 20) + '...');
+          
+          const prisma = new PrismaClient({
+            datasources: {
+              db: {
+                url: connectionString,
+              },
+            },
+          });
+          
           try {
             // Try a simple query
             const result = await prisma.$queryRaw\`SELECT 1 as test\`;
