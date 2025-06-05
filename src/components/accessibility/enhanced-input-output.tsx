@@ -212,8 +212,8 @@ const EnhancedTextToSpeech: React.FC<{
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [error, setError] = useState<string | null>(null);
   
-  // Split text into words for highlighting
-  const words = text.split(' ');
+  // Split text into words for highlighting (with null check)
+  const words = text ? text.split(' ') : [];
   
   useEffect(() => {
     // Check if browser supports speech synthesis
