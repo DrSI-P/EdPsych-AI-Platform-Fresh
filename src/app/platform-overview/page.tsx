@@ -1,4 +1,5 @@
-import { VoiceReadableHeading, VoiceReadableText } from '@/components/accessibility';
+'use client';
+
 import { AvatarVideoPlayer } from '@/components/avatar/AvatarVideoSystem';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,277 +22,171 @@ export default function PlatformOverviewPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <VoiceReadableHeading level={1} className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            EdPsych Connect Platform Overview
-          </VoiceReadableHeading>
-          <VoiceReadableText className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-            Discover how our comprehensive educational psychology platform transforms learning 
-            through AI-powered tools, evidence-based practices, and personalized support.
-          </VoiceReadableText>
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            Platform Overview
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Comprehensive Educational Psychology Platform with 200+ Features
+          </p>
         </div>
 
-        {/* Platform Demo Video */}
-        <div className="mb-16">
-          <Card className="max-w-4xl mx-auto shadow-2xl">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center">
-              <CardTitle className="text-2xl">Platform Demonstration</CardTitle>
-              <p className="text-blue-100">Watch Dr. Scott guide you through the platform features</p>
-            </CardHeader>
-            <CardContent className="p-0">
-              <AvatarVideoPlayer
-                scriptId="navigation-guide"
-                autoPlay={false}
-                showControls={true}
-              />
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Key Features Grid */}
-        <div className="mb-16">
-          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            Platform Capabilities
-          </VoiceReadableHeading>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Platform Demo Video */}
+          <div className="space-y-6">
+            <AvatarVideoPlayer
+              scriptId="platform-overview"
+              autoPlay={false}
+              showControls={true}
+              className="shadow-2xl"
+            />
+            
+            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-4">Platform Highlights</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300" />
+                    <span>200+ Educational Features</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300" />
+                    <span>AI-Powered Learning Analytics</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300" />
+                    <span>Evidence-Based Interventions</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300" />
+                    <span>Comprehensive Accessibility</span>
+                  </div>
                 </div>
-                <CardTitle>200+ Features</CardTitle>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Feature Categories */}
+          <div className="space-y-8">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-6 h-6 text-blue-600" />
+                  Student Features
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <VoiceReadableText>
-                  Comprehensive suite of tools covering every aspect of educational psychology practice
-                </VoiceReadableText>
+                <p className="mb-4">
+                  Comprehensive tools for student learning, progress tracking, and personalized support.
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <Badge variant="secondary">Learning Analytics</Badge>
+                  <Badge variant="secondary">Progress Tracking</Badge>
+                  <Badge variant="secondary">Assessment Tools</Badge>
+                  <Badge variant="secondary">Learning Paths</Badge>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-xl transition-shadow">
+            <Card>
               <CardHeader>
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="w-8 h-8 text-green-600 dark:text-green-400" />
-                </div>
-                <CardTitle>AI-Powered</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="w-6 h-6 text-purple-600" />
+                  AI Innovations
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <VoiceReadableText>
-                  Advanced artificial intelligence for personalized learning and intelligent assessment
-                </VoiceReadableText>
+                <p className="mb-4">
+                  Advanced AI-powered features for personalized education and intelligent support.
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <Badge variant="secondary">AI Tutoring</Badge>
+                  <Badge variant="secondary">Smart Analytics</Badge>
+                  <Badge variant="secondary">Predictive Insights</Badge>
+                  <Badge variant="secondary">Adaptive Learning</Badge>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-xl transition-shadow">
+            <Card>
               <CardHeader>
-                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-8 h-8 text-purple-600 dark:text-purple-400" />
-                </div>
-                <CardTitle>Evidence-Based</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="w-6 h-6 text-green-600" />
+                  Accessibility Features
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <VoiceReadableText>
-                  All tools grounded in current educational psychology research and best practices
-                </VoiceReadableText>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-yellow-600 dark:text-yellow-400" />
+                <p className="mb-4">
+                  Comprehensive accessibility tools ensuring inclusive education for all learners.
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <Badge variant="secondary">Voice Navigation</Badge>
+                  <Badge variant="secondary">Screen Reader</Badge>
+                  <Badge variant="secondary">Multi-Language</Badge>
+                  <Badge variant="secondary">Learning Support</Badge>
                 </div>
-                <CardTitle>Accessible</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <VoiceReadableText>
-                  Full accessibility features including voice navigation and screen reader support
-                </VoiceReadableText>
               </CardContent>
             </Card>
           </div>
         </div>
 
-        {/* User Roles Section */}
-        <div className="mb-16">
-          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            Designed for Everyone
-          </VoiceReadableHeading>
+        {/* Platform Statistics */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
+            Platform by the Numbers
+          </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardHeader className="text-center">
-                <Badge className="bg-blue-100 text-blue-800 mb-4">Students</Badge>
-                <CardTitle>Personalized Learning</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Learning path optimization
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Progress tracking
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Assessment tools
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Study resources
-                  </li>
-                </ul>
+          <div className="grid md:grid-cols-4 gap-8">
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-blue-600 mb-2">200+</div>
+                <div className="text-gray-600 dark:text-gray-400">Educational Features</div>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardHeader className="text-center">
-                <Badge className="bg-green-100 text-green-800 mb-4">Educators</Badge>
-                <CardTitle>Professional Tools</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Classroom management
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Curriculum planning
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Assessment builder
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Data analytics
-                  </li>
-                </ul>
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-green-600 mb-2">75</div>
+                <div className="text-gray-600 dark:text-gray-400">Database Models</div>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardHeader className="text-center">
-                <Badge className="bg-pink-100 text-pink-800 mb-4">Parents</Badge>
-                <CardTitle>Family Support</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Progress monitoring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Communication tools
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Home strategies
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Advocacy guidance
-                  </li>
-                </ul>
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-purple-600 mb-2">184</div>
+                <div className="text-gray-600 dark:text-gray-400">Platform Pages</div>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardHeader className="text-center">
-                <Badge className="bg-purple-100 text-purple-800 mb-4">Professionals</Badge>
-                <CardTitle>Expert Resources</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Advanced assessments
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Research tools
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    Collaboration features
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    CPD tracking
-                  </li>
-                </ul>
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="text-3xl font-bold text-orange-600 mb-2">100%</div>
+                <div className="text-gray-600 dark:text-gray-400">Accessibility Compliant</div>
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* Technology Stack */}
-        <div className="mb-16">
-          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            Built with Modern Technology
-          </VoiceReadableHeading>
-          
-          <Card className="max-w-4xl mx-auto">
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Monitor className="w-6 h-6 text-blue-600" />
-                    Frontend Technologies
-                  </h3>
-                  <div className="space-y-2">
-                    <Badge variant="outline">Next.js 15</Badge>
-                    <Badge variant="outline">React 18</Badge>
-                    <Badge variant="outline">TypeScript</Badge>
-                    <Badge variant="outline">Tailwind CSS</Badge>
-                    <Badge variant="outline">Shadcn/ui</Badge>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Smartphone className="w-6 h-6 text-green-600" />
-                    Backend & AI
-                  </h3>
-                  <div className="space-y-2">
-                    <Badge variant="outline">PostgreSQL</Badge>
-                    <Badge variant="outline">Prisma ORM</Badge>
-                    <Badge variant="outline">NextAuth.js</Badge>
-                    <Badge variant="outline">OpenAI API</Badge>
-                    <Badge variant="outline">HeyGen AI</Badge>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Call to Action */}
-        <div className="text-center">
-          <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="mt-16 text-center">
+          <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
             <CardContent className="p-8">
-              <VoiceReadableHeading level={3} className="text-2xl font-bold mb-4">
-                Ready to Experience EdPsych Connect?
-              </VoiceReadableHeading>
-              <VoiceReadableText className="mb-6 text-blue-100">
-                Join thousands of educators, students, and professionals who are already 
-                transforming educational psychology practice with our platform.
-              </VoiceReadableText>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Ready to Explore?
+              </h3>
+              <p className="mb-6">
+                Discover how EdPsych Connect can transform your educational experience with 
+                evidence-based tools and innovative technology.
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/auth/register">
-                  <Button size="lg" variant="secondary">
-                    Start Free Trial
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                <Link href="/student/dashboard">
+                  <Button size="lg">
+                    Start Exploring
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>
-                <Link href="/meet-dr-scott">
-                  <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600">
-                    <Play className="mr-2 w-5 h-5" />
-                    Meet Dr. Scott
+                <Link href="/contact">
+                  <Button variant="outline" size="lg">
+                    Contact Us
                   </Button>
                 </Link>
               </div>

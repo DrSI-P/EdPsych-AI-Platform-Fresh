@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { VoiceReadableHeading, VoiceReadableText } from '@/components/accessibility';
 import { AvatarVideoPlayer } from '@/components/avatar/AvatarVideoSystem';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +20,45 @@ import {
 import Link from 'next/link';
 
 export default function MeetDrScottPage() {
+  const achievements = [
+    {
+      icon: Award,
+      title: "Chartered Educational Psychologist",
+      description: "Qualified and registered professional with the British Psychological Society"
+    },
+    {
+      icon: GraduationCap,
+      title: "DEdPsych BSc CPsychol MBPSs",
+      description: "Advanced qualifications in Educational Psychology and related fields"
+    },
+    {
+      icon: Users,
+      title: "HCPC Registered: PYL042340",
+      description: "Health and Care Professions Council registration for professional practice"
+    },
+    {
+      icon: Brain,
+      title: "20+ Years Education Experience",
+      description: "Extensive experience in educational settings and psychological practice"
+    },
+    {
+      icon: Heart,
+      title: "12+ Years Educational Psychology",
+      description: "Specialized practice in child and adolescent educational psychology"
+    }
+  ];
+
+  const expertise = [
+    "Child and Adolescent Educational Psychology",
+    "Evidence-based Educational Interventions", 
+    "Restorative Justice in Educational Settings",
+    "Learning Difficulties and Disabilities Assessment",
+    "Behavioral Support and Intervention",
+    "Family and School Collaboration",
+    "Professional Development and Training",
+    "Educational Research and Evaluation"
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
       <div className="container mx-auto px-4 py-8">
@@ -28,15 +68,16 @@ export default function MeetDrScottPage() {
             Meet Dr. Scott I-Patrick
           </VoiceReadableHeading>
           <VoiceReadableText className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Educational Psychologist, Platform Creator, and AI Innovation Pioneer
+            Founder of EdPsych Connect and Chartered Educational Psychologist dedicated to 
+            transforming education through evidence-based practice and innovative technology.
           </VoiceReadableText>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Dr. Scott's Introduction Video */}
+          {/* Dr. Scott's Avatar Video */}
           <div className="space-y-6">
             <AvatarVideoPlayer
-              scriptId="welcome-intro"
+              scriptId="dr-scott-introduction"
               autoPlay={false}
               showControls={true}
               className="shadow-2xl"
@@ -44,76 +85,68 @@ export default function MeetDrScottPage() {
             
             <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
               <CardContent className="p-6">
-                <div className="flex items-center space-x-4 mb-4">
-                  <Avatar className="w-16 h-16">
-                    <AvatarImage src="/images/dr-scott-avatar.jpg" alt="Dr. Scott" />
-                    <AvatarFallback className="bg-white text-blue-600 font-bold text-lg">DS</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="text-xl font-bold">Dr. Scott I-Patrick</h3>
-                    <p className="text-blue-100">Educational Psychologist</p>
+                <h3 className="text-xl font-bold mb-4">Professional Credentials</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Award className="w-5 h-5 text-yellow-300" />
+                    <span>Chartered Educational Psychologist</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="w-5 h-5 text-green-300" />
+                    <span>DEdPsych BSc CPsychol MBPSs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-blue-300" />
+                    <span>HCPC Registered: PYL042340</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Brain className="w-5 h-5 text-purple-300" />
+                    <span>20+ Years Education Experience</span>
                   </div>
                 </div>
-                <VoiceReadableText className="text-blue-100 leading-relaxed">
-                  "Welcome to EdPsych Connect! I created this platform to bridge the gap between 
-                  educational psychology research and practical application, making evidence-based 
-                  support accessible to everyone in the educational community."
-                </VoiceReadableText>
               </CardContent>
             </Card>
           </div>
 
-          {/* Professional Background */}
+          {/* Professional Information */}
           <div className="space-y-8">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Brain className="w-6 h-6 text-purple-600" />
-                  Professional Background
+                  <Heart className="w-6 h-6 text-red-600" />
+                  About Dr. Scott
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <VoiceReadableText>
-                  Dr. Scott I-Patrick is a leading educational psychologist with over 15 years of experience 
-                  in supporting students, educators, and families. His expertise spans assessment and evaluation, 
-                  intervention planning, special educational needs, and restorative justice practices.
+              <CardContent>
+                <VoiceReadableText className="mb-4">
+                  Dr. Scott I-Patrick is the founder of EdPsych Connect and a Chartered Educational 
+                  Psychologist with over 15 years of experience in the field. With a Doctorate in 
+                  Educational Psychology, Dr. Scott has dedicated his career to understanding how 
+                  children and young people learn and develop.
                 </VoiceReadableText>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">15+</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
-                  </div>
-                  <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">1000+</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Students Supported</div>
-                  </div>
-                </div>
+                <VoiceReadableText>
+                  His approach combines evidence-based practice with innovative technology to create 
+                  personalized learning experiences. Dr. Scott's particular expertise lies in supporting 
+                  disadvantaged children and those with special educational needs, specializing in child 
+                  and adolescent educational psychology with evidence-based practice.
+                </VoiceReadableText>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Award className="w-6 h-6 text-yellow-600" />
+                  <BookOpen className="w-6 h-6 text-blue-600" />
                   Areas of Expertise
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    'Educational Psychology',
-                    'Assessment & Evaluation', 
-                    'Intervention Planning',
-                    'Special Educational Needs',
-                    'Restorative Justice',
-                    'Inclusive Education',
-                    'AI in Education',
-                    'Professional Development'
-                  ].map((expertise) => (
-                    <Badge key={expertise} variant="secondary" className="justify-center py-2">
-                      {expertise}
-                    </Badge>
+                <div className="grid grid-cols-1 gap-3">
+                  {expertise.map((area, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-purple-600" />
+                      <span className="text-sm">{area}</span>
+                    </div>
                   ))}
                 </div>
               </CardContent>
@@ -122,139 +155,74 @@ export default function MeetDrScottPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="w-6 h-6 text-purple-600" />
-                  Vision for EdPsych Connect
+                  <Brain className="w-6 h-6 text-green-600" />
+                  Vision & Mission
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <VoiceReadableText className="mb-4">
-                  "My vision is to create a platform that democratizes access to high-quality educational 
-                  psychology support. By combining AI technology with evidence-based practices, we can 
-                  provide personalized, scalable support that meets the diverse needs of our educational community."
+                  "My vision is to bring sunshine and ease to schools through evidence-based educational 
+                  psychology, comprehensive platform tools, and restorative justice practices."
                 </VoiceReadableText>
-                
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <GraduationCap className="w-5 h-5 text-blue-600 mt-1" />
-                    <div>
-                      <div className="font-medium">Student-Centered Approach</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
-                        Every feature designed with student success at its core
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <BookOpen className="w-5 h-5 text-green-600 mt-1" />
-                    <div>
-                      <div className="font-medium">Evidence-Based Practice</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
-                        All tools grounded in current educational psychology research
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-purple-600 mt-1" />
-                    <div>
-                      <div className="font-medium">Collaborative Community</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
-                        Bringing together students, educators, parents, and professionals
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <VoiceReadableText>
+                  Through EdPsych Connect, Dr. Scott aims to bridge the gap between educational psychology 
+                  research and practical application, making evidence-based interventions accessible to 
+                  educators, students, parents, and professionals worldwide.
+                </VoiceReadableText>
               </CardContent>
             </Card>
           </div>
         </div>
 
-        {/* Interactive Features */}
+        {/* Professional Achievements */}
         <div className="mt-16">
           <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-            How Dr. Scott Can Help You
+            Professional Achievements
           </VoiceReadableHeading>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <GraduationCap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Students</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <VoiceReadableText className="mb-4">
-                  Get personalized learning support, assessment guidance, and strategies 
-                  to overcome learning challenges.
-                </VoiceReadableText>
-                <Link href="/student/dashboard">
-                  <Button className="w-full">
-                    Access Student Tools
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <BookOpen className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                <CardTitle>Educators</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <VoiceReadableText className="mb-4">
-                  Access professional development resources, classroom strategies, 
-                  and evidence-based intervention tools.
-                </VoiceReadableText>
-                <Link href="/educator/dashboard">
-                  <Button className="w-full">
-                    Explore Educator Suite
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <Heart className="w-12 h-12 text-pink-600 mx-auto mb-4" />
-                <CardTitle>Parents</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <VoiceReadableText className="mb-4">
-                  Learn how to support your child's learning at home and navigate 
-                  the educational system effectively.
-                </VoiceReadableText>
-                <Link href="/parent/dashboard">
-                  <Button className="w-full">
-                    Visit Parent Portal
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {achievements.map((achievement, index) => {
+              const IconComponent = achievement.icon;
+              return (
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                      {achievement.title}
+                    </h3>
+                    <VoiceReadableText className="text-sm text-gray-600 dark:text-gray-400">
+                      {achievement.description}
+                    </VoiceReadableText>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
 
-        {/* Contact Section */}
+        {/* Call to Action */}
         <div className="mt-16 text-center">
           <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
             <CardContent className="p-8">
               <VoiceReadableHeading level={3} className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                Connect with Dr. Scott
+                Ready to Transform Education?
               </VoiceReadableHeading>
               <VoiceReadableText className="mb-6">
-                Have questions about the platform or need personalized guidance? 
-                Dr. Scott is here to help you make the most of EdPsych Connect.
+                Discover how Dr. Scott's evidence-based approach and innovative platform can 
+                support your educational journey and improve outcomes for all learners.
               </VoiceReadableText>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact">
+                <Link href="/platform-overview">
                   <Button size="lg">
-                    Send a Message
+                    Explore Platform
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>
-                <Link href="/interactive-avatar">
+                <Link href="/contact">
                   <Button variant="outline" size="lg">
-                    Chat with AI Dr. Scott
+                    Get in Touch
                   </Button>
                 </Link>
               </div>

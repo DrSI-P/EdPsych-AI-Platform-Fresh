@@ -8,6 +8,11 @@ export {
   VoiceReadableButton 
 } from './VoiceReadable';
 
-// Enhanced Accessibility Features
-export { default as EnhancedAccessibilityFeatures } from './enhanced-accessibility-features';
+// Enhanced Accessibility Features - Export individual components instead of default
+export { 
+  MultiLanguageSupport,
+  LearningDisabilitySupport,
+  AccessibilityDocumentation,
+  AccessibilityPreferencePersistence
+} from './enhanced-accessibility-features';
 
