@@ -38,7 +38,7 @@ async function simplifiedBuild() {
     log('🔍 Verifying database connection...', colors.cyan);
     try {
       // Generate Prisma client first with explicit schema path
-      execSync('npx prisma generate --schema=./src/prisma/schema.prisma', { stdio: 'inherit' });
+      execSync('npx prisma generate --schema=./prisma/schema.prisma', { stdio: 'inherit' });
       log('✅ Prisma client generated successfully', colors.green);
       
       // Create a simple script to test database connection
@@ -73,13 +73,13 @@ async function simplifiedBuild() {
     log('🔄 Running Prisma migrations...', colors.cyan);
     try {
       // First, check what migrations need to be applied
-      execSync('npx prisma migrate status --schema=./src/prisma/schema.prisma', { stdio: 'inherit' });
+      execSync('npx prisma migrate status --schema=./prisma/schema.prisma', { stdio: 'inherit' });
       
       // Then apply the migrations
-      execSync('npx prisma migrate deploy --schema=./src/prisma/schema.prisma --verbose', { stdio: 'inherit' });
+      execSync('npx prisma migrate deploy --schema=./prisma/schema.prisma --verbose', { stdio: 'inherit' });
       
       // Verify migrations were applied
-      execSync('npx prisma migrate status --schema=./src/prisma/schema.prisma', { stdio: 'inherit' });
+      execSync('npx prisma migrate status --schema=./prisma/schema.prisma', { stdio: 'inherit' });
       
       log('✅ Prisma migrations applied successfully', colors.green);
     } catch (error) {
@@ -103,9 +103,9 @@ async function simplifiedBuild() {
       log('   This is expected in production where placeholder values are used', colors.yellow);
     }
     
-    // Change to the src directory for Next.js build
-    log('🚀 Changing to src directory for Next.js build...', colors.cyan);
-    process.chdir('src');
+    // We're already in the src directory for Next.js build
+    log('🚀 Building Next.js application in src directory...', colors.cyan);
+    // No need to change directory since we're already in src
     
     // Build Next.js application
     log('🚀 Building Next.js application...', colors.cyan);
@@ -207,8 +207,7 @@ async function simplifiedBuild() {
       process.exit(1);
     }
     
-    // Change back to the root directory
-    process.chdir('..');
+    // No need to change back to the root directory since we never changed
     
     log('✅ Build completed successfully!', colors.green);
     
