@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "next start",
     "lint": "next lint",
     "check-env": "node scripts/check-env.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "postinstall": "prisma generate",
-    "prevercel-build": "prisma generate",
-    "vercel-build": "node vercel-build.js"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
@@ -135,3 +133,4 @@
     "typescript": "^5.3.2"
   }
 }
+

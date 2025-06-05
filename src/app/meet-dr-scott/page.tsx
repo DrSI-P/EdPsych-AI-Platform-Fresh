@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { VoiceReadableHeading, VoiceReadableText } from '@/components/accessibility';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -77,13 +76,13 @@ export default function MeetDrScottPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <VoiceReadableHeading level={1} className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Meet Dr. Scott I-Patrick
-          </VoiceReadableHeading>
-          <VoiceReadableText className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Founder of EdPsych Connect and Chartered Educational Psychologist dedicated to 
             transforming education through evidence-based practice and innovative technology.
-          </VoiceReadableText>
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -126,18 +125,18 @@ export default function MeetDrScottPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <VoiceReadableText className="mb-4">
+                <p className="mb-4">
                   Dr. Scott I-Patrick is the founder of EdPsych Connect and a Chartered Educational 
                   Psychologist with over 15 years of experience in the field. With a Doctorate in 
                   Educational Psychology, Dr. Scott has dedicated his career to understanding how 
                   children and young people learn and develop.
-                </VoiceReadableText>
-                <VoiceReadableText>
+                </p>
+                <p>
                   His approach combines evidence-based practice with innovative technology to create 
                   personalized learning experiences. Dr. Scott's particular expertise lies in supporting 
                   disadvantaged children and those with special educational needs, specializing in child 
                   and adolescent educational psychology with evidence-based practice.
-                </VoiceReadableText>
+                </p>
               </CardContent>
             </Card>
 
@@ -168,15 +167,15 @@ export default function MeetDrScottPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <VoiceReadableText className="mb-4">
+                <p className="mb-4">
                   "My vision is to bring sunshine and ease to schools through evidence-based educational 
                   psychology, comprehensive platform tools, and restorative justice practices."
-                </VoiceReadableText>
-                <VoiceReadableText>
+                </p>
+                <p>
                   Through EdPsych Connect, Dr. Scott aims to bridge the gap between educational psychology 
                   research and practical application, making evidence-based interventions accessible to 
                   educators, students, parents, and professionals worldwide.
-                </VoiceReadableText>
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -184,9 +183,9 @@ export default function MeetDrScottPage() {
 
         {/* Professional Achievements */}
         <div className="mt-16">
-          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
             Professional Achievements
-          </VoiceReadableHeading>
+          </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {achievements.map((achievement, index) => {
@@ -200,9 +199,9 @@ export default function MeetDrScottPage() {
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                       {achievement.title}
                     </h3>
-                    <VoiceReadableText className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       {achievement.description}
-                    </VoiceReadableText>
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -214,13 +213,13 @@ export default function MeetDrScottPage() {
         <div className="mt-16 text-center">
           <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
             <CardContent className="p-8">
-              <VoiceReadableHeading level={3} className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Ready to Transform Education?
-              </VoiceReadableHeading>
-              <VoiceReadableText className="mb-6">
+              </h3>
+              <p className="mb-6">
                 Discover how Dr. Scott's evidence-based approach and innovative platform can 
                 support your educational journey and improve outcomes for all learners.
-              </VoiceReadableText>
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/platform-overview">
                   <Button size="lg">
