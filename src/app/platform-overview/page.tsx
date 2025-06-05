@@ -1,369 +1,302 @@
-'use client';
-
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { VoiceReadableHeading, VoiceReadableText } from '@/components/accessibility';
+import { AvatarVideoPlayer } from '@/components/avatar/AvatarVideoSystem';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { 
+  Monitor, 
+  Smartphone, 
   Users, 
-  BookOpen, 
-  Heart,
   Brain,
-  BarChart3,
-  GraduationCap,
-  FileText,
-  Settings,
   Sparkles,
-  Target,
-  Zap,
-  Globe,
-  Mic,
-  Eye,
-  Gamepad2,
-  Languages,
-  Activity
+  CheckCircle,
+  ArrowRight,
+  Play
 } from 'lucide-react';
+import Link from 'next/link';
 
-export default function PlatformOverview() {
-  const [selectedCategory, setSelectedCategory] = useState('dashboards');
-
-  const dashboards = [
-    {
-      title: "Student Dashboard",
-      description: "Personalised learning paths, progress tracking, and achievement management for students.",
-      icon: GraduationCap,
-      color: "bg-blue-500",
-      link: "/innovations/student-dashboard",
-      features: ["Progress tracking", "Learning paths", "Achievement badges", "Study planner"]
-    },
-    {
-      title: "Educator Dashboard",
-      description: "Comprehensive analytics, classroom management, and curriculum planning tools for teachers.",
-      icon: BarChart3,
-      color: "bg-green-500",
-      link: "/innovations/educator-dashboard",
-      features: ["Student analytics", "Curriculum planning", "Assessment tools", "Classroom insights"]
-    },
-    {
-      title: "Parent Portal",
-      description: "Family engagement tools, progress insights, and communication with educators.",
-      icon: Heart,
-      color: "bg-purple-500",
-      link: "/innovations/parent-portal",
-      features: ["Progress reports", "Communication tools", "Home support", "Family insights"]
-    }
-  ];
-
-  const innovations = [
-    {
-      title: "AI-Powered Assessment",
-      description: "Intelligent assessment tools that adapt to individual learning needs and provide instant feedback.",
-      icon: Brain,
-      color: "bg-indigo-500",
-      link: "/innovations/ai-powered-assessment",
-      features: ["Adaptive testing", "Instant feedback", "Learning analytics", "Personalised recommendations"]
-    },
-    {
-      title: "Personalised Learning Pathways",
-      description: "Dynamic learning paths that adapt to each student's pace, style, and interests.",
-      icon: Target,
-      color: "bg-orange-500",
-      link: "/innovations/personalized-learning-pathways",
-      features: ["Adaptive content", "Learning style detection", "Progress optimisation", "Interest-based learning"]
-    },
-    {
-      title: "Immersive Learning Environments",
-      description: "Virtual and augmented reality experiences that bring learning to life.",
-      icon: Eye,
-      color: "bg-pink-500",
-      link: "/innovations/immersive-learning-environments",
-      features: ["VR experiences", "AR overlays", "3D simulations", "Interactive environments"]
-    },
-    {
-      title: "Neuroadaptive Interface",
-      description: "Brain-computer interfaces that respond to cognitive load and emotional state.",
-      icon: Zap,
-      color: "bg-cyan-500",
-      link: "/innovations/neuroadaptive-interface",
-      features: ["Cognitive monitoring", "Stress detection", "Adaptive UI", "Biometric feedback"]
-    },
-    {
-      title: "Digital Twin Companion",
-      description: "AI companions that understand and support each student's unique learning journey.",
-      icon: Sparkles,
-      color: "bg-emerald-500",
-      link: "/innovations/digital-twin-companion",
-      features: ["AI mentoring", "Emotional support", "Learning guidance", "24/7 availability"]
-    },
-    {
-      title: "Biofeedback Learning",
-      description: "Real-time physiological monitoring to optimise learning conditions and reduce stress.",
-      icon: Activity,
-      color: "bg-red-500",
-      link: "/innovations/biofeedback-learning",
-      features: ["Stress monitoring", "Attention tracking", "Wellness insights", "Performance optimisation"]
-    },
-    {
-      title: "Multilingual Support",
-      description: "Comprehensive language support with real-time translation and cultural adaptation.",
-      icon: Languages,
-      color: "bg-violet-500",
-      link: "/innovations/multilingual-support",
-      features: ["Real-time translation", "Cultural adaptation", "Language learning", "Accessibility support"]
-    }
-  ];
-
-  const categories = [
-    { id: 'dashboards', label: 'Core Dashboards', icon: BarChart3 },
-    { id: 'innovations', label: 'AI Innovations', icon: Brain },
-    { id: 'overview', label: 'Platform Overview', icon: Globe }
-  ];
-
-  const renderFeatureCard = (item: any) => {
-    const IconComponent = item.icon;
-    return (
-      <Card key={item.title} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
-        <CardHeader>
-          <div className="flex items-center justify-between mb-4">
-            <div className={`w-12 h-12 ${item.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
-              <IconComponent className="w-6 h-6 text-white" />
-            </div>
-            <Badge variant="secondary" className="text-xs">
-              {selectedCategory === 'dashboards' ? 'Dashboard' : 'Innovation'}
-            </Badge>
-          </div>
-          <CardTitle className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-            {item.title}
-          </CardTitle>
-          <CardDescription className="text-gray-600">
-            {item.description}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 mb-4">
-            {item.features.map((feature: string, index: number) => (
-              <div key={index} className="flex items-center text-sm text-gray-600">
-                <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                {feature}
-              </div>
-            ))}
-          </div>
-          <Button 
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            onClick={() => window.location.href = item.link}
-          >
-            Explore {item.title}
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  };
-
+export default function PlatformOverviewPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-              EdPsych Connect Platform
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive educational psychology platform with revolutionary AI-powered tools, 
-              personalised dashboards, and innovative learning technologies.
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <VoiceReadableHeading level={1} className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            EdPsych Connect Platform Overview
+          </VoiceReadableHeading>
+          <VoiceReadableText className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+            Discover how our comprehensive educational psychology platform transforms learning 
+            through AI-powered tools, evidence-based practices, and personalized support.
+          </VoiceReadableText>
+        </div>
+
+        {/* Platform Demo Video */}
+        <div className="mb-16">
+          <Card className="max-w-4xl mx-auto shadow-2xl">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center">
+              <CardTitle className="text-2xl">Platform Demonstration</CardTitle>
+              <p className="text-blue-100">Watch Dr. Scott guide you through the platform features</p>
+            </CardHeader>
+            <CardContent className="p-0">
+              <AvatarVideoPlayer
+                scriptId="navigation-guide"
+                autoPlay={false}
+                showControls={true}
+              />
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Key Features Grid */}
+        <div className="mb-16">
+          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
+            Platform Capabilities
+          </VoiceReadableHeading>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="text-center hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                </div>
+                <CardTitle>200+ Features</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <VoiceReadableText>
+                  Comprehensive suite of tools covering every aspect of educational psychology practice
+                </VoiceReadableText>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Brain className="w-8 h-8 text-green-600 dark:text-green-400" />
+                </div>
+                <CardTitle>AI-Powered</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <VoiceReadableText>
+                  Advanced artificial intelligence for personalized learning and intelligent assessment
+                </VoiceReadableText>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+                </div>
+                <CardTitle>Evidence-Based</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <VoiceReadableText>
+                  All tools grounded in current educational psychology research and best practices
+                </VoiceReadableText>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-yellow-600 dark:text-yellow-400" />
+                </div>
+                <CardTitle>Accessible</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <VoiceReadableText>
+                  Full accessibility features including voice navigation and screen reader support
+                </VoiceReadableText>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center space-x-8 py-4">
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center px-6 py-3 rounded-full transition-all duration-200 ${
-                    selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                  }`}
-                >
-                  <IconComponent className="w-5 h-5 mr-2" />
-                  {category.label}
-                </button>
-              );
-            })}
+        {/* User Roles Section */}
+        <div className="mb-16">
+          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
+            Designed for Everyone
+          </VoiceReadableHeading>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center">
+                <Badge className="bg-blue-100 text-blue-800 mb-4">Students</Badge>
+                <CardTitle>Personalized Learning</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Learning path optimization
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Progress tracking
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Assessment tools
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Study resources
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center">
+                <Badge className="bg-green-100 text-green-800 mb-4">Educators</Badge>
+                <CardTitle>Professional Tools</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Classroom management
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Curriculum planning
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Assessment builder
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Data analytics
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center">
+                <Badge className="bg-pink-100 text-pink-800 mb-4">Parents</Badge>
+                <CardTitle>Family Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Progress monitoring
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Communication tools
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Home strategies
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Advocacy guidance
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center">
+                <Badge className="bg-purple-100 text-purple-800 mb-4">Professionals</Badge>
+                <CardTitle>Expert Resources</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Advanced assessments
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Research tools
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    Collaboration features
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    CPD tracking
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {selectedCategory === 'dashboards' && (
-          <div>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Core Dashboards</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Comprehensive dashboards designed for students, educators, and families to track progress, 
-                manage learning, and facilitate communication.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {dashboards.map(renderFeatureCard)}
-            </div>
-          </div>
-        )}
+        {/* Technology Stack */}
+        <div className="mb-16">
+          <VoiceReadableHeading level={2} className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
+            Built with Modern Technology
+          </VoiceReadableHeading>
+          
+          <Card className="max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Monitor className="w-6 h-6 text-blue-600" />
+                    Frontend Technologies
+                  </h3>
+                  <div className="space-y-2">
+                    <Badge variant="outline">Next.js 15</Badge>
+                    <Badge variant="outline">React 18</Badge>
+                    <Badge variant="outline">TypeScript</Badge>
+                    <Badge variant="outline">Tailwind CSS</Badge>
+                    <Badge variant="outline">Shadcn/ui</Badge>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Smartphone className="w-6 h-6 text-green-600" />
+                    Backend & AI
+                  </h3>
+                  <div className="space-y-2">
+                    <Badge variant="outline">PostgreSQL</Badge>
+                    <Badge variant="outline">Prisma ORM</Badge>
+                    <Badge variant="outline">NextAuth.js</Badge>
+                    <Badge variant="outline">OpenAI API</Badge>
+                    <Badge variant="outline">HeyGen AI</Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-        {selectedCategory === 'innovations' && (
-          <div>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">AI-Powered Innovations</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Cutting-edge AI technologies that personalise learning, enhance engagement, 
-                and provide unprecedented insights into educational progress.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {innovations.map(renderFeatureCard)}
-            </div>
-          </div>
-        )}
-
-        {selectedCategory === 'overview' && (
-          <div>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Platform Overview</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                A comprehensive view of all platform capabilities, from core educational tools 
-                to revolutionary AI innovations.
-              </p>
-            </div>
-            
-            {/* Platform Statistics */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-              <Card className="text-center">
-                <CardContent className="pt-6">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">3</div>
-                  <div className="text-sm text-gray-600">Core Dashboards</div>
-                </CardContent>
-              </Card>
-              <Card className="text-center">
-                <CardContent className="pt-6">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">7</div>
-                  <div className="text-sm text-gray-600">AI Innovations</div>
-                </CardContent>
-              </Card>
-              <Card className="text-center">
-                <CardContent className="pt-6">
-                  <div className="text-3xl font-bold text-green-600 mb-2">∞</div>
-                  <div className="text-sm text-gray-600">Learning Paths</div>
-                </CardContent>
-              </Card>
-              <Card className="text-center">
-                <CardContent className="pt-6">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">24/7</div>
-                  <div className="text-sm text-gray-600">AI Support</div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Quick Access */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-gray-900">Quick Access</CardTitle>
-                  <CardDescription>Jump directly to the most popular features</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start" onClick={() => window.location.href = '/innovations/student-dashboard'}>
-                    <GraduationCap className="w-4 h-4 mr-2" />
-                    Student Dashboard
+        {/* Call to Action */}
+        <div className="text-center">
+          <Card className="max-w-2xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            <CardContent className="p-8">
+              <VoiceReadableHeading level={3} className="text-2xl font-bold mb-4">
+                Ready to Experience EdPsych Connect?
+              </VoiceReadableHeading>
+              <VoiceReadableText className="mb-6 text-blue-100">
+                Join thousands of educators, students, and professionals who are already 
+                transforming educational psychology practice with our platform.
+              </VoiceReadableText>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/auth/register">
+                  <Button size="lg" variant="secondary">
+                    Start Free Trial
+                    <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
-                  <Button variant="outline" className="w-full justify-start" onClick={() => window.location.href = '/innovations/educator-dashboard'}>
-                    <BarChart3 className="w-4 h-4 mr-2" />
-                    Educator Dashboard
+                </Link>
+                <Link href="/meet-dr-scott">
+                  <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600">
+                    <Play className="mr-2 w-5 h-5" />
+                    Meet Dr. Scott
                   </Button>
-                  <Button variant="outline" className="w-full justify-start" onClick={() => window.location.href = '/innovations/parent-portal'}>
-                    <Heart className="w-4 h-4 mr-2" />
-                    Parent Portal
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start" onClick={() => window.location.href = '/innovations/ai-powered-assessment'}>
-                    <Brain className="w-4 h-4 mr-2" />
-                    AI Assessment
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-gray-900">Platform Features</CardTitle>
-                  <CardDescription>Core capabilities that power the platform</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                    Evidence-based educational psychology
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-purple-600 rounded-full mr-3"></div>
-                    Personalised learning pathways
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                    Real-time progress tracking
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-orange-600 rounded-full mr-3"></div>
-                    AI-powered insights and recommendations
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-pink-600 rounded-full mr-3"></div>
-                    Comprehensive family engagement
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-cyan-600 rounded-full mr-3"></div>
-                    Professional educator support
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Call to Action */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Transform Education?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Experience the future of educational psychology with our comprehensive platform.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              size="lg"
-              variant="secondary"
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
-              onClick={() => window.location.href = '/innovations/student-dashboard'}
-            >
-              <GraduationCap className="w-5 h-5 mr-2" />
-              Start Learning
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
-              onClick={() => window.location.href = '/'}
-            >
-              <Heart className="w-5 h-5 mr-2" />
-              Back to Home
-            </Button>
-          </div>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

@@ -125,10 +125,23 @@ export default function MasterNavigation() {
       name: 'About',
       features: [
         { name: 'About Us', path: '/about' },
+        { name: 'Meet Dr. Scott', path: '/meet-dr-scott' },
+        { name: 'Platform Overview', path: '/platform-overview' },
         { name: 'Meet the Team', path: '/about/team' },
         { name: 'Contact', path: '/contact' },
         { name: 'Privacy Policy', path: '/privacy' },
         { name: 'Terms of Service', path: '/terms' }
+      ]
+    },
+    {
+      id: 'blog',
+      name: 'Blog & Resources',
+      features: [
+        { name: 'Educational Blog', path: '/blog' },
+        { name: 'Research Articles', path: '/blog/research' },
+        { name: 'Case Studies', path: '/blog/case-studies' },
+        { name: 'Best Practices', path: '/blog/best-practices' },
+        { name: 'News & Updates', path: '/blog/news' }
       ]
     }
   ];
