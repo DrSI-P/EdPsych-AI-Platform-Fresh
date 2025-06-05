@@ -1,11 +1,9 @@
 {
   "version": 2,
   "buildCommand": "npm run vercel-build",
-  "outputDirectory": ".next",
+  "outputDirectory": "src/.next",
   "framework": "nextjs",
-  "github": {
-    "silent": false,
-    "autoJobCancelation": true,
-    "enabled": true
+  "env": {
+    "DATABASE_URL": "postgresql://postgres:cfrIRoriddjsJuEKMMHenOkSGveikIvb@hopper.proxy.rlwy.net:27107/railway"
   }
 }
