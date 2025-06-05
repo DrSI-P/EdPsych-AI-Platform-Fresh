@@ -1,0 +1,30 @@
+{
+  "name": "edpsych-connect-platform",
+  "version": "1.0.0",
+  "description": "EdPsych Connect Platform - Next.js Application",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "vercel-build": "node ../vercel-build.js"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next-auth": "^4.22.1",
+    "@supabase/supabase-js": "^2.21.0",
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0",
+    "prisma": "^5.22.0"
+  }
+}
