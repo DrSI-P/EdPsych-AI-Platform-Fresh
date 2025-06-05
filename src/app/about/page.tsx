@@ -183,10 +183,29 @@ export default function AboutPage() {
               </p>
             </div>
 
+            {/* George Randal - CTO */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-indigo-200">
+                <AvatarImage src="/images/team/GeorgeRandall.jpg" alt="George Randal" />
+                <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-bold">
+                  GR
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">George Randal</h3>
+              <p className="text-sm text-indigo-600 font-medium mb-2">Chief Technology Officer (CTO)</p>
+              <p className="text-sm text-gray-600 mb-3">Technical Leadership & Database Management</p>
+              <Badge className="bg-indigo-100 text-indigo-800 text-xs">CTO</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Chief Technology Officer overseeing all technical aspects and database management. 
+                Leads the technical architecture and ensures robust, scalable platform infrastructure 
+                supporting all 200+ educational features.
+              </p>
+            </div>
+
             {/* Professor Piers */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
               <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-purple-200">
-                <AvatarImage src="/images/professor-piers.jpg" alt="Professor Piers Worth" />
+                <AvatarImage src="/images/team/ProfessorPiers.jpeg" alt="Professor Piers Worth" />
                 <AvatarFallback className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl font-bold">
                   PW
                 </AvatarFallback>
@@ -296,7 +315,7 @@ export default function AboutPage() {
             {/* Louis Young */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
               <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-red-200">
-                <AvatarImage src="/images/team/louis-young.jpg" alt="Louis Young" />
+                <AvatarImage src="/images/team/LouisYoung.jpg" alt="Louis Young" />
                 <AvatarFallback className="bg-gradient-to-r from-red-600 to-pink-600 text-white text-xl font-bold">
                   LY
                 </AvatarFallback>
