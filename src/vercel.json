@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "buildCommand": "node vercel-build.js",
+  "outputDirectory": "src/.next",
+  "framework": "nextjs",
+  "env": {
+    "DATABASE_URL": "postgresql://postgres:cfrIRoriddjsJuEKMMHenOkSGveikIvb@hopper.proxy.rlwy.net:27107/railway"
+  }
+}
