@@ -6,23 +6,32 @@
  */
 
 import Stripe from 'stripe';
-import { getEnv } from '@/lib/env-validator';
 import { db } from '@/lib/db';
 
-// Initialize Stripe client with validated environment variables
-const env = getEnv();
-const stripe = new Stripe(
-  process.env.NODE_ENV === 'production' 
-    ? env.stripe.secretKey 
-    : env.stripe.testSecretKey,
-  {
-    apiVersion: '2023-10-16', // Use the latest stable API version
-    appInfo: {
-      name: 'EdPsych AI Education Platform',
-      version: '1.0.0',
-    },
+// Initialize Stripe client with environment variables (with fallbacks)
+let stripe: Stripe | null = null;
+
+function getStripe(): Stripe {
+  if (!stripe) {
+    const secretKey = process.env.NODE_ENV === 'production' 
+      ? process.env.STRIPE_SECRET_KEY 
+      : process.env.STRIPE_TEST_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+    
+    if (!secretKey) {
+      throw new Error('Stripe secret key not configured');
+    }
+    
+    stripe = new Stripe(secretKey, {
+      apiVersion: '2023-10-16',
+      appInfo: {
+        name: 'EdPsych AI Education Platform',
+        version: '1.0.0',
+      },
+    });
   }
-);
+  
+  return stripe;
+}
 
 // Subscription plan IDs - these would be created in the Stripe dashboard
 export const SUBSCRIPTION_PLANS = {
@@ -87,7 +96,8 @@ export async function createCustomer(
   metadata?: Record<string, string>
 ): Promise<string> {
   try {
-    const customer = await stripe.customers.create({
+    const stripeClient = getStripe();
+    const customer = await stripeClient.customers.create({
       email,
       name,
       metadata,
@@ -112,7 +122,8 @@ export async function createSubscriptionCheckout({
   metadata = {},
 }: SubscriptionCheckoutParams): Promise<string> {
   try {
-    const session = await stripe.checkout.sessions.create({
+    const stripeClient = getStripe();
+    const session = await stripeClient.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
       line_items: [
@@ -149,7 +160,8 @@ export async function createCreditPurchaseCheckout({
   metadata = {},
 }: CreditPurchaseCheckoutParams): Promise<string> {
   try {
-    const session = await stripe.checkout.sessions.create({
+    const stripeClient = getStripe();
+    const session = await stripeClient.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
       line_items: [
@@ -176,7 +188,8 @@ export async function createCreditPurchaseCheckout({
  */
 export async function getActiveSubscriptions(customerId: string): Promise<Stripe.Subscription[]> {
   try {
-    const subscriptions = await stripe.subscriptions.list({
+    const stripeClient = getStripe();
+    const subscriptions = await stripeClient.subscriptions.list({
       customer: customerId,
       status: 'active',
       expand: ['data.default_payment_method'],
@@ -197,12 +210,13 @@ export async function cancelSubscription(
   cancelAtPeriodEnd: boolean = true
 ): Promise<void> {
   try {
+    const stripeClient = getStripe();
     if (cancelAtPeriodEnd) {
-      await stripe.subscriptions.update(subscriptionId, {
+      await stripeClient.subscriptions.update(subscriptionId, {
         cancel_at_period_end: true,
       });
     } else {
-      await stripe.subscriptions.cancel(subscriptionId);
+      await stripeClient.subscriptions.cancel(subscriptionId);
     }
   } catch (error) {
     console.error('Error cancelling subscription:', error);
@@ -218,11 +232,12 @@ export async function updateSubscription(
   newPriceId: string
 ): Promise<void> {
   try {
+    const stripeClient = getStripe();
     // Get the subscription to find the current items
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const subscription = await stripeClient.subscriptions.retrieve(subscriptionId);
     
     // Update the subscription with the new price
-    await stripe.subscriptions.update(subscriptionId, {
+    await stripeClient.subscriptions.update(subscriptionId, {
       items: [
         {
           id: subscription.items.data[0].id,
@@ -241,7 +256,8 @@ export async function updateSubscription(
  */
 export async function getCustomerPaymentMethods(customerId: string): Promise<Stripe.PaymentMethod[]> {
   try {
-    const paymentMethods = await stripe.paymentMethods.list({
+    const stripeClient = getStripe();
+    const paymentMethods = await stripeClient.paymentMethods.list({
       customer: customerId,
       type: 'card',
     });
@@ -261,7 +277,8 @@ export async function createPortalSession(
   returnUrl: string
 ): Promise<string> {
   try {
-    const session = await stripe.billingPortal.sessions.create({
+    const stripeClient = getStripe();
+    const session = await stripeClient.billingPortal.sessions.create({
       customer: customerId,
       return_url: returnUrl,
     });
@@ -281,11 +298,18 @@ export async function handleWebhookEvent(
   signature: string
 ): Promise<{ received: boolean; event?: Stripe.Event }> {
   try {
+    const stripeClient = getStripe();
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    
+    if (!webhookSecret) {
+      throw new Error('Stripe webhook secret not configured');
+    }
+    
     // Verify the webhook signature
-    const event = stripe.webhooks.constructEvent(
+    const event = stripeClient.webhooks.constructEvent(
       payload,
       signature,
-      env.stripe.webhookSecret
+      webhookSecret
     );
     
     // Process the event based on its type
@@ -356,8 +380,9 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
     : session.subscription.id;
   
   try {
+    const stripeClient = getStripe();
     // Get the subscription details
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const subscription = await stripeClient.subscriptions.retrieve(subscriptionId);
     
     // Determine the subscription tier from the price ID
     const priceId = subscription.items.data[0].price.id;
@@ -566,7 +591,8 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
     }
     
     // Get the subscription to update the period end
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const stripeClient = getStripe();
+    const subscription = await stripeClient.subscriptions.retrieve(subscriptionId);
     
     // Update the user's subscription information
     await db.user.update({
@@ -577,32 +603,49 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
       },
     });
     
-    // Add the monthly credits for the tier
-    const tier = user.subscriptionTier;
-    const monthlyCredits = TIER_MONTHLY_CREDITS[tier] || 0;
+    // Add monthly credits for the renewal
+    const monthlyCredits = TIER_MONTHLY_CREDITS[user.subscriptionTier] || 0;
     
-    // Update user credits
-    await db.userCredits.update({
-      where: { userId: user.id },
-      data: {
-        remainingCredits: {
-          increment: monthlyCredits,
-        },
-        lastCreditRefresh: new Date(),
-      },
-    });
+    if (monthlyCredits > 0) {
+      // Check if user already has credits
+      const existingCredits = await db.userCredits.findUnique({
+        where: { userId: user.id },
+      });
+      
+      if (existingCredits) {
+        // Update existing credits
+        await db.userCredits.update({
+          where: { userId: user.id },
+          data: {
+            remainingCredits: {
+              increment: monthlyCredits,
+            },
+            lastCreditRefresh: new Date(),
+          },
+        });
+      } else {
+        // Create new credits record
+        await db.userCredits.create({
+          data: {
+            userId: user.id,
+            remainingCredits: monthlyCredits,
+            usedCredits: 0,
+            lastCreditRefresh: new Date(),
+          },
+        });
+      }
+    }
     
-    // Log the invoice payment event
+    // Log the payment event
     await db.subscriptionEvent.create({
       data: {
         userId: user.id,
         eventType: 'invoice_paid',
-        tier,
+        tier: user.subscriptionTier,
         stripeSubscriptionId: subscriptionId,
         metadata: {
           invoiceId: invoice.id,
           amount: invoice.amount_paid,
-          currency: invoice.currency,
         },
       },
     });
@@ -638,7 +681,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
       return;
     }
     
-    // Update the user's subscription information
+    // Update the user's subscription status
     await db.user.update({
       where: { id: user.id },
       data: {
@@ -646,7 +689,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
       },
     });
     
-    // Log the invoice payment failed event
+    // Log the payment failure event
     await db.subscriptionEvent.create({
       data: {
         userId: user.id,
@@ -656,37 +699,26 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
         metadata: {
           invoiceId: invoice.id,
           amount: invoice.amount_due,
-          currency: invoice.currency,
-          attemptCount: invoice.attempt_count,
         },
       },
     });
-    
-    // TODO: Send payment failure notification to user
   } catch (error) {
     console.error('Error processing invoice payment failure:', error);
   }
 }
 
 /**
- * Handle credit purchase
+ * Handle credit purchase completion
  */
 async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<void> {
-  if (!session.customer || !session.metadata?.creditAmount) {
-    console.error('Missing customer or credit amount in session:', session.id);
+  if (!session.customer) {
+    console.error('Missing customer ID in session:', session.id);
     return;
   }
   
-  const customerId = typeof session.customer === 'string'
-    ? session.customer
+  const customerId = typeof session.customer === 'string' 
+    ? session.customer 
     : session.customer.id;
-  
-  const creditAmount = parseInt(session.metadata.creditAmount, 10);
-  
-  if (isNaN(creditAmount)) {
-    console.error('Invalid credit amount in session metadata:', session.metadata.creditAmount);
-    return;
-  }
   
   try {
     // Find the user by Stripe customer ID
@@ -699,7 +731,27 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
       return;
     }
     
-    // Check if user already has credits
+    // Get the credit package and quantity from metadata
+    const creditPackage = session.metadata?.creditPackage || 'small';
+    const quantity = parseInt(session.metadata?.quantity || '1');
+    
+    // Determine credits to add based on package
+    let creditsToAdd = 0;
+    switch (creditPackage) {
+      case 'small':
+        creditsToAdd = 10 * quantity;
+        break;
+      case 'medium':
+        creditsToAdd = 25 * quantity;
+        break;
+      case 'large':
+        creditsToAdd = 50 * quantity;
+        break;
+      default:
+        creditsToAdd = 10 * quantity;
+    }
+    
+    // Add credits to user's account
     const existingCredits = await db.userCredits.findUnique({
       where: { userId: user.id },
     });
@@ -710,7 +762,7 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
         where: { userId: user.id },
         data: {
           remainingCredits: {
-            increment: creditAmount,
+            increment: creditsToAdd,
           },
         },
       });
@@ -719,23 +771,26 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
       await db.userCredits.create({
         data: {
           userId: user.id,
-          remainingCredits: creditAmount,
+          remainingCredits: creditsToAdd,
           usedCredits: 0,
           lastCreditRefresh: new Date(),
         },
       });
     }
     
-    // Log the credit purchase event
+    // Record the credit purchase
     await db.creditPurchase.create({
       data: {
         userId: user.id,
-        amount: creditAmount,
+        package: creditPackage,
+        quantity,
+        creditsAdded: creditsToAdd,
+        amount: session.amount_total || 0,
         stripeSessionId: session.id,
-        metadata: session.metadata,
       },
     });
   } catch (error) {
     console.error('Error processing credit purchase:', error);
   }
 }
+

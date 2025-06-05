@@ -20,285 +20,304 @@ interface AvatarVideoScript {
   page?: string;
 }
 
-// Dr. Scott's Avatar Video Scripts
-const AVATAR_SCRIPTS: AvatarVideoScript[] = [
-  {
-    id: 'welcome-intro',
-    title: 'Welcome to EdPsych Connect',
-    description: 'Dr. Scott introduces the platform and its capabilities',
-    videoUrl: '/videos/avatars/dr-scott-welcome.mp4',
-    audioUrl: '/audio/avatars/dr-scott-welcome.mp3',
-    script: `Hello! I'm Dr. Scott I-Patrick, and I'm delighted to welcome you to EdPsych Connect. This platform represents the future of educational psychology support, bringing together cutting-edge AI technology with evidence-based practices to support students, educators, parents, and professionals. Whether you're here to access personalized learning paths, explore assessment tools, or connect with our community, I'm here to guide you every step of the way. Let's begin this journey together!`,
-    duration: 45,
-    category: 'welcome'
-  },
-  {
-    id: 'navigation-guide',
-    title: 'Platform Navigation Guide',
-    description: 'How to navigate through the EdPsych Connect platform',
-    videoUrl: '/videos/avatars/dr-scott-navigation.mp4',
-    audioUrl: '/audio/avatars/dr-scott-navigation.mp3',
-    script: `Let me show you how to navigate EdPsych Connect effectively. The main navigation menu provides access to all our key features. Students can access their personalized dashboard, learning paths, and assessment tools. Educators will find classroom management tools, professional development resources, and collaboration features. Parents can track their child's progress and access support resources. Use the search function to quickly find specific tools or information. Remember, I'm always here to help if you need guidance!`,
-    duration: 60,
-    category: 'navigation'
-  },
-  {
-    id: 'student-dashboard',
-    title: 'Student Dashboard Overview',
-    description: 'Introduction to the student dashboard features',
-    videoUrl: '/videos/avatars/dr-scott-student-dashboard.mp4',
-    audioUrl: '/audio/avatars/dr-scott-student-dashboard.mp3',
-    script: `Welcome to your student dashboard! This is your personalized learning hub where you can track your progress, access your learning paths, and manage your educational journey. Here you'll find your current assessments, upcoming tasks, achievement badges, and progress reports. The dashboard adapts to your learning style and provides recommendations for your next steps. You can also access your portfolio, connect with peers, and communicate with your teachers and parents. Everything is designed to support your success!`,
-    duration: 50,
-    category: 'feature',
-    page: '/student/dashboard'
-  },
-  {
-    id: 'educator-tools',
-    title: 'Educator Tools Suite',
-    description: 'Overview of tools available for educators',
-    videoUrl: '/videos/avatars/dr-scott-educator-tools.mp4',
-    audioUrl: '/audio/avatars/dr-scott-educator-tools.mp3',
-    script: `As an educator, you have access to a comprehensive suite of tools designed to enhance your teaching effectiveness. The classroom management system helps you organize students, track behavior, and manage assessments. Our lesson planning tools integrate with curriculum standards and provide evidence-based strategies. You can create custom assessments, generate reports, and collaborate with colleagues. The professional development section offers CPD tracking and the latest research insights. Everything is designed to support your professional growth and student success.`,
-    duration: 65,
-    category: 'feature',
-    page: '/educator/dashboard'
-  },
-  {
-    id: 'assessment-tools',
-    title: 'Assessment and Evaluation Tools',
-    description: 'Guide to assessment features and capabilities',
-    videoUrl: '/videos/avatars/dr-scott-assessments.mp4',
-    audioUrl: '/audio/avatars/dr-scott-assessments.mp3',
-    script: `Our assessment tools are built on the latest educational psychology research. You can create formative and summative assessments, conduct learning style evaluations, and perform comprehensive educational assessments. The system provides detailed analytics, identifies learning gaps, and suggests targeted interventions. For students with special educational needs, we offer specialized assessment protocols. All assessments are designed to be inclusive, accessible, and provide actionable insights for improving learning outcomes.`,
-    duration: 55,
-    category: 'feature',
-    page: '/assessments'
-  },
-  {
-    id: 'ai-features',
-    title: 'AI-Powered Learning Features',
-    description: 'Introduction to AI capabilities and benefits',
-    videoUrl: '/videos/avatars/dr-scott-ai-features.mp4',
-    audioUrl: '/audio/avatars/dr-scott-ai-features.mp3',
-    script: `EdPsych Connect harnesses the power of artificial intelligence to personalize your learning experience. Our AI analyzes your learning patterns, identifies your strengths and areas for growth, and adapts content to your individual needs. The system provides intelligent tutoring, automated feedback, and predictive analytics to support your success. For educators, AI assists with lesson planning, assessment creation, and intervention recommendations. Everything is designed to augment human expertise, not replace it, ensuring the best possible outcomes for all learners.`,
-    duration: 60,
-    category: 'feature'
-  }
-];
-
 interface AvatarVideoPlayerProps {
-  scriptId?: string;
+  scriptId: string;
   autoPlay?: boolean;
   showControls?: boolean;
   className?: string;
+  onScriptComplete?: () => void;
 }
 
-export function AvatarVideoPlayer({
-  scriptId = 'welcome-intro',
-  autoPlay = false,
-  showControls = true,
-  className = ''
+// Mock data for avatar video scripts
+const avatarScripts: Record<string, AvatarVideoScript> = {
+  'welcome-intro': {
+    id: 'welcome-intro',
+    title: 'Welcome to EdPsych Connect',
+    description: 'Dr. Scott introduces the platform and its mission',
+    videoUrl: '/videos/dr-scott-welcome.mp4',
+    audioUrl: '/audio/dr-scott-welcome.mp3',
+    script: `Hello and welcome to EdPsych Connect! I'm Dr. Scott I-Patrick, and I'm thrilled you're here. 
+    This platform represents years of work to bridge the gap between educational psychology research and 
+    practical application. Whether you're a student, educator, parent, or professional, you'll find 
+    evidence-based tools and resources designed to support learning and development. Let's explore 
+    together how we can make education more inclusive, effective, and empowering for everyone.`,
+    duration: 45,
+    category: 'welcome',
+    page: 'meet-dr-scott'
+  },
+  'platform-overview': {
+    id: 'platform-overview',
+    title: 'Platform Overview',
+    description: 'Comprehensive tour of EdPsych Connect features',
+    videoUrl: '/videos/dr-scott-overview.mp4',
+    audioUrl: '/audio/dr-scott-overview.mp3',
+    script: `Let me give you a comprehensive overview of what EdPsych Connect offers. Our platform 
+    includes student learning analytics, educator professional development tools, AI-powered assessment 
+    systems, and comprehensive accessibility features. Each tool is grounded in current educational 
+    psychology research and designed to support diverse learning needs. From personalized learning 
+    paths to restorative justice practices, we're here to support your educational journey.`,
+    duration: 60,
+    category: 'feature',
+    page: 'platform-overview'
+  },
+  'navigation-help': {
+    id: 'navigation-help',
+    title: 'Navigation Guide',
+    description: 'How to navigate the EdPsych Connect platform',
+    videoUrl: '/videos/dr-scott-navigation.mp4',
+    audioUrl: '/audio/dr-scott-navigation.mp3',
+    script: `Navigating EdPsych Connect is designed to be intuitive and accessible. Use the main 
+    navigation menu to access different feature categories. Each section includes detailed tools 
+    and resources. Don't forget to check out the accessibility features - we have voice navigation, 
+    screen reader support, and customizable interfaces to meet your needs. If you ever need help, 
+    just look for the help icons throughout the platform.`,
+    duration: 40,
+    category: 'navigation',
+    page: 'help'
+  }
+};
+
+export function AvatarVideoPlayer({ 
+  scriptId, 
+  autoPlay = false, 
+  showControls = true, 
+  className = '',
+  onScriptComplete 
 }: AvatarVideoPlayerProps) {
-  const [currentScript, setCurrentScript] = useState<AvatarVideoScript | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showFallback, setShowFallback] = useState(false);
-  const [useAudio, setUseAudio] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [showTranscript, setShowTranscript] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const script = avatarScripts[scriptId];
 
   useEffect(() => {
-    const script = AVATAR_SCRIPTS.find(s => s.id === scriptId) || AVATAR_SCRIPTS[0];
-    setCurrentScript(script);
-  }, [scriptId]);
-
-  const handleVideoError = () => {
-    console.log('Video failed to load, showing fallback');
-    setShowFallback(true);
-  };
+    if (autoPlay && script) {
+      handlePlay();
+    }
+  }, [autoPlay, script]);
 
   const handlePlay = () => {
     setIsPlaying(true);
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
   };
 
   const handlePause = () => {
     setIsPlaying(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+  };
+
+  const handleRestart = () => {
+    setCurrentTime(0);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+    }
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+    handlePlay();
+  };
+
+  const handleMute = () => {
+    setIsMuted(!isMuted);
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+    }
+    if (audioRef.current) {
+      audioRef.current.muted = !isMuted;
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      setCurrentTime(videoRef.current.currentTime);
+    } else if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
   };
 
   const handleEnded = () => {
     setIsPlaying(false);
+    setCurrentTime(0);
+    if (onScriptComplete) {
+      onScriptComplete();
+    }
   };
 
-  const toggleAudioMode = () => {
-    setUseAudio(!useAudio);
-    setIsPlaying(false);
-  };
-
-  if (!currentScript) {
+  if (!script) {
     return (
-      <Card className={`bg-gray-50 ${className}`}>
+      <Card className={`bg-gray-100 dark:bg-gray-800 ${className}`}>
         <CardContent className="p-6 text-center">
-          <p className="text-gray-600">Loading avatar content...</p>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  // Fallback content when video/audio is not available
-  if (showFallback || (!currentScript.videoUrl && !currentScript.audioUrl)) {
-    return (
-      <Card className={className}>
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12">
-              <AvatarImage src="/images/dr-scott-avatar.jpg" alt="Dr. Scott" />
-              <AvatarFallback className="bg-white text-blue-600 font-bold">DS</AvatarFallback>
-            </Avatar>
-            <div>
-              <CardTitle className="text-lg">{currentScript.title}</CardTitle>
-              <p className="text-blue-100 text-sm">{currentScript.description}</p>
-            </div>
-          </div>
-        </CardHeader>
-        
-        <CardContent className="p-6">
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-4">
-            <Badge variant="secondary" className="mb-3">
-              Dr. Scott's Message
-            </Badge>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {currentScript.script}
-            </p>
-          </div>
-          
-          <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
-            <span>Category: {currentScript.category}</span>
-            {currentScript.duration && (
-              <span>Duration: {currentScript.duration}s</span>
-            )}
-          </div>
+          <Avatar className="w-24 h-24 mx-auto mb-4">
+            <AvatarImage src="/images/dr-scott-avatar.jpg" alt="Dr. Scott" />
+            <AvatarFallback className="bg-blue-600 text-white text-2xl">DS</AvatarFallback>
+          </Avatar>
+          <p className="text-gray-600 dark:text-gray-400">
+            Video script not found. Please check back later.
+          </p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className={className}>
-      <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+    <Card className={`overflow-hidden ${className}`}>
+      <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Avatar className="w-12 h-12">
               <AvatarImage src="/images/dr-scott-avatar.jpg" alt="Dr. Scott" />
-              <AvatarFallback className="bg-white text-blue-600 font-bold">DS</AvatarFallback>
+              <AvatarFallback className="bg-blue-600 text-white">DS</AvatarFallback>
             </Avatar>
             <div>
-              <CardTitle className="text-lg">{currentScript.title}</CardTitle>
-              <p className="text-blue-100 text-sm">{currentScript.description}</p>
+              <CardTitle className="text-lg">{script.title}</CardTitle>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{script.description}</p>
             </div>
           </div>
-          
-          {showControls && (
-            <div className="flex items-center space-x-2">
-              <Badge variant="secondary" className="text-xs">
-                {useAudio ? 'Audio' : 'Video'}
-              </Badge>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={toggleAudioMode}
-                className="text-white hover:bg-white/20"
-              >
-                {useAudio ? <Volume2 className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-              </Button>
-            </div>
-          )}
+          <Badge variant="secondary" className="capitalize">
+            {script.category}
+          </Badge>
         </div>
       </CardHeader>
-      
-      <CardContent className="p-0">
-        {useAudio && currentScript.audioUrl ? (
-          <div className="p-6">
-            <AudioPlayer
-              src={currentScript.audioUrl}
-              title={`Audio: ${currentScript.title}`}
-              autoPlay={autoPlay}
-              onPlay={handlePlay}
-              onPause={handlePause}
+
+      <CardContent className="space-y-4">
+        {/* Video Player */}
+        {script.videoUrl && (
+          <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden">
+            <VideoPlayer
+              ref={videoRef}
+              src={script.videoUrl}
+              onTimeUpdate={handleTimeUpdate}
               onEnded={handleEnded}
+              muted={isMuted}
+              className="w-full h-full object-cover"
             />
+            
+            {/* Video Overlay Controls */}
+            {showControls && (
+              <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center">
+                <div className="opacity-0 hover:opacity-100 transition-opacity duration-200">
+                  {!isPlaying ? (
+                    <Button
+                      onClick={handlePlay}
+                      size="lg"
+                      className="rounded-full w-16 h-16 bg-white bg-opacity-90 hover:bg-opacity-100 text-black"
+                    >
+                      <Play className="w-8 h-8" />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handlePause}
+                      size="lg"
+                      className="rounded-full w-16 h-16 bg-white bg-opacity-90 hover:bg-opacity-100 text-black"
+                    >
+                      <Pause className="w-8 h-8" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-        ) : currentScript.videoUrl ? (
-          <VideoPlayer
-            src={currentScript.videoUrl}
-            autoPlay={autoPlay}
-            controls={showControls}
-            onPlay={handlePlay}
-            onPause={handlePause}
+        )}
+
+        {/* Audio Player (fallback if no video) */}
+        {!script.videoUrl && script.audioUrl && (
+          <AudioPlayer
+            ref={audioRef}
+            src={script.audioUrl}
+            onTimeUpdate={handleTimeUpdate}
             onEnded={handleEnded}
+            muted={isMuted}
           />
-        ) : (
-          <div className="p-6 text-center">
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Media content is being prepared. Here's Dr. Scott's message:
-            </p>
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {currentScript.script}
-              </p>
+        )}
+
+        {/* Controls */}
+        {showControls && (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              {!isPlaying ? (
+                <Button onClick={handlePlay} size="sm">
+                  <Play className="w-4 h-4 mr-2" />
+                  Play
+                </Button>
+              ) : (
+                <Button onClick={handlePause} size="sm">
+                  <Pause className="w-4 h-4 mr-2" />
+                  Pause
+                </Button>
+              )}
+              
+              <Button onClick={handleRestart} variant="outline" size="sm">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Restart
+              </Button>
+              
+              <Button onClick={handleMute} variant="outline" size="sm">
+                {isMuted ? (
+                  <VolumeX className="w-4 h-4" />
+                ) : (
+                  <Volume2 className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Button
+                onClick={() => setShowTranscript(!showTranscript)}
+                variant="outline"
+                size="sm"
+              >
+                {showTranscript ? 'Hide' : 'Show'} Transcript
+              </Button>
+              
+              {script.duration && (
+                <Badge variant="outline">
+                  {Math.floor(currentTime)}s / {script.duration}s
+                </Badge>
+              )}
             </div>
           </div>
+        )}
+
+        {/* Progress Bar */}
+        {showControls && script.duration && (
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div
+              className="bg-blue-600 h-2 rounded-full transition-all duration-200"
+              style={{ width: `${(currentTime / script.duration) * 100}%` }}
+            />
+          </div>
+        )}
+
+        {/* Transcript */}
+        {showTranscript && (
+          <Card className="bg-gray-50 dark:bg-gray-800">
+            <CardHeader>
+              <CardTitle className="text-sm">Transcript</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                {script.script}
+              </p>
+            </CardContent>
+          </Card>
         )}
       </CardContent>
     </Card>
   );
 }
 
-// Component for selecting and playing different avatar scripts
-export function AvatarScriptSelector({ 
-  onScriptSelect,
-  currentScriptId,
-  className = '' 
-}: {
-  onScriptSelect: (scriptId: string) => void;
-  currentScriptId?: string;
-  className?: string;
-}) {
-  return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle className="text-lg">Dr. Scott's Video Library</CardTitle>
-      </CardHeader>
-      
-      <CardContent className="p-4">
-        <div className="space-y-2">
-          {AVATAR_SCRIPTS.map((script) => (
-            <Button
-              key={script.id}
-              variant={currentScriptId === script.id ? "default" : "outline"}
-              className="w-full justify-start text-left h-auto p-3"
-              onClick={() => onScriptSelect(script.id)}
-            >
-              <div>
-                <div className="font-medium">{script.title}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {script.description}
-                </div>
-                <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="secondary" className="text-xs">
-                    {script.category}
-                  </Badge>
-                  {script.duration && (
-                    <span className="text-xs text-gray-500">
-                      {script.duration}s
-                    </span>
-                  )}
-                </div>
-              </div>
-            </Button>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-export { AVATAR_SCRIPTS };
+export default AvatarVideoPlayer;
 

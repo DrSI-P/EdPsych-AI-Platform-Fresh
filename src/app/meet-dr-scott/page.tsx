@@ -1,3 +1,5 @@
+'use client';
+
 import { VoiceReadableHeading, VoiceReadableText } from '@/components/accessibility';
 import { AvatarVideoPlayer } from '@/components/avatar/AvatarVideoSystem';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
