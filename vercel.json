@@ -1,9 +1,17 @@
 {
   "version": 2,
-  "buildCommand": "cd src && npm run vercel-build",
+  "buildCommand": "cd src && npm run build",
   "outputDirectory": "src/.next",
   "framework": "nextjs",
   "env": {
-    "DATABASE_URL": "postgresql://postgres:cfrIRoriddjsJuEKMMHenOkSGveikIvb@hopper.proxy.rlwy.net:27107/railway"
+    "DATABASE_URL": "postgresql://postgres:cfrIRoriddjsJuEKMMHenOkSGveikIvb@hopper.proxy.rlwy.net:27107/railway",
+    "NEXT_PUBLIC_DEFAULT_TENANT_ID": "default",
+    "NODE_ENV": "production",
+    "NEXTAUTH_URL": "https://edpsych-ai-platform-fresh.vercel.app",
+    "NEXTAUTH_SECRET": "placeholder_secret_for_build",
+    "NEXT_PUBLIC_SITE_URL": "https://edpsychconnect.com",
+    "SKIP_DB_OPERATIONS": "true",
+    "TENANT_CONTEXT_BYPASS_DB": "true",
+    "BUILD_TENANT_CONTEXT_SET": "true"
   }
 }
