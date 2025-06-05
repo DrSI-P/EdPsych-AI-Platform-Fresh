@@ -37,8 +37,8 @@ async function simplifiedBuild() {
     // Verify database connection
     log('🔍 Verifying database connection...', colors.cyan);
     try {
-      // Generate Prisma client first
-      execSync('npx prisma generate', { stdio: 'inherit' });
+      // Generate Prisma client first with explicit schema path
+      execSync('npx prisma generate --schema=./src/prisma/schema.prisma', { stdio: 'inherit' });
       log('✅ Prisma client generated successfully', colors.green);
       
       // Create a simple script to test database connection
@@ -73,13 +73,13 @@ async function simplifiedBuild() {
     log('🔄 Running Prisma migrations...', colors.cyan);
     try {
       // First, check what migrations need to be applied
-      execSync('npx prisma migrate status', { stdio: 'inherit' });
+      execSync('npx prisma migrate status --schema=./src/prisma/schema.prisma', { stdio: 'inherit' });
       
       // Then apply the migrations
-      execSync('npx prisma migrate deploy --verbose', { stdio: 'inherit' });
+      execSync('npx prisma migrate deploy --schema=./src/prisma/schema.prisma --verbose', { stdio: 'inherit' });
       
       // Verify migrations were applied
-      execSync('npx prisma migrate status', { stdio: 'inherit' });
+      execSync('npx prisma migrate status --schema=./src/prisma/schema.prisma', { stdio: 'inherit' });
       
       log('✅ Prisma migrations applied successfully', colors.green);
     } catch (error) {
@@ -103,10 +103,20 @@ async function simplifiedBuild() {
       log('   This is expected in production where placeholder values are used', colors.yellow);
     }
     
+    // Change to the src directory for Next.js build
+    log('🚀 Changing to src directory for Next.js build...', colors.cyan);
+    process.chdir('src');
+    
     // Build Next.js application
     log('🚀 Building Next.js application...', colors.cyan);
     try {
-      execSync('next build', { stdio: 'inherit' });
+      // Install Next.js dependencies if they don't exist
+      if (!fs.existsSync('node_modules/next')) {
+        log('📦 Installing Next.js dependencies...', colors.cyan);
+        execSync('npm install', { stdio: 'inherit' });
+      }
+      
+      execSync('npx next build', { stdio: 'inherit' });
       log('✅ Building Next.js application completed successfully', colors.green);
       
       // Create a static HTML file that redirects to the educator dashboard
@@ -196,6 +206,9 @@ async function simplifiedBuild() {
       log('❌ Next.js build failed: ' + error.message, colors.red);
       process.exit(1);
     }
+    
+    // Change back to the root directory
+    process.chdir('..');
     
     log('✅ Build completed successfully!', colors.green);
     
