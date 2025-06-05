@@ -12,6 +12,9 @@
     "NEXT_PUBLIC_SITE_URL": "https://edpsychconnect.com",
     "SKIP_DB_OPERATIONS": "false",
     "TENANT_CONTEXT_BYPASS_DB": "false",
-    "BUILD_TENANT_CONTEXT_SET": "true"
+    "BUILD_TENANT_CONTEXT_SET": "true",
+    "NEXT_PUBLIC_SUPABASE_URL": "https://dztcpontxfaaklsinzhp.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "placeholder_for_backward_compatibility",
+    "NEXT_PUBLIC_ENABLE_MOCK_SUPABASE": "true"
   }
 }

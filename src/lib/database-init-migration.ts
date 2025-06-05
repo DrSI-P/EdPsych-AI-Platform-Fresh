@@ -10,29 +10,57 @@ const DEFAULT_TENANT_NAME = 'Default Tenant';
 const DEFAULT_TENANT_DOMAIN = 'edpsychconnect.com';
 
 // Mock Supabase client for compatibility
+// Create a more robust mock Supabase client that properly handles all methods
 export const createMockSupabaseClient = () => {
+  // Create a global mock object that can be accessed by g.rpc
+  if (typeof window !== 'undefined') {
+    // @ts-ignore
+    window.g = window.g || {};
+    // @ts-ignore
+    window.g.rpc = function(name: string, params: any) {
+      console.log(`Global RPC call to ${name}`, params);
+      return Promise.resolve({ data: null, error: null });
+    };
+  }
+
   return {
-    from: () => ({
-      select: () => ({
-        eq: () => ({
+    from: (table: string) => ({
+      select: (columns: string) => ({
+        eq: (column: string, value: any) => ({
           single: async () => ({ data: null, error: null })
         }),
-        filter: () => ({
+        filter: (column: string, operator: string, value: any) => ({
           single: async () => ({ data: null, error: null })
+        }),
+        order: () => ({
+          limit: () => ({
+            range: () => Promise.resolve({ data: [], error: null })
+          })
         })
       }),
-      insert: async () => ({ data: null, error: null }),
-      update: async () => ({ data: null, error: null }),
-      delete: async () => ({ data: null, error: null })
+      insert: async (data: any) => ({ data: null, error: null }),
+      update: async (data: any) => ({ data: null, error: null }),
+      delete: async () => ({ data: null, error: null }),
+      upsert: async (data: any) => ({ data: null, error: null })
     }),
     auth: {
       signIn: async () => ({ data: null, error: null }),
       signOut: async () => ({ error: null }),
-      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      getSession: () => null,
+      getUser: () => null
     },
     rpc: async (functionName: string, params?: any) => {
       console.log(`Mock Supabase RPC call to ${functionName}`, params);
       return { data: null, error: null };
+    },
+    storage: {
+      from: (bucket: string) => ({
+        upload: async () => ({ data: { path: '' }, error: null }),
+        getPublicUrl: () => ({ data: { publicUrl: '' } }),
+        list: async () => ({ data: [], error: null }),
+        remove: async () => ({ data: null, error: null })
+      })
     }
   };
 };

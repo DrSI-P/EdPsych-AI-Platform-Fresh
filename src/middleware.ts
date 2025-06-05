@@ -6,9 +6,10 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
   
   // Content Security Policy
+  // Set a more permissive Content Security Policy to fix deployment issues
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.openai.com https://api.cognifit.com https://www.googleapis.com https://*.railway.app https://*.rlwy.net https://*.supabase.co; frame-src 'self';"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.openai.com https://api.cognifit.com https://www.googleapis.com https://*.railway.app https://*.rlwy.net https://*.supabase.co https://dztcpontxfaaklsinzhp.supabase.co; frame-src 'self';"
   );
   
   // XSS Protection
