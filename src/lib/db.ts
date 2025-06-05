@@ -1,12 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
-// PrismaClient is attached to the `global` object in development to prevent
-// exhausting your database connection limit.
-// Learn more: https://pris.ly/d/help/next-js-best-practices
-
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-// Create a single PrismaClient instance
 const client =
   globalForPrisma.prisma ||
   new PrismaClient({
@@ -15,11 +10,121 @@ const client =
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = client;
 
-// Export as both 'db' and 'prisma' to support different import styles
+// Create database utility with proper Prisma methods
+export const db = {
+  // User operations
+  user: {
+    create: async (data: any) => {
+      return await client.user.create({ data });
+    },
+    
+    findByEmail: async (email: string) => {
+      return await client.user.findUnique({
+        where: { email }
+      });
+    },
+    
+    findById: async (id: string) => {
+      return await client.user.findUnique({
+        where: { id }
+      });
+    },
+    
+    update: async (id: string, data: any) => {
+      return await client.user.update({
+        where: { id },
+        data
+      });
+    },
+    
+    findMany: async (options: any = {}) => {
+      return await client.user.findMany(options);
+    },
+    
+    delete: async (id: string) => {
+      return await client.user.delete({
+        where: { id }
+      });
+    }
+  },
+  
+  // Blog operations
+  blog: {
+    create: async (data: any) => {
+      return await client.blogPost.create({ data });
+    },
+    
+    findMany: async (options: any = {}) => {
+      return await client.blogPost.findMany(options);
+    },
+    
+    findById: async (id: string) => {
+      return await client.blogPost.findUnique({
+        where: { id }
+      });
+    },
+    
+    update: async (id: string, data: any) => {
+      return await client.blogPost.update({
+        where: { id },
+        data
+      });
+    },
+    
+    delete: async (id: string) => {
+      return await client.blogPost.delete({
+        where: { id }
+      });
+    }
+  },
+  
+  // Learning path operations
+  learningPath: {
+    create: async (data: any) => {
+      return await client.learningPath.create({ data });
+    },
+    
+    findMany: async (options: any = {}) => {
+      return await client.learningPath.findMany(options);
+    },
+    
+    findById: async (id: string) => {
+      return await client.learningPath.findUnique({
+        where: { id }
+      });
+    },
+    
+    update: async (id: string, data: any) => {
+      return await client.learningPath.update({
+        where: { id },
+        data
+      });
+    }
+  },
+  
+  // Assessment operations
+  assessment: {
+    create: async (data: any) => {
+      return await client.assessment.create({ data });
+    },
+    
+    findMany: async (options: any = {}) => {
+      return await client.assessment.findMany(options);
+    },
+    
+    findById: async (id: string) => {
+      return await client.assessment.findUnique({
+        where: { id }
+      });
+    }
+  },
+  
+  // Direct Prisma client access for complex queries
+  $transaction: client.$transaction.bind(client),
+  $connect: client.$connect.bind(client),
+  $disconnect: client.$disconnect.bind(client),
+};
+
+// Export Prisma client for direct access when needed
 export { client as prisma };
-
-// Export db directly as the PrismaClient instance to support imports like db.curriculumContent
-export const db = client;
-
-// Also export as default
 export default client;
