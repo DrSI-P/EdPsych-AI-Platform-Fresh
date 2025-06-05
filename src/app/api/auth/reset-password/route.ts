@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import prisma from '@/lib/db/prisma';
-import { hash, compare } from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
 
 // Schema for request validation
@@ -115,7 +115,7 @@ export async function PUT(request: Request) {
     }
     
     // Hash new password
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     
     // Update user password
     await prisma.user.update({
@@ -151,3 +151,4 @@ export async function PUT(request: Request) {
     }, { status: 500 });
   }
 }
+

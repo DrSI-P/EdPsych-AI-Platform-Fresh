@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { VoiceReadableHeading, VoiceReadableText } from '@/components/accessibility';
-import { AvatarVideoPlayer } from '@/components/avatar/AvatarVideoSystem';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -18,6 +17,20 @@ import {
   ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
+
+// Simple video player component without hooks for now
+const SimpleVideoPlayer = ({ className }: { className?: string }) => {
+  return (
+    <div className={`bg-gray-100 rounded-lg p-8 text-center ${className}`}>
+      <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Users className="w-12 h-12 text-white" />
+      </div>
+      <h3 className="text-xl font-bold text-gray-900 mb-2">Dr. Scott I-Patrick</h3>
+      <p className="text-gray-600 mb-4">Founder & Educational Psychologist</p>
+      <Badge className="bg-blue-100 text-blue-800">Video Coming Soon</Badge>
+    </div>
+  );
+};
 
 export default function MeetDrScottPage() {
   const achievements = [
@@ -76,12 +89,7 @@ export default function MeetDrScottPage() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Dr. Scott's Avatar Video */}
           <div className="space-y-6">
-            <AvatarVideoPlayer
-              scriptId="dr-scott-introduction"
-              autoPlay={false}
-              showControls={true}
-              className="shadow-2xl"
-            />
+            <SimpleVideoPlayer className="shadow-2xl" />
             
             <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
               <CardContent className="p-6">
