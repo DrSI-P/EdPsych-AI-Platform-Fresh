@@ -4,12 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { usePageAvatar } from '@/components/avatar';
+// Temporarily removing Avatar import to fix build issues
+// import { usePageAvatar } from '@/components/Avatar';
 import MasterNavigation from '@/components/navigation/master-navigation';
-import { 
-  GraduationCap, 
-  BookOpen, 
-  Users, 
+import InteractiveAvatar from '@/components/heygen/interactive-avatar';
+import {
+  GraduationCap,
+  BookOpen,
+  Users,
   Brain,
   Sparkles,
   MessageCircle,
@@ -28,8 +30,13 @@ import {
 } from 'lucide-react';
 
 export default function Home() {
+  // State for avatar visibility
+  const [showAvatar, setShowAvatar] = useState<boolean>(false);
+  const [avatarMinimized, setAvatarMinimized] = useState<boolean>(false);
+  
+  // Temporarily commented out to fix build issues
   // Initialize Dr. Scott's welcome avatar for homepage
-  usePageAvatar('homepage-intro', 'dr-scott');
+  // usePageAvatar('homepage-intro', 'dr-scott');
 
   const platformFeatures = [
     {
@@ -358,7 +365,7 @@ export default function Home() {
 
       {/* Live Interactive Avatar Component - Enhanced with Voice Features */}
       {showAvatar && (
-        <LiveInteractiveAvatar
+        <InteractiveAvatar
           isMinimized={avatarMinimized}
           onToggleMinimize={() => setAvatarMinimized(!avatarMinimized)}
           onClose={() => setShowAvatar(false)}

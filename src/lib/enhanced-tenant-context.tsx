@@ -3,8 +3,8 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import initializeDatabase, { setTenantContext } from './database-init';
+import { prisma } from './prisma-client';
+import initializeDatabase, { setTenantContext } from './database-init-migration';
 
 // Define the tenant context type
 interface TenantContextType {
@@ -45,7 +45,6 @@ export const TenantProvider = ({
   const [isInitialized, setIsInitialized] = useState(false);
   
   const { data: session } = useSession();
-  const supabase = useSupabaseClient();
 
   // Function to toggle debug mode
   const toggleDebugMode = () => {
@@ -123,23 +122,15 @@ export const TenantProvider = ({
             return;
           }
           
-          const { data: userData, error: userError } = await supabase
-            .from('User')
-            .select('tenantId')
-            .eq('id', session.user.id)
-            .single();
-          
-          if (userError) {
-            // If there's an error, fall back to default tenant
-            console.warn('Error fetching user tenant, using default:', userError.message);
+          try {
+            // Since we're migrating from Supabase to Railway PostgreSQL,
+            // we'll use the default tenant ID for now
+            // In a production environment, you would implement proper tenant lookup
             setCurrentTenantId(defaultTenantId);
             await setCurrentTenant(defaultTenantId);
-          } else if (userData?.tenantId) {
-            setCurrentTenantId(userData.tenantId);
-            await setCurrentTenant(userData.tenantId);
-          } else {
-            // User exists but has no tenant, assign default
-            console.log('User has no tenant assigned, using default');
+          } catch (userError) {
+            // If there's an error, fall back to default tenant
+            console.warn('Error fetching user tenant, using default:', userError);
             setCurrentTenantId(defaultTenantId);
             await setCurrentTenant(defaultTenantId);
           }
@@ -164,7 +155,7 @@ export const TenantProvider = ({
     };
 
     initializeTenant();
-  }, [session, supabase, defaultTenantId, isInitialized, isDebugMode]);
+  }, [session, defaultTenantId, isInitialized, isDebugMode, setCurrentTenant]);
 
   return (
     <TenantContext.Provider 
