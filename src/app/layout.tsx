@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Providers } from '@/components/providers';
 import { FloatingAvatar } from '@/components/avatar/FloatingAvatar';
+import { VoiceAccessibilityProvider, FloatingVoiceControls } from '@/components/accessibility';
 import '@/styles/globals.css';
 import '@/styles/mobile-fixes.css';
 
@@ -17,10 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
-          {children}
-          <FloatingAvatar />
-        </Providers>
+        <VoiceAccessibilityProvider>
+          <Providers>
+            {children}
+            <FloatingAvatar />
+            <FloatingVoiceControls />
+          </Providers>
+        </VoiceAccessibilityProvider>
       </body>
     </html>
   );
