@@ -11,148 +11,170 @@ interface VoiceReadableProps {
   className?: string;
 }
 
-export function VoiceReadable({ 
-  children, 
-  text, 
+interface VoiceReadableHeadingProps extends VoiceReadableProps {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+/**
+ * VoiceReadable Component
+ * 
+ * A wrapper component that makes content accessible via text-to-speech.
+ * Automatically reads content when voice accessibility is enabled.
+ */
+export const VoiceReadable: React.FC<VoiceReadableProps> = ({
+  children,
+  text,
   priority = 'medium',
   autoRead = false,
   className = ''
-}: VoiceReadableProps) {
-  const { isEnabled, readText } = useVoiceAccessibility();
-
-  // Extract text content if not provided
-  const getTextContent = (element: React.ReactNode): string => {
-    if (typeof element === 'string') return element;
-    if (typeof element === 'number') return element.toString();
-    if (React.isValidElement(element)) {
-      if (typeof element.props.children === 'string') {
-        return element.props.children;
-      }
-      if (Array.isArray(element.props.children)) {
-        return element.props.children
-          .map((child: any) => getTextContent(child))
-          .join(' ');
-      }
-    }
-    return '';
-  };
-
-  const textToRead = text || getTextContent(children);
+}) => {
+  const { isEnabled, speak, isReading } = useVoiceAccessibility();
 
   useEffect(() => {
-    if (autoRead && isEnabled && textToRead && priority === 'high') {
-      // Auto-read high priority content when voice accessibility is enabled
-      const timer = setTimeout(() => {
-        readText(textToRead);
-      }, 500); // Small delay to avoid conflicts
-      
-      return () => clearTimeout(timer);
+    if (isEnabled && autoRead && text) {
+      speak(text, { priority });
     }
-  }, [autoRead, isEnabled, textToRead, priority, readText]);
+  }, [isEnabled, autoRead, text, priority, speak]);
 
   const handleClick = () => {
-    if (isEnabled && textToRead) {
-      readText(textToRead);
+    if (isEnabled && text) {
+      speak(text, { priority });
     }
   };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (isEnabled && (event.key === 'Enter' || event.key === ' ')) {
-      event.preventDefault();
-      if (textToRead) {
-        readText(textToRead);
-      }
-    }
-  };
-
-  if (!isEnabled) {
-    return <>{children}</>;
-  }
 
   return (
-    <div
-      className={`voice-readable cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded transition-colors ${className}`}
+    <div 
+      className={`voice-readable ${className} ${isEnabled ? 'cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded transition-colors' : ''}`}
       onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
-      role="button"
-      aria-label={`Click to read: ${textToRead.substring(0, 100)}${textToRead.length > 100 ? '...' : ''}`}
-      title="Click to read aloud"
+      role={isEnabled ? 'button' : undefined}
+      tabIndex={isEnabled ? 0 : undefined}
+      aria-label={isEnabled ? `Click to read: ${text || 'content'}` : undefined}
+      onKeyDown={(e) => {
+        if (isEnabled && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          handleClick();
+        }
+      }}
     >
       {children}
     </div>
   );
-}
+};
 
-// Specialized components for common use cases
-export function VoiceReadableHeading({ 
-  children, 
-  level = 1,
-  className = '' 
-}: { 
-  children: React.ReactNode; 
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
-  className?: string;
-}) {
+/**
+ * VoiceReadableText Component
+ * 
+ * A text wrapper that makes text content accessible via text-to-speech.
+ */
+export const VoiceReadableText: React.FC<VoiceReadableProps> = ({
+  children,
+  text,
+  priority = 'medium',
+  autoRead = false,
+  className = ''
+}) => {
+  const textContent = text || (typeof children === 'string' ? children : '');
+  
+  return (
+    <VoiceReadable 
+      text={textContent} 
+      priority={priority} 
+      autoRead={autoRead}
+      className={className}
+    >
+      <p className={className}>{children}</p>
+    </VoiceReadable>
+  );
+};
+
+/**
+ * VoiceReadableHeading Component
+ * 
+ * A heading wrapper that makes heading content accessible via text-to-speech.
+ */
+export const VoiceReadableHeading: React.FC<VoiceReadableHeadingProps> = ({
+  children,
+  text,
+  level,
+  priority = 'high',
+  autoRead = false,
+  className = ''
+}) => {
+  const textContent = text || (typeof children === 'string' ? children : '');
   const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
   
   return (
-    <VoiceReadable priority="high" autoRead={level === 1} className={className}>
-      <HeadingTag className="voice-readable-heading">
-        {children}
-      </HeadingTag>
-    </VoiceReadable>
-  );
-}
-
-export function VoiceReadableText({ 
-  children, 
-  className = '' 
-}: { 
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <VoiceReadable priority="medium" className={className}>
-      <p className="voice-readable-text">
-        {children}
-      </p>
-    </VoiceReadable>
-  );
-}
-
-export function VoiceReadableButton({ 
-  children, 
-  onClick,
-  className = '',
-  ...props 
-}: { 
-  children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
-  [key: string]: any;
-}) {
-  const { isEnabled, readText } = useVoiceAccessibility();
-
-  const handleClick = () => {
-    if (onClick) onClick();
-    
-    if (isEnabled) {
-      const buttonText = typeof children === 'string' 
-        ? children 
-        : 'Button activated';
-      readText(`${buttonText}. Button clicked.`);
-    }
-  };
-
-  return (
-    <button
-      {...props}
-      onClick={handleClick}
-      className={`voice-readable-button ${className}`}
+    <VoiceReadable 
+      text={textContent} 
+      priority={priority} 
+      autoRead={autoRead}
+      className={className}
     >
-      {children}
-    </button>
+      <HeadingTag className={className}>{children}</HeadingTag>
+    </VoiceReadable>
   );
-}
+};
+
+/**
+ * VoiceReadableButton Component
+ * 
+ * A button wrapper that makes button content accessible via text-to-speech.
+ */
+export const VoiceReadableButton: React.FC<VoiceReadableProps & { onClick?: () => void }> = ({
+  children,
+  text,
+  priority = 'medium',
+  autoRead = false,
+  className = '',
+  onClick
+}) => {
+  const textContent = text || (typeof children === 'string' ? children : '');
+  
+  return (
+    <VoiceReadable 
+      text={textContent} 
+      priority={priority} 
+      autoRead={autoRead}
+      className={className}
+    >
+      <button className={className} onClick={onClick}>
+        {children}
+      </button>
+    </VoiceReadable>
+  );
+};
+
+/**
+ * VoiceReadableList Component
+ * 
+ * A list wrapper that makes list content accessible via text-to-speech.
+ */
+export const VoiceReadableList: React.FC<VoiceReadableProps & { 
+  items: string[];
+  ordered?: boolean;
+}> = ({
+  items,
+  ordered = false,
+  priority = 'medium',
+  autoRead = false,
+  className = ''
+}) => {
+  const textContent = items.join(', ');
+  const ListTag = ordered ? 'ol' : 'ul';
+  
+  return (
+    <VoiceReadable 
+      text={textContent} 
+      priority={priority} 
+      autoRead={autoRead}
+      className={className}
+    >
+      <ListTag className={className}>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ListTag>
+    </VoiceReadable>
+  );
+};
 
