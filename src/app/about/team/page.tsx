@@ -161,7 +161,6 @@ export default function TeamPage() {
             qualifications={member.qualifications}
             bio={member.bio}
             imageSrc={member.imageSrc}
-            socialLinks={member.socialLinks}
             specialties={member.specialties}
             imagePosition={member.imagePosition}
           />

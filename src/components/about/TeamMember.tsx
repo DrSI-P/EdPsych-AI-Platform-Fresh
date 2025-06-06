@@ -20,7 +20,6 @@ interface TeamMemberProps {
   qualifications: string;
   bio: string;
   imageSrc: string;
-  socialLinks: SocialLinks;
   specialties: any[];
   imagePosition?: string;
 }
@@ -31,13 +30,12 @@ export function TeamMember({
   qualifications,
   bio,
   imageSrc,
-  socialLinks,
   specialties,
   imagePosition = 'center 20%'
 }: TeamMemberProps) {
   return (
     <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
-      <div className="relative h-64 w-full overflow-hidden bg-gray-100">
+      <div className="relative h-96 w-full overflow-hidden bg-gray-100">
         <Image
           src={imageSrc}
           alt={name}
@@ -65,27 +63,9 @@ export function TeamMember({
         </div>
       </CardContent>
       <CardFooter className="flex justify-start gap-2 border-t pt-4">
-        {socialLinks.linkedin && (
-          <Button variant="ghost" size="icon" asChild>
-            <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name}'s LinkedIn profile`}>
-              <Linkedin className="h-5 w-5" />
-            </a>
-          </Button>
-        )}
-        {socialLinks.email && (
-          <Button variant="ghost" size="icon" asChild>
-            <a href={`mailto:${socialLinks.email}`} aria-label={`Email ${name}`}>
-              <Mail className="h-5 w-5" />
-            </a>
-          </Button>
-        )}
-        {socialLinks.publications && (
-          <Button variant="ghost" size="icon" asChild>
-            <a href={socialLinks.publications} aria-label={`${name}'s publications`}>
-              <BookOpen className="h-5 w-5" />
-            </a>
-          </Button>
-        )}
+        <div className="text-sm text-muted-foreground">
+          Connect with {name.split(' ')[0]} via the platform
+        </div>
       </CardFooter>
     </Card>
   );
