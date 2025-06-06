@@ -13,6 +13,7 @@ export default function TeamPage() {
       qualifications: "DEdPsych, CPsychol, MSc, BSc (Hons)",
       bio: "Dr. Scott I-Patrick is the founder of EdPsych Connect and a Chartered Educational Psychologist with over 15 years of experience in the field. With a Doctorate in Educational Psychology, Dr. Scott has dedicated his career to understanding how children and young people learn and develop. His approach combines evidence-based practice with innovative technology to create personalized learning experiences. Dr. Scott's particular expertise lies in supporting disadvantaged children and those with special educational needs, specializing in child and adolescent educational psychology with evidence-based practice.",
       imageSrc: "/images/team/Scott.jpg",
+      imagePosition: "center 25%",
       socialLinks: {
         linkedin: "https://www.linkedin.com/in/dr-scott-i-patrick/",
         publications: "/publications/dr-scott"
@@ -32,6 +33,7 @@ export default function TeamPage() {
       qualifications: "Technical Leadership & Database Management",
       bio: "George Randal serves as Chief Technology Officer for EdPsych Connect, bringing extensive expertise in technical leadership and database management. He oversees all technical aspects and database management, leads technical architecture, and ensures robust scalable platform infrastructure supporting all 200+ educational features. George's approach combines cutting-edge technology with educational psychology principles to create innovative solutions that truly serve the educational community.",
       imageSrc: "/images/team/GeorgeRandall.jpg",
+      imagePosition: "center 30%",
       socialLinks: {
         linkedin: "#"
       },
@@ -50,6 +52,7 @@ export default function TeamPage() {
       qualifications: "BA in Marketing, Psychology Expertise",
       bio: "Hannah Patrick brings her expertise in marketing and deep understanding of psychology to her role as Marketing Executive at EdPsych Connect. With a BA in Marketing and extensive psychology knowledge, Hannah combines commercial acumen with psychological insight to ensure the platform effectively reaches and engages its diverse user groups. Her approach to marketing is grounded in understanding user needs and communicating the platform's educational value with clarity and impact.",
       imageSrc: "/images/team/Hannah.jpg",
+      imagePosition: "center 15%",
       socialLinks: {
         linkedin: "#"
       },
@@ -67,6 +70,7 @@ export default function TeamPage() {
       qualifications: "Customer Relations & Account Management",
       bio: "Osasogie Patrick serves as Customer Accounts Manager for EdPsych Connect, specializing in building and maintaining strong relationships with our educational clients. With expertise in customer relations and account management, Osasogie ensures that schools, educators, and families receive exceptional support and service. His approach focuses on understanding client needs and providing tailored solutions that maximize the educational impact of our platform.",
       imageSrc: "/images/team/Osasogie.jpg",
+      imagePosition: "center 15%",
       socialLinks: {
         linkedin: "#"
       },
@@ -84,6 +88,7 @@ export default function TeamPage() {
       qualifications: "Business Operations & Support Management",
       bio: "Samantha serves as Business Support Manager for EdPsych Connect, overseeing business operations and support management across the organization. With expertise in business operations and support systems, Samantha ensures smooth day-to-day operations and provides comprehensive support to all team members and departments. Her role is crucial in maintaining operational efficiency and supporting the platform's growth and development.",
       imageSrc: "/images/team/Samantha.jpeg",
+      imagePosition: "center 25%",
       socialLinks: {
         linkedin: "#"
       },
@@ -101,6 +106,7 @@ export default function TeamPage() {
       qualifications: "Sales Leadership & Business Development",
       bio: "Louis Young serves as Sales Director for EdPsych Connect, leading sales strategy and business development initiatives. With expertise in sales leadership and business development, Louis drives growth by building relationships with educational institutions, identifying new market opportunities, and ensuring that our platform reaches the educators and students who can benefit most from our evidence-based educational psychology solutions.",
       imageSrc: "/images/team/LouisYoung.jpg",
+      imagePosition: "center 20%",
       socialLinks: {
         linkedin: "#"
       },
@@ -118,6 +124,7 @@ export default function TeamPage() {
       qualifications: "Academic Research & Educational Psychology",
       bio: "Professor Piers Worth serves as Academic Advisor for EdPsych Connect, bringing extensive academic research expertise and deep knowledge of educational psychology. He provides strategic guidance on research-based practices, ensures academic rigor in platform development, and helps maintain the highest standards of evidence-based educational support. His involvement ensures that the platform remains grounded in current educational psychology research.",
       imageSrc: "/images/team/OrofessorPiers.jpeg",
+      imagePosition: "center 30%",
       socialLinks: {
         linkedin: "#"
       },
@@ -156,6 +163,7 @@ export default function TeamPage() {
             imageSrc={member.imageSrc}
             socialLinks={member.socialLinks}
             specialties={member.specialties}
+            imagePosition={member.imagePosition}
           />
         ))}
       </div>
