@@ -200,6 +200,14 @@ export default function MasterNavigation() {
                 type="text"
                 placeholder="Search features..."
                 className="w-64 pl-10 pr-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    const searchTerm = (e.target as HTMLInputElement).value;
+                    if (searchTerm.trim()) {
+                      window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+                    }
+                  }
+                }}
               />
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             </div>
@@ -273,6 +281,14 @@ export default function MasterNavigation() {
                 type="text"
                 placeholder="Search features..."
                 className="w-full pl-10 pr-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    const searchTerm = (e.target as HTMLInputElement).value;
+                    if (searchTerm.trim()) {
+                      window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+                    }
+                  }
+                }}
               />
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             </div>

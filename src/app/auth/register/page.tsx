@@ -230,7 +230,7 @@ export default function RegisterPage() {
                       id="phone"
                       name="phone"
                       type="tel"
-                      placeholder="+44 20 7946 0958"
+                      placeholder="+44 (0) 7376113640"
                       value={formData.phone}
                       onChange={handleInputChange}
                       className="pl-10"

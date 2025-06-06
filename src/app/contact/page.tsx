@@ -73,9 +73,9 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      value: "+44 (0) 20 7946 0958",
+      value: "+44 (0) 7376113640",
       description: "Direct line for urgent matters",
-      action: "tel:+442079460958"
+      action: "tel:+447376113640"
     },
     {
       icon: MapPin,
@@ -360,7 +360,7 @@ export default function ContactPage() {
                   <Button
                     variant="secondary"
                     className="bg-white text-blue-600 hover:bg-gray-100"
-                    onClick={() => window.open('tel:+442079460958', '_blank')}
+                    onClick={() => window.open('tel:+447376113640', '_blank')}
                   >
                     <Phone className="w-4 h-4 mr-2" />
                     Call Now

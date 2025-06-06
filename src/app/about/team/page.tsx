@@ -117,7 +117,7 @@ export default function TeamPage() {
       title: "Academic Advisor",
       qualifications: "Academic Research & Educational Psychology",
       bio: "Professor Piers Worth serves as Academic Advisor for EdPsych Connect, bringing extensive academic research expertise and deep knowledge of educational psychology. He provides strategic guidance on research-based practices, ensures academic rigor in platform development, and helps maintain the highest standards of evidence-based educational support. His involvement ensures that the platform remains grounded in current educational psychology research.",
-      imageSrc: "/images/team/ProfessorPiers.jpeg",
+      imageSrc: "/images/team/OrofessorPiers.jpeg",
       socialLinks: {
         linkedin: "#"
       },
