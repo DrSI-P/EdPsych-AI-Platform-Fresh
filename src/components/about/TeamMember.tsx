@@ -35,13 +35,16 @@ export function TeamMember({
 }: TeamMemberProps) {
   return (
     <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
-      <div className="relative h-96 w-full overflow-hidden bg-gray-100">
+      <div className="relative h-80 w-full overflow-hidden bg-gray-100">
         <Image
           src={imageSrc}
           alt={name}
           fill
-          className="object-cover transition-transform duration-500 hover:scale-105"
-          style={{ objectPosition: imagePosition }}
+          className="object-cover object-center transition-transform duration-500 hover:scale-105"
+          style={{ 
+            objectPosition: imagePosition,
+            objectFit: 'cover'
+          }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>

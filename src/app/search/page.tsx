@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import MainNavigation from '@/components/navigation/main-navigation';
 import { 
@@ -12,214 +11,184 @@ import {
   BookOpen,
   Users,
   Brain,
+  Heart,
   Target,
   Lightbulb,
-  ArrowRight,
-  ExternalLink,
-  Filter,
-  Clock,
-  Star
+  FileText,
+  Video,
+  MessageCircle,
+  ArrowRight
 } from 'lucide-react';
 
-function SearchContent() {
-  const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState('');
+export default function SearchPage() {
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  useEffect(() => {
-    const query = searchParams.get('q');
-    if (query) {
-      setSearchTerm(query);
-    }
-  }, [searchParams]);
-
-  // Comprehensive feature database for search
-  const allFeatures = [
+  // Mock search data - in a real app, this would come from an API
+  const searchData = [
     {
       id: 1,
-      title: "Learning Analytics",
-      description: "Comprehensive tracking of student learning progress across all subjects and skills",
-      category: "Analytics",
-      path: "/learning-analytics",
-      keywords: ["analytics", "progress", "tracking", "data", "insights", "performance"]
+      title: "Learning Analytics Dashboard",
+      description: "Comprehensive analytics and insights for tracking student progress, attendance trends, and curriculum completion.",
+      category: "analytics",
+      type: "feature",
+      url: "/learning-analytics",
+      tags: ["analytics", "progress", "tracking", "dashboard"]
     },
     {
       id: 2,
-      title: "AI-Powered Tools",
-      description: "Intelligent tutoring system that adapts to individual learning styles",
-      category: "AI",
-      path: "/ai-powered-tools",
-      keywords: ["ai", "artificial intelligence", "smart", "adaptive", "personalized", "intelligent"]
+      title: "AI-Powered Assessment Tools",
+      description: "Advanced algorithms that personalise education to each student's unique needs and learning style.",
+      category: "ai",
+      type: "feature",
+      url: "/ai-powered-tools",
+      tags: ["ai", "assessment", "personalised", "learning"]
     },
     {
       id: 3,
-      title: "Student Dashboard",
-      description: "Personalized dashboard for students to track their learning journey",
-      category: "Student",
-      path: "/student/dashboard",
-      keywords: ["student", "dashboard", "personal", "journey", "overview"]
+      title: "Student Portal",
+      description: "Dedicated portal for students to access learning materials, track progress, and communicate with educators.",
+      category: "portal",
+      type: "feature",
+      url: "/student-portal",
+      tags: ["student", "portal", "learning", "materials"]
     },
     {
       id: 4,
-      title: "Educator Dashboard",
-      description: "Comprehensive tools for educators to manage classrooms and track student progress",
-      category: "Educator",
-      path: "/innovations/educator-dashboard",
-      keywords: ["educator", "teacher", "classroom", "management", "tools"]
+      title: "Educator Platform",
+      description: "Comprehensive tools for educators to manage classrooms, create content, and monitor student progress.",
+      category: "educator",
+      type: "feature",
+      url: "/educator-platform",
+      tags: ["educator", "classroom", "management", "tools"]
     },
     {
       id: 5,
-      title: "Speech-to-Text",
-      description: "Advanced speech recognition technology for accessibility and voice input",
-      category: "Accessibility",
-      path: "/accessibility/speech-to-text",
-      keywords: ["speech", "voice", "accessibility", "recognition", "input", "audio"]
+      title: "Ask Dr. Scott",
+      description: "Get expert guidance from Dr. Scott I-Patrick, Chartered Educational Psychologist with over 20 years of experience.",
+      category: "support",
+      type: "service",
+      url: "/meet-dr-scott",
+      tags: ["expert", "guidance", "psychology", "support"]
     },
     {
       id: 6,
-      title: "Ask Dr. Scott",
-      description: "Get expert guidance from Dr. Scott I-Patrick, Chartered Educational Psychologist",
-      category: "Support",
-      path: "/meet-dr-scott",
-      keywords: ["dr scott", "expert", "guidance", "psychologist", "help", "questions"]
+      title: "Accessibility Features",
+      description: "Comprehensive accessibility tools including voice navigation, screen reader support, and learning disability assistance.",
+      category: "accessibility",
+      type: "feature",
+      url: "/accessibility",
+      tags: ["accessibility", "voice", "screen reader", "disability"]
     },
     {
       id: 7,
-      title: "Special Needs Support",
-      description: "Comprehensive tools and resources for supporting students with special educational needs",
-      category: "Special Needs",
-      path: "/special-needs",
-      keywords: ["special needs", "send", "support", "disabilities", "inclusive", "accessibility"]
+      title: "About Our Team",
+      description: "Meet the passionate minds behind EdPsych Connect, dedicated to transforming education through psychology and technology.",
+      category: "about",
+      type: "page",
+      url: "/about/team",
+      tags: ["team", "about", "psychology", "education"]
     },
     {
       id: 8,
-      title: "Restorative Justice",
-      description: "Building relationships and understanding through restorative practices",
-      category: "Restorative",
-      path: "/restorative-justice",
-      keywords: ["restorative", "justice", "relationships", "community", "healing", "conflict"]
-    },
-    {
-      id: 9,
-      title: "Assessment Tools",
-      description: "Comprehensive assessment and evaluation systems for measuring learning outcomes",
-      category: "Assessment",
-      path: "/assessment",
-      keywords: ["assessment", "evaluation", "testing", "outcomes", "measurement", "progress"]
-    },
-    {
-      id: 10,
-      title: "Curriculum Planning",
-      description: "Evidence-based curriculum design aligned with UK Department for Education standards",
-      category: "Curriculum",
-      path: "/curriculum-planning",
-      keywords: ["curriculum", "planning", "design", "standards", "education", "uk"]
-    },
-    {
-      id: 11,
-      title: "Parent Portal",
-      description: "Dedicated portal for parents to track their child's progress and communicate with educators",
-      category: "Parent",
-      path: "/parent-portal",
-      keywords: ["parent", "portal", "communication", "progress", "family", "involvement"]
-    },
-    {
-      id: 12,
-      title: "Professional Development",
-      description: "Training and development resources for educational professionals",
-      category: "Professional",
-      path: "/professional-development",
-      keywords: ["professional", "development", "training", "education", "skills", "growth"]
+      title: "Contact Us",
+      description: "Get in touch with our team for support, partnerships, or general enquiries about the EdPsych Connect platform.",
+      category: "contact",
+      type: "page",
+      url: "/contact",
+      tags: ["contact", "support", "enquiries", "help"]
     }
   ];
 
   const categories = [
-    { id: 'all', name: 'All Categories' },
-    { id: 'Analytics', name: 'Analytics' },
-    { id: 'AI', name: 'AI Tools' },
-    { id: 'Student', name: 'Student Features' },
-    { id: 'Educator', name: 'Educator Tools' },
-    { id: 'Accessibility', name: 'Accessibility' },
-    { id: 'Special Needs', name: 'Special Needs' },
-    { id: 'Assessment', name: 'Assessment' },
-    { id: 'Support', name: 'Support' }
+    { id: 'all', label: 'All Results', icon: Search },
+    { id: 'analytics', label: 'Analytics', icon: Target },
+    { id: 'ai', label: 'AI Tools', icon: Brain },
+    { id: 'portal', label: 'Portals', icon: Users },
+    { id: 'support', label: 'Support', icon: MessageCircle },
+    { id: 'accessibility', label: 'Accessibility', icon: Heart },
+    { id: 'about', label: 'About', icon: FileText }
   ];
 
-  useEffect(() => {
-    if (searchTerm) {
-      performSearch(searchTerm);
-    }
-  }, [searchTerm, selectedCategory]);
-
-  const performSearch = (term: string) => {
-    setIsLoading(true);
+  // Perform search
+  const performSearch = (query: string, category: string = 'all') => {
+    setIsSearching(true);
     
-    // Simulate search delay
+    // Simulate API delay
     setTimeout(() => {
-      const results = allFeatures.filter(feature => {
-        const matchesCategory = selectedCategory === 'all' || feature.category === selectedCategory;
-        const matchesSearch = 
-          feature.title.toLowerCase().includes(term.toLowerCase()) ||
-          feature.description.toLowerCase().includes(term.toLowerCase()) ||
-          feature.keywords.some(keyword => keyword.toLowerCase().includes(term.toLowerCase()));
-        
-        return matchesCategory && matchesSearch;
-      });
+      let results = searchData;
+      
+      // Filter by category
+      if (category !== 'all') {
+        results = results.filter(item => item.category === category);
+      }
+      
+      // Filter by search query
+      if (query.trim()) {
+        const searchTerms = query.toLowerCase().split(' ');
+        results = results.filter(item => {
+          const searchableText = `${item.title} ${item.description} ${item.tags.join(' ')}`.toLowerCase();
+          return searchTerms.some(term => searchableText.includes(term));
+        });
+      }
       
       setSearchResults(results);
-      setIsLoading(false);
-    }, 500);
+      setIsSearching(false);
+    }, 300);
   };
 
+  // Handle search input
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      performSearch(searchTerm);
-    }
+    performSearch(searchQuery, selectedCategory);
   };
 
-  const popularSearches = [
-    "learning analytics",
-    "ai tools",
-    "student dashboard",
-    "speech to text",
-    "special needs",
-    "assessment",
-    "dr scott",
-    "restorative justice"
-  ];
+  // Handle category change
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    performSearch(searchQuery, category);
+  };
+
+  // Initial load - show all results
+  useEffect(() => {
+    performSearch('', 'all');
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <MainNavigation />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Search Platform Features</h1>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
-              Discover the comprehensive educational psychology tools and resources available on EdPsych Connect.
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Search EdPsych Connect</h1>
+            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+              Find features, tools, resources, and information across our comprehensive educational psychology platform.
             </p>
             
             {/* Search Form */}
             <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Input
-                  type="text"
-                  placeholder="Search for features, tools, or resources..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 text-lg border-0 rounded-lg shadow-lg"
-                />
-                <Search className="absolute left-4 top-4 h-6 w-6 text-gray-400" />
+              <div className="flex gap-2">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Input
+                    type="text"
+                    placeholder="Search for features, tools, resources..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 py-3 text-lg border-0 bg-white/90 backdrop-blur-sm"
+                  />
+                </div>
                 <Button 
-                  type="submit"
-                  className="absolute right-2 top-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  type="submit" 
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-gray-50 px-8"
+                  disabled={isSearching}
                 >
-                  Search
+                  {isSearching ? 'Searching...' : 'Search'}
                 </Button>
               </div>
             </form>
@@ -227,183 +196,113 @@ function SearchContent() {
         </div>
       </div>
 
-      {/* Search Results */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters Sidebar */}
-            <div className="lg:w-1/4">
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Filter className="w-5 h-5 mr-2" />
-                    Filter Results
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        onClick={() => setSelectedCategory(category.id)}
-                        className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-                          selectedCategory === category.id
-                            ? 'bg-blue-100 text-blue-800 font-medium'
-                            : 'hover:bg-gray-100 text-gray-700'
-                        }`}
-                      >
-                        {category.name}
-                      </button>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          
+          {/* Sidebar - Categories */}
+          <div className="lg:col-span-1">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Categories</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {categories.map((category) => {
+                  const IconComponent = category.icon;
+                  return (
+                    <button
+                      key={category.id}
+                      onClick={() => handleCategoryChange(category.id)}
+                      className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md text-left transition-colors ${
+                        selectedCategory === category.id
+                          ? 'bg-blue-100 text-blue-700 border border-blue-200'
+                          : 'hover:bg-gray-50 text-gray-700'
+                      }`}
+                    >
+                      <IconComponent className="w-4 h-4" />
+                      <span className="text-sm font-medium">{category.label}</span>
+                    </button>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          </div>
 
-              {/* Popular Searches */}
-              <Card className="border-0 shadow-lg mt-6">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Star className="w-5 h-5 mr-2" />
-                    Popular Searches
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {popularSearches.map((search, index) => (
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className="cursor-pointer hover:bg-blue-50"
-                        onClick={() => {
-                          setSearchTerm(search);
-                          performSearch(search);
-                        }}
-                      >
-                        {search}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+          {/* Main Results */}
+          <div className="lg:col-span-3">
+            {/* Results Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {searchQuery ? `Search Results for "${searchQuery}"` : 'All Features & Resources'}
+                </h2>
+                <p className="text-gray-600 mt-1">
+                  {searchResults.length} {searchResults.length === 1 ? 'result' : 'results'} found
+                </p>
+              </div>
             </div>
 
-            {/* Results */}
-            <div className="lg:w-3/4">
-              {searchTerm && (
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    Search Results for "{searchTerm}"
-                  </h2>
-                  <p className="text-gray-600">
-                    {isLoading ? 'Searching...' : `Found ${searchResults.length} results`}
-                  </p>
-                </div>
-              )}
-
-              {isLoading ? (
-                <div className="space-y-4">
-                  {[1, 2, 3].map((i) => (
-                    <Card key={i} className="border-0 shadow-lg animate-pulse">
-                      <CardContent className="p-6">
-                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                        <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
-                        <div className="h-3 bg-gray-200 rounded w-2/3"></div>
-                      </CardContent>
-                    </Card>
-                  ))}
+            {/* Search Results */}
+            <div className="space-y-4">
+              {isSearching ? (
+                <div className="text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="text-gray-600 mt-4">Searching...</p>
                 </div>
               ) : searchResults.length > 0 ? (
-                <div className="space-y-6">
-                  {searchResults.map((result) => (
-                    <Card key={result.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
-                              <h3 className="text-xl font-semibold text-gray-900">{result.title}</h3>
-                              <Badge variant="outline">{result.category}</Badge>
-                            </div>
-                            <p className="text-gray-600 mb-4">{result.description}</p>
-                            <div className="flex items-center gap-4">
-                              <Button
-                                onClick={() => window.location.href = result.path}
-                                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                              >
-                                <ArrowRight className="w-4 h-4 mr-2" />
-                                Explore Feature
-                              </Button>
-                              <span className="text-sm text-gray-500">{result.path}</span>
-                            </div>
+                searchResults.map((result) => (
+                  <Card key={result.id} className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <h3 className="text-xl font-semibold text-gray-900 hover:text-blue-600">
+                              <a href={result.url}>{result.title}</a>
+                            </h3>
+                            <Badge variant="outline" className="text-xs">
+                              {result.type}
+                            </Badge>
+                          </div>
+                          <p className="text-gray-600 mb-3">{result.description}</p>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {result.tags.map((tag: string, index: number) => (
+                              <Badge key={index} variant="secondary" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              ) : searchTerm ? (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-12 text-center">
-                    <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No results found</h3>
-                    <p className="text-gray-600 mb-6">
-                      Try adjusting your search terms or browse our popular features below.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {popularSearches.slice(0, 4).map((search, index) => (
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-blue-50"
-                          onClick={() => {
-                            setSearchTerm(search);
-                            performSearch(search);
-                          }}
-                        >
-                          {search}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                        <Button variant="outline" size="sm" asChild>
+                          <a href={result.url} className="flex items-center space-x-1">
+                            <span>View</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </a>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
               ) : (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-12 text-center">
-                    <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Start Your Search</h3>
-                    <p className="text-gray-600 mb-6">
-                      Enter a search term above to discover EdPsych Connect's comprehensive features and tools.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {popularSearches.map((search, index) => (
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-blue-50"
-                          onClick={() => {
-                            setSearchTerm(search);
-                            performSearch(search);
-                          }}
-                        >
-                          {search}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="text-center py-12">
+                  <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No results found</h3>
+                  <p className="text-gray-600 mb-4">
+                    Try adjusting your search terms or browse by category.
+                  </p>
+                  <Button onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('all');
+                    performSearch('', 'all');
+                  }}>
+                    Show All Results
+                  </Button>
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-export default function SearchPage() {
-  return (
-    <Suspense fallback={<div>Loading search...</div>}>
-      <SearchContent />
-    </Suspense>
   );
 }
 
