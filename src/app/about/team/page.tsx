@@ -45,10 +45,8 @@ export default function TeamPage() {
         "Technology Strategy",
         "Infrastructure Management"
       ]
-    },     "Infrastructure Management"
-      ]
     },
-     {
+    {
       name: "Hannah Patrick",
       title: "Marketing Executive",
       qualifications: "BA in Marketing, Psychology Expertise",
