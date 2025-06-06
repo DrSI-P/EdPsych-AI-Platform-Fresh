@@ -163,7 +163,6 @@ export default function TeamPage() {
             imageSrc={member.imageSrc}
             socialLinks={member.socialLinks}
             specialties={member.specialties}
-            imagePosition={member.imagePosition}
           />
         ))}
       </div>

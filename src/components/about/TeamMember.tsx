@@ -22,7 +22,6 @@ interface TeamMemberProps {
   imageSrc: string;
   socialLinks: SocialLinks;
   specialties: any[];
-  imagePosition?: string;
 }
 
 export function TeamMember({
@@ -32,8 +31,7 @@ export function TeamMember({
   bio,
   imageSrc,
   socialLinks,
-  specialties,
-  imagePosition = 'center 20%'
+  specialties
 }: TeamMemberProps) {
   return (
     <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
@@ -42,8 +40,7 @@ export function TeamMember({
           src={imageSrc}
           alt={name}
           fill
-          className="object-cover object-center transition-transform duration-500 hover:scale-105"
-          style={{ objectPosition: imagePosition }}
+          className="object-contain transition-transform duration-500 hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
