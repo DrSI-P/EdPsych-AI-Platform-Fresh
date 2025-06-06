@@ -76,6 +76,22 @@ export default function MainNavigation({ onAvatarClick }: NavigationProps) {
           {/* Quick Actions */}
           <div className="hidden lg:flex items-center space-x-4">
             <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.location.href = '/auth/login'}
+              className="text-gray-700 hover:text-blue-600"
+            >
+              Sign In
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.location.href = '/auth/register'}
+              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            >
+              Register
+            </Button>
+            <Button
               variant="outline"
               size="sm"
               onClick={onAvatarClick}
@@ -127,6 +143,28 @@ export default function MainNavigation({ onAvatarClick }: NavigationProps) {
               
               {/* Mobile Quick Actions */}
               <div className="border-t border-gray-200 pt-4 space-y-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    window.location.href = '/auth/login';
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full justify-start text-gray-700"
+                >
+                  Sign In
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    window.location.href = '/auth/register';
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full justify-start border-blue-600 text-blue-600"
+                >
+                  Register
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
