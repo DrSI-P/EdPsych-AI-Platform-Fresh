@@ -63,53 +63,53 @@ export default function TeamPage() {
     },
     {
       name: "Osasogie Patrick",
-      title: "Educational Specialist",
-      qualifications: "Educational Support & Development",
-      bio: "Osasogie Patrick contributes specialized expertise in educational support and development to the EdPsych Connect team. With a focus on inclusive education and student support systems, Osasogie helps ensure that the platform meets the diverse needs of all learners. His work involves developing educational content, supporting implementation strategies, and ensuring that evidence-based practices are effectively integrated into the platform's features.",
+      title: "Customer Accounts Manager",
+      qualifications: "Customer Relations & Account Management",
+      bio: "Osasogie Patrick serves as Customer Accounts Manager for EdPsych Connect, specializing in building and maintaining strong relationships with our educational clients. With expertise in customer relations and account management, Osasogie ensures that schools, educators, and families receive exceptional support and service. His approach focuses on understanding client needs and providing tailored solutions that maximize the educational impact of our platform.",
       imageSrc: "/images/team/Osasogie.jpg",
       socialLinks: {
         linkedin: "#"
       },
       specialties: [
-        "Educational Support",
-        "Inclusive Education",
-        "Student Development",
-        "Content Development",
-        "Implementation Strategy"
+        "Customer Relations",
+        "Account Management",
+        "Client Support",
+        "Educational Partnerships",
+        "Customer Success"
       ]
     },
     {
       name: "Samantha",
-      title: "User Experience Specialist",
-      qualifications: "UX Design & Educational Interface",
-      bio: "Samantha specializes in user experience design and educational interface development for EdPsych Connect. She focuses on creating intuitive, accessible, and engaging user interfaces that support effective learning experiences. Her work ensures that the platform's complex educational psychology features are presented in ways that are easy to understand and use for students, educators, parents, and professionals alike.",
+      title: "Business Support Manager",
+      qualifications: "Business Operations & Support Management",
+      bio: "Samantha serves as Business Support Manager for EdPsych Connect, overseeing business operations and support management across the organization. With expertise in business operations and support systems, Samantha ensures smooth day-to-day operations and provides comprehensive support to all team members and departments. Her role is crucial in maintaining operational efficiency and supporting the platform's growth and development.",
       imageSrc: "/images/team/Samantha.jpeg",
       socialLinks: {
         linkedin: "#"
       },
       specialties: [
-        "User Experience Design",
-        "Educational Interface",
-        "Accessibility Design",
-        "User Research",
-        "Interface Optimization"
+        "Business Operations",
+        "Support Management",
+        "Operational Efficiency",
+        "Team Coordination",
+        "Process Optimization"
       ]
     },
     {
       name: "Louis Young",
-      title: "Educational Content Developer",
-      qualifications: "Content Strategy & Educational Resources",
-      bio: "Louis Young leads educational content development for EdPsych Connect, creating comprehensive educational resources and content strategies. His work involves developing curriculum-aligned materials, assessment tools, and educational content that supports the platform's evidence-based approach. Louis ensures that all content meets high educational standards and effectively supports diverse learning needs.",
+      title: "Sales Director",
+      qualifications: "Sales Leadership & Business Development",
+      bio: "Louis Young serves as Sales Director for EdPsych Connect, leading sales strategy and business development initiatives. With expertise in sales leadership and business development, Louis drives growth by building relationships with educational institutions, identifying new market opportunities, and ensuring that our platform reaches the educators and students who can benefit most from our evidence-based educational psychology solutions.",
       imageSrc: "/images/team/LouisYoung.jpg",
       socialLinks: {
         linkedin: "#"
       },
       specialties: [
-        "Educational Content Development",
-        "Curriculum Design",
-        "Assessment Tools",
-        "Content Strategy",
-        "Educational Resources"
+        "Sales Leadership",
+        "Business Development",
+        "Educational Sales",
+        "Market Strategy",
+        "Client Acquisition"
       ]
     },
     {

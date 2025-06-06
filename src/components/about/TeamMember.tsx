@@ -40,7 +40,8 @@ export function TeamMember({
           src={imageSrc}
           alt={name}
           fill
-          className="object-cover transition-transform duration-500 hover:scale-105"
+          className="object-cover object-center transition-transform duration-500 hover:scale-105"
+          style={{ objectPosition: 'center 20%' }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
