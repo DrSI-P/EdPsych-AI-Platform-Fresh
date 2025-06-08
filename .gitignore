@@ -1,5 +1,23 @@
+# Dependencies
 node_modules/
+
+# Next.js
 .next/
+.next-build/
+.next-build/cache/
+.next-build/cache/webpack/
+
+# Logs
 *.log
+
+# Vercel
 .vercel
+
+# Environment variables
 .env*.local
+
+# Large files
+public/videos/
+public/videos/avatars/
+*.mp4
+*.pack
