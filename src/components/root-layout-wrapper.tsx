@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { VoiceInputProvider } from '@/components/VoiceInput';
 import DynamicGlobalVoiceInput from '@/components/voice-input/dynamic-global-voice-input';
@@ -11,6 +11,7 @@ import { PWAServiceWorkerManager } from '@/components/pwa/PWAServiceWorkerManage
 import { OfflineBanner } from '@/components/pwa/OfflineBanner';
 import { OfflineContentManager } from '@/components/pwa/OfflineContentManager';
 import { InstallPrompt } from '@/components/pwa/InstallPrompt';
+import AvatarNavigation from '@/components/navigation/avatar-navigation';
 
 // Define the user type with optional yearGroup property
 interface User {
@@ -97,6 +98,13 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
         
         {/* Global voice input component */}
         {shouldShowVoiceInput && <DynamicGlobalVoiceInput />}
+        
+        {/* Interactive AI Avatar for navigation and support */}
+        <AvatarNavigation
+          autoShowOnFirstVisit={true}
+          position="bottom-right"
+          size="md"
+        />
         
         {/* PWA service worker manager - handles updates */}
         <PWAServiceWorkerManager />

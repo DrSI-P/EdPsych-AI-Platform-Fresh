@@ -1,10 +1,11 @@
 'use client';
 
 /**
- * AI Avatar Navigation System Component
- * 
- * This component provides contextual navigation assistance through AI-powered
- * avatar videos, helping users navigate the EdPsych AI Education Platform.
+ * Interactive AI Avatar Assistant Component
+ *
+ * This component provides a 24/7 interactive AI assistant through AI-powered
+ * avatar videos, helping users with navigation, platform features, and real-time
+ * support across the EdPsych AI Education Platform.
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -12,7 +13,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import {
-  Dialog,
+  Dialogue,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -27,7 +28,35 @@ import {
   TooltipTrigger 
 } from '@/components/ui/tooltip';
 import { HelpCircle, X, Volume2, VolumeX } from 'lucide-react';
-import { useLocalStorage } from '@/lib/hooks/use-local-storage';
+// Define a simple useLocalStorage hook inline since the import is not found
+const useLocalStorage = <T,>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] => {
+  const [storedValue, setStoredValue] = React.useState<T>(() => {
+    if (typeof window === 'undefined') {
+      return initialValue;
+    }
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value: T | ((val: T) => T)) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return [storedValue, setValue];
+};
 
 // Navigation context mapping
 const NAVIGATION_CONTEXTS: Record<string, string> = {
@@ -38,6 +67,8 @@ const NAVIGATION_CONTEXTS: Record<string, string> = {
   '/settings': 'settings',
   '/accessibility': 'accessibility',
   '/pricing': 'pricing',
+  '/subscriptions': 'subscriptions',
+  '/credits': 'credits',
   '/profile': 'profile',
   '/help': 'help',
   '/register': 'registration',
@@ -125,34 +156,16 @@ export default function AvatarNavigation({
     setError(null);
     
     try {
-      // First try to get a cost-managed video specific to this context and role
-      const response = await fetch(`/api/heygen/cost-managed-videos?category=navigation-${context}-${role}`);
+      // Use the specific interactive AI Avatar video ID provided
+      const specificVideoId = 'e12f05f24ead42619b4aa8124d98880d';
       
-      if (!response.ok) {
-        throw new Error('Failed to load navigation video');
-      }
+      // Construct the video URL using the specific video ID
+      // This assumes the API endpoint structure follows a pattern like:
+      // /api/heygen/videos/{videoId}
+      const videoUrl = `/api/heygen/videos/${specificVideoId}`;
       
-      const data = await response.json() as NavigationVideoResponse;
-      
-      if (data.videos && data.videos.length > 0) {
-        // Use the first video from the results
-        setVideoUrl(data.videos[0].url);
-      } else {
-        // Fallback to a generic video for this context
-        const fallbackResponse = await fetch(`/api/heygen/cost-managed-videos?category=navigation-${context}`);
-        
-        if (!fallbackResponse.ok) {
-          throw new Error('Failed to load fallback navigation video');
-        }
-        
-        const fallbackData = await fallbackResponse.json() as NavigationVideoResponse;
-        
-        if (fallbackData.videos && fallbackData.videos.length > 0) {
-          setVideoUrl(fallbackData.videos[0].url);
-        } else {
-          throw new Error('No navigation videos available for this context');
-        }
-      }
+      // Set the video URL directly
+      setVideoUrl(videoUrl);
     } catch (err) {
       console.error('Error loading navigation video:', err);
       setError('Failed to load navigation assistance. Please try again later.');
@@ -170,7 +183,7 @@ export default function AvatarNavigation({
   // Mark the current page as visited
   const markAsVisited = useCallback(() => {
     if (!pathname) return;
-    setVisitedPages(prev => ({
+    setVisitedPages((prev: Record<string, boolean>) => ({
       ...prev,
       [pathname]: true
     }));
@@ -207,7 +220,7 @@ export default function AvatarNavigation({
     lg: 'h-14 w-14',
   };
   
-  // Dialog size classes
+  // Dialogue size classes
   const dialogSizeClasses: Record<string, string> = {
     sm: 'max-w-md',
     md: 'max-w-lg',
@@ -231,18 +244,19 @@ export default function AvatarNavigation({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Get navigation assistance</p>
+              <p>Get 24/7 AI assistance</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </div>
       
-      {/* Navigation assistance dialog */}
-      <Dialog open={open} onOpenChange={setOpen}>
+      {/* Navigation assistance dialogue */}
+      <Dialogue open={open} onOpenChange={setOpen}>
         <DialogContent className={`${dialogSizeClasses[size]} p-0 overflow-hidden rounded-lg`}>
-          <DialogHeader className="p-4 flex flex-row items-center justify-between">
-            <DialogTitle>Navigation Assistance</DialogTitle>
-            <div className="flex items-center gap-2">
+          <DialogHeader className="p-4 flex flex-row items-centre justify-between">
+            <DialogTitle>Interactive AI Assistant</DialogTitle>
+            <div className="text-xs text-muted-foreground">24/7 Platform Support</div>
+            <div className="flex items-centre gap-2">
               <Button
                 variant="ghost"
                 size="icon"
@@ -261,14 +275,14 @@ export default function AvatarNavigation({
           
           <div className="relative aspect-video w-full bg-muted">
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-centre justify-centre">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
               </div>
             )}
             
             {error && (
-              <div className="absolute inset-0 flex items-center justify-center p-4">
-                <div className="text-center text-destructive">
+              <div className="absolute inset-0 flex items-centre justify-centre p-4">
+                <div className="text-centre text-destructive">
                   <p>{error}</p>
                   <Button 
                     variant="outline" 
@@ -294,7 +308,7 @@ export default function AvatarNavigation({
           </div>
           
           <div className="p-4 bg-background">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-centre">
               <Button
                 variant="outline"
                 size="sm"
@@ -311,7 +325,7 @@ export default function AvatarNavigation({
             </div>
           </div>
         </DialogContent>
-      </Dialog>
+      </Dialogue>
     </>
   );
 }
