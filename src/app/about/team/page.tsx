@@ -6,10 +6,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { TeamMember } from '@/components/about/TeamMember';
-// This prevents Next.js from trying to statically generate this page
-export const dynamic = 'force-dynamic';
-
-
 
 // Original component
 function TeamPage() {
