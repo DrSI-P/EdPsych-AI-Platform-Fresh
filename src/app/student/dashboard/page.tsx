@@ -1,6 +1,6 @@
 'use client';
 
-import { AvatarVideoPlayer } from '@/components/avatar/AvatarVideoSystem';
+import { AvatarVideoPlayer } from '@/components/Avatar/AvatarVideoSystem';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -478,4 +478,3 @@ export default function StudentDashboard() {
     </div>
   );
 }
-
