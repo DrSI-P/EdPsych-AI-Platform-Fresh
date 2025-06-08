@@ -13,7 +13,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import {
-  Dialogue,
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -220,7 +220,7 @@ export default function AvatarNavigation({
     lg: 'h-14 w-14',
   };
   
-  // Dialogue size classes
+  // Dialog size classes
   const dialogSizeClasses: Record<string, string> = {
     sm: 'max-w-md',
     md: 'max-w-lg',
@@ -250,13 +250,13 @@ export default function AvatarNavigation({
         </TooltipProvider>
       </div>
       
-      {/* Navigation assistance dialogue */}
-      <Dialogue open={open} onOpenChange={setOpen}>
+      {/* Navigation assistance dialog */}
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className={`${dialogSizeClasses[size]} p-0 overflow-hidden rounded-lg`}>
-          <DialogHeader className="p-4 flex flex-row items-centre justify-between">
+          <DialogHeader className="p-4 flex flex-row items-center justify-between">
             <DialogTitle>Interactive AI Assistant</DialogTitle>
             <div className="text-xs text-muted-foreground">24/7 Platform Support</div>
-            <div className="flex items-centre gap-2">
+            <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="icon"
@@ -275,14 +275,14 @@ export default function AvatarNavigation({
           
           <div className="relative aspect-video w-full bg-muted">
             {loading && (
-              <div className="absolute inset-0 flex items-centre justify-centre">
+              <div className="absolute inset-0 flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
               </div>
             )}
             
             {error && (
-              <div className="absolute inset-0 flex items-centre justify-centre p-4">
-                <div className="text-centre text-destructive">
+              <div className="absolute inset-0 flex items-center justify-center p-4">
+                <div className="text-center text-destructive">
                   <p>{error}</p>
                   <Button 
                     variant="outline" 
@@ -308,7 +308,7 @@ export default function AvatarNavigation({
           </div>
           
           <div className="p-4 bg-background">
-            <div className="flex justify-between items-centre">
+            <div className="flex justify-between items-center">
               <Button
                 variant="outline"
                 size="sm"
@@ -325,7 +325,7 @@ export default function AvatarNavigation({
             </div>
           </div>
         </DialogContent>
-      </Dialogue>
+      </Dialog>
     </>
   );
 }
